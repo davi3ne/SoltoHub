@@ -8,7 +8,7 @@ echo.
 cd /d "H:\Meu Drive\Solto Studio\2.Clientes\3.CelineLopes\marketing-hub"
 
 echo [+] Iniciando Servidor Local Node.js...
-start "Marketing Hub Server" cmd /k "node server.js"
+start "Marketing Hub Server" cmd /k "node api/index.js"
 
 echo [+] Aguardando 2 segundos para inicializacao do servidor...
 timeout /t 2 /nobreak > nul

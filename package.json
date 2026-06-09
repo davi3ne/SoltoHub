@@ -2,9 +2,9 @@
   "name": "solto-marketing-hub-server",
   "version": "1.2.0",
   "description": "Servidor local e compartilhado para o Solto Studio Marketing Hub (Sem dependências externas)",
-  "main": "server.js",
+  "main": "api/index.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node api/index.js"
   },
   "author": "Solto Design",
   "license": "ISC"

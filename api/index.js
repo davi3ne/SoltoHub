@@ -4,8 +4,8 @@ const path = require('path');
 const crypto = require('crypto');
 
 const PORT = process.env.PORT || 3000;
-const usersFilePath = path.join(__dirname, 'users.json');
-const projectsDir = path.join(__dirname, 'projects');
+const usersFilePath = path.join(process.cwd(), 'users.json');
+const projectsDir = path.join(process.cwd(), 'projects');
 
 // Sessões em memória (token -> dados da sessão)
 const sessions = {};
@@ -54,7 +54,7 @@ if (!fs.existsSync(defaultProjectMediaDir)) {
 }
 
 // 1. Mover data.json da raiz para o projeto celine-lopes
-const oldStatePath = path.join(__dirname, 'data.json');
+const oldStatePath = path.join(process.cwd(), 'data.json');
 const newStatePath = path.join(defaultProjectDir, 'data.json');
 if (fs.existsSync(oldStatePath) && !fs.existsSync(newStatePath)) {
     console.log("MIGRATION: Movendo data.json da raiz para o projeto celine-lopes...");
@@ -62,7 +62,7 @@ if (fs.existsSync(oldStatePath) && !fs.existsSync(newStatePath)) {
 }
 
 // 2. Mover arquivos da pasta media/ da raiz para projects/celine-lopes/media/
-const oldMediaDir = path.join(__dirname, 'media');
+const oldMediaDir = path.join(process.cwd(), 'media');
 if (fs.existsSync(oldMediaDir)) {
     try {
         const files = fs.readdirSync(oldMediaDir);
@@ -886,10 +886,10 @@ window.SUPABASE_CONFIG = {
     }
 
     // Resolve o caminho absoluto do arquivo
-    const filePath = path.join(__dirname, reqPath);
+    const filePath = path.join(process.cwd(), reqPath);
 
     // Validação básica de segurança de path traversal
-    if (!filePath.startsWith(__dirname)) {
+    if (!filePath.startsWith(process.cwd())) {
         res.writeHead(403, { 'Content-Type': 'text/plain; charset=utf-8' });
         return res.end('Acesso proibido');
     }
