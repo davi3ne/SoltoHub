@@ -1307,9 +1307,21 @@ function ensureStateDefaults() {
             for (const key of Object.keys(DEFAULT_PROMPTS)) {
                 if (!state.settings.prompts[key]) {
                     state.settings.prompts[key] = DEFAULT_PROMPTS[key];
-                }
-            }
         }
+    }
+    if (!state.wizard) {
+        state.wizard = {
+            doctorName: "",
+            serviceType: "",
+            location: "",
+            valueProp: "",
+            diferenciais: "",
+            pricing: "",
+            proof: "",
+            targetAudience: "",
+            pains: "",
+            objections: ""
+        };
     }
 }
 
@@ -2964,9 +2976,9 @@ function setupAIModule() {
 
 // Prompt Construction
 function constructPrompt(theme, templateType, customPrompt) {
-    const doctorName = state.wizard.doctorName || state.settings?.name || "Profissional";
-    const valueProp = state.wizard.valueProp || "Serviços profissionais de alta qualidade";
-    const target = state.wizard.targetAudience || "clientes";
+    const doctorName = state.wizard?.doctorName || state.settings?.name || "Profissional";
+    const valueProp = state.wizard?.valueProp || "Serviços profissionais de alta qualidade";
+    const target = state.wizard?.targetAudience || "clientes";
 
     // Ensure state.settings has a prompts object
     if (!state.settings.prompts) {
@@ -3520,7 +3532,7 @@ function createRoteiroFromPauta(pilarId, pautaTitle, apprTitle, gancho, mensagem
 }
 
 function createPostFromPauta(pilarId, pautaTitle, apprTitle, gancho, mensagem) {
-    const signature = state.wizard.doctorName || state.settings?.name || "Assinatura do Profissional";
+    const signature = state.wizard?.doctorName || state.settings?.name || "Assinatura do Profissional";
     const caption = `${mensagem}\n\n↳ Salve esse post para consultar depois.\n\n${signature}`;
     
     const newPost = {
@@ -4241,9 +4253,9 @@ async function aiConvertRoteiroToPost(id) {
     }
     
     try {
-        const doctorName = state.wizard.doctorName || state.settings?.name || "Profissional";
-        const valueProp = state.wizard.valueProp || "Serviço de alta qualidade";
-        const target = state.wizard.targetAudience || "clientes";
+        const doctorName = state.wizard?.doctorName || state.settings?.name || "Profissional";
+        const valueProp = state.wizard?.valueProp || "Serviço de alta qualidade";
+        const target = state.wizard?.targetAudience || "clientes";
         
         const baseContext = `Você é um especialista em marketing e copywriting profissional de alta conversão. O cliente é ${doctorName}.
 Sua especialidade/foco é: ${valueProp}.
@@ -4379,9 +4391,9 @@ async function generateExtraApproach(pilarId, pautaId) {
     }
     
     try {
-        const doctorName = state.wizard.doctorName || state.settings?.name || "Profissional";
-        const valueProp = state.wizard.valueProp || "Serviço de alta qualidade";
-        const target = state.wizard.targetAudience || "clientes";
+        const doctorName = state.wizard?.doctorName || state.settings?.name || "Profissional";
+        const valueProp = state.wizard?.valueProp || "Serviço de alta qualidade";
+        const target = state.wizard?.targetAudience || "clientes";
         
         const baseContext = `Você é um especialista em marketing e copywriting profissional de alta conversão. O cliente é ${doctorName}.
 Sua especialidade/foco é: ${valueProp}.
