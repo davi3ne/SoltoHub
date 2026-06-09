@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solto Studio Marketing Hub — Dra. Celine Lopes</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Supabase Config -->
+    <script src="supabase-config.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Background Orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="app-container">
+        <!-- Sidebar Toggle Button (Mobile Only) -->
+        <button id="btn-toggle-sidebar" class="sidebar-toggle-btn" title="Abrir menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <!-- Sidebar Close Button (Mobile Only) -->
+            <button id="btn-close-sidebar" class="sidebar-close-btn" title="Fechar menu">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="brand-container">
+                <div class="brand-logo">
+                    <i class="fa-solid fa-brain-circuit"></i>
+                </div>
+                <div class="brand-info">
+                    <span class="brand-name">Solto Studio</span>
+                    <span class="brand-tagline">Marketing Hub</span>
+                </div>
+            </div>
+
+            <div class="client-badge" id="client-badge-dropdown-trigger">
+                <div style="display: flex; align-items: center; gap: 10px; width: 100%;">
+                    <div class="client-logo-wrapper" id="sidebar-client-logo-wrap" style="width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; background: var(--primary); color: #fff; font-size: 16px; flex-shrink: 0; overflow: hidden;">
+                        <i class="fa-solid fa-user-doctor" id="sidebar-client-icon"></i>
+                        <img id="sidebar-client-logo-img" src="" alt="Logo" style="display: none; width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div style="display: flex; flex-direction: column; overflow: hidden; flex-grow: 1;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                            <span class="client-name" id="sidebar-doctor-name" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px;">Dra. Celine Lopes</span>
+                            <i class="fa-solid fa-chevron-down dropdown-arrow" style="font-size: 10px; color: var(--text-secondary); margin-left: 6px;"></i>
+                        </div>
+                        <span class="client-crm" id="sidebar-doctor-crm" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px;">CRM-CE 25.970 | Médica</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dropdown Menu -->
+            <div class="client-dropdown-menu" id="client-dropdown-menu">
+                <a href="#" class="dropdown-item" id="btn-open-account-settings">
+                    <i class="fa-solid fa-user-gear"></i>
+                    <span>Configurações de Conta</span>
+                </a>
+                <a href="#" class="dropdown-item" id="btn-open-project-settings">
+                    <i class="fa-solid fa-sliders"></i>
+                    <span>Configurações do Projeto</span>
+                </a>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" data-tab="dashboard">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="wizard" style="display: none;">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <span>Gerador de Plano</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="pautas">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span>Biblioteca de Pautas</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="roteiros">
+                    <i class="fa-solid fa-scroll"></i>
+                    <span>Roteiros de Gravação</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="calendar">
+                    <i class="fa-regular fa-calendar-days"></i>
+                    <span>Calendário Editorial</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="content">
+                    <i class="fa-solid fa-photo-film"></i>
+                    <span>Editor de Posts</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="ai-module">
+                    <i class="fa-solid fa-robot"></i>
+                    <span>Módulo IA (Roteiros)</span>
+                </a>
+            </nav>
+ 
+            <div class="sidebar-footer" style="padding: 1rem 1.25rem;">
+                <span class="version-tag" style="margin-bottom: 8px; display: block;">v1.2.0 • Solto Design</span>
+                <div style="display: flex; gap: 6px; align-items: center; justify-content: space-between; width: 100%;">
+                    <div style="display: flex; gap: 6px;">
+                        <button id="btn-toggle-theme" class="btn-theme-toggle" title="Alternar tema claro/escuro">
+                            <i class="fa-solid fa-sun"></i>
+                        </button>
+                        <a href="#" class="nav-item settings-gear-btn" data-tab="settings" title="Configurações" style="padding: 8px; border-radius: 8px; display: flex; align-items: center; justify-content: center; height: 36px; width: 36px; margin: 0; border: 1px solid var(--border-color); background: rgba(255,255,255,0.03);">
+                            <i class="fa-solid fa-gear" style="margin: 0; font-size: 1rem;"></i>
+                        </a>
+                    </div>
+                    <div style="display: flex; gap: 6px;">
+                        <a href="/admin.html" id="btn-back-admin" class="btn-theme-toggle" title="Voltar ao Painel Admin" style="display: none; text-decoration: none; color: inherit; justify-content: center; align-items: center; border: 1px solid var(--border-color); background: rgba(255,255,255,0.03); width: 36px; height: 36px; border-radius: 8px;">
+                            <i class="fa-solid fa-house-laptop" style="font-size: 0.95rem;"></i>
+                        </a>
+                        <button id="btn-logout-hub" class="btn-theme-toggle" title="Sair" onclick="logoutHub()" style="border: 1px solid var(--border-color); background: rgba(220,38,38,0.08); color: var(--primary); width: 36px; height: 36px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                            <i class="fa-solid fa-power-off" style="font-size: 0.95rem;"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Sidebar Overlay (Mobile Only) -->
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+        <!-- Main Panel Content -->
+        <main class="main-content">
+            
+            <!-- VIEW: DASHBOARD -->
+            <section id="view-dashboard" class="tab-panel active">
+                <header class="panel-header">
+                    <div>
+                        <h1 class="panel-title">Dashboard Operacional</h1>
+                        <p class="panel-subtitle">Resumo estratégico e métricas de controle do projeto.</p>
+                    </div>
+                    <div class="date-badge" id="current-date-badge">
+                        05 de Junho de 2026
+                    </div>
+                </header>
+
+                <div class="dashboard-stats-wrapper">
+                    <div class="dashboard-stats-group">
+                        <h3 class="stats-group-title"><i class="fa-solid fa-paper-plane" style="color: var(--primary);"></i> Posts Editoriais</h3>
+                        <div class="dashboard-grid">
+                            <!-- Posts Planejados -->
+                            <div class="stat-card">
+                                <div class="stat-icon pilar-alert"><i class="fa-solid fa-bullhorn"></i></div>
+                                <div class="stat-details">
+                                    <span class="stat-value" id="stats-total-posts">0</span>
+                                    <span class="stat-label">Posts Planejados</span>
+                                </div>
+                            </div>
+                            <!-- Aguardando Postagem -->
+                            <div class="stat-card">
+                                <div class="stat-icon pilar-myth"><i class="fa-solid fa-clock"></i></div>
+                                <div class="stat-details">
+                                    <span class="stat-value" id="stats-pending-posts">0</span>
+                                    <span class="stat-label">Aguardando Postagem</span>
+                                </div>
+                            </div>
+                            <!-- Posts Publicados -->
+                            <div class="stat-card">
+                                <div class="stat-icon pilar-explain"><i class="fa-solid fa-circle-check"></i></div>
+                                <div class="stat-details">
+                                    <span class="stat-value" id="stats-published-posts">0</span>
+                                    <span class="stat-label">Posts Publicados</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-stats-group" style="margin-top: 24px;">
+                        <h3 class="stats-group-title"><i class="fa-solid fa-clapperboard" style="color: var(--primary);"></i> Produção de Vídeos & Roteiros</h3>
+                        <div class="dashboard-grid">
+                            <!-- Roteiros Idealizados -->
+                            <div class="stat-card">
+                                <div class="stat-icon pilar-myth" style="background: rgba(245, 158, 11, 0.1); color: var(--pilar-myth);"><i class="fa-regular fa-lightbulb"></i></div>
+                                <div class="stat-details">
+                                    <span class="stat-value" id="stats-idealized-roteiros">0</span>
+                                    <span class="stat-label">Roteiros Idealizados</span>
+                                </div>
+                            </div>
+                            <!-- Roteiros a Gravar -->
+                            <div class="stat-card">
+                                <div class="stat-icon pilar-explain" style="background: rgba(59, 130, 246, 0.1); color: var(--pilar-explain);"><i class="fa-solid fa-microphone"></i></div>
+                                <div class="stat-details">
+                                    <span class="stat-value" id="stats-recording-roteiros">0</span>
+                                    <span class="stat-label">Roteiros a Gravar</span>
+                                </div>
+                            </div>
+                            <!-- Roteiros para Edição -->
+                            <div class="stat-card">
+                                <div class="stat-icon pilar-conversion" style="background: rgba(220, 38, 38, 0.1); color: var(--primary);"><i class="fa-solid fa-scissors"></i></div>
+                                <div class="stat-details">
+                                    <span class="stat-value" id="stats-editing-roteiros">0</span>
+                                    <span class="stat-label">Roteiros para Edição</span>
+                                </div>
+                            </div>
+                            <!-- Vídeos Finalizados -->
+                            <div class="stat-card">
+                                <div class="stat-icon pilar-practice" style="background: rgba(16, 185, 129, 0.1); color: var(--pilar-practice);"><i class="fa-regular fa-circle-check"></i></div>
+                                <div class="stat-details">
+                                    <span class="stat-value" id="stats-concluded-roteiros">0</span>
+                                    <span class="stat-label">Vídeos Finalizados</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-sections">
+                    <div class="card glass-card">
+                        <h2 class="card-title"><i class="fa-solid fa-circle-nodes"></i> Canais e Frequência</h2>
+                        <div class="channel-list">
+                            <div class="channel-item">
+                                <div class="channel-icon instagram"><i class="fa-brands fa-instagram"></i></div>
+                                <div class="channel-info">
+                                    <span class="channel-name">Instagram Reels & Stories</span>
+                                    <span class="channel-details">3x por semana (Seg, Qua, Sex) • Foco em atração e conexão</span>
+                                </div>
+                            </div>
+                            <div class="channel-item">
+                                <div class="channel-icon tiktok"><i class="fa-brands fa-tiktok"></i></div>
+                                <div class="channel-info">
+                                    <span class="channel-name">TikTok</span>
+                                    <span class="channel-details">Vídeos rápidos de sintomas explicados e mitos</span>
+                                </div>
+                            </div>
+                            <div class="channel-item">
+                                <div class="channel-icon threads"><i class="fa-brands fa-threads"></i></div>
+                                <div class="channel-info">
+                                    <span class="channel-name">Threads</span>
+                                    <span class="channel-details">Textos rápidos de utilidade pública (sinais de alerta)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card glass-card">
+                        <h2 class="card-title"><i class="fa-solid fa-bullseye"></i> Posicionamento Médico</h2>
+                        <blockquote class="pos-quote" id="dash-pos-quote">
+                            "Ajudo pais e mães a entenderem melhor os sintomas comuns da infância e a saberem quando procurar atendimento médico."
+                        </blockquote>
+                        <div class="compliance-alert">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <div>
+                                <strong>Alinhamento Ético (Res. CFM 2.336/2023):</strong>
+                                <p>Sempre identifique as postagens com "Dra. Celine Lopes | Médica | CRM-CE 25.970". Como médica generalista, evite usar o termo "Pediatra" ou variações de especialista nas artes/legendas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD: Plano Estratégico -->
+                <div class="card glass-card plan-summary-card" id="dash-plan-summary-card" style="margin-bottom: 28px;">
+                    <div class="plan-summary-header">
+                        <h2 class="card-title"><i class="fa-solid fa-map-location-dot"></i> Plano Estratégico</h2>
+                        <button id="btn-edit-plan-dash" class="btn-secondary-sm"><i class="fa-solid fa-pencil"></i> Editar Plano</button>
+                    </div>
+                    <div class="plan-summary-grid">
+                        <div class="plan-summary-block">
+                            <h4><i class="fa-solid fa-user-doctor"></i> Médico e Atendimento</h4>
+                            <p><strong>Nome/CRM:</strong> <span id="dash-plan-doctor">-</span></p>
+                            <p><strong>Serviço:</strong> <span id="dash-plan-services">-</span></p>
+                            <p><strong>Locais:</strong> <span id="dash-plan-location">-</span></p>
+                            <p><strong>Preço/Formato:</strong> <span id="dash-plan-pricing">-</span></p>
+                        </div>
+                        <div class="plan-summary-block">
+                            <h4><i class="fa-solid fa-users"></i> Público-Alvo (ICP)</h4>
+                            <p><strong>Público:</strong> <span id="dash-plan-target">-</span></p>
+                            <p><strong>Dores do Público:</strong></p>
+                            <ul id="dash-plan-pains" class="summary-list">
+                                <!-- Loaded dynamically -->
+                            </ul>
+                        </div>
+                        <div class="plan-summary-block">
+                            <h4><i class="fa-solid fa-gem"></i> Diferenciais e Prova</h4>
+                            <p><strong>Mecanismo Único:</strong> <span id="dash-plan-diferenciais">-</span></p>
+                            <p><strong>Prova de Autoridade:</strong> <span id="dash-plan-proof">-</span></p>
+                            <p><strong>Objeções Mapeadas:</strong></p>
+                            <ul id="dash-plan-objections" class="summary-list">
+                                <!-- Loaded dynamically -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card glass-card recent-posts-card">
+                    <h2 class="card-title"><i class="fa-solid fa-list-check"></i> Próximos Posts na Fila</h2>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Título</th>
+                                    <th>Plataforma</th>
+                                    <th>Pilar</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recent-posts-list">
+                                <tr>
+                                    <td colspan="6" class="text-center text-muted">Nenhum post agendado. Comece adicionando no calendário!</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: WIZARD -->
+            <section id="view-wizard" class="tab-panel">
+                <header class="panel-header">
+                    <div>
+                        <h1 class="panel-title">Gerador de Plano de Marketing</h1>
+                        <p class="panel-subtitle">Responda as perguntas fundamentais para gerar o posicionamento e o plano estruturado da marca.</p>
+                    </div>
+                </header>
+
+                <div class="wizard-container card glass-card">
+                    <!-- Steps Indicator -->
+                    <div class="wizard-steps">
+                        <div class="step-indicator active" data-step="1">
+                            <div class="step-number">1</div>
+                            <div class="step-label">Identificação</div>
+                        </div>
+                        <div class="step-indicator" data-step="2">
+                            <div class="step-number">2</div>
+                            <div class="step-label">Diferenciais e Oferta</div>
+                        </div>
+                        <div class="step-indicator" data-step="3">
+                            <div class="step-number">3</div>
+                            <div class="step-label">Público-Alvo</div>
+                        </div>
+                        <div class="step-indicator" data-step="4">
+                            <div class="step-number">4</div>
+                            <div class="step-label">Revisão e Geração</div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 1 -->
+                    <div class="wizard-step-panel active" id="step-panel-1">
+                        <h3 class="wizard-step-title">Etapa 1: Diagnóstico da Marca</h3>
+                        <div class="form-grid">
+                            <div class="form-group col-12">
+                                <label for="wiz-doctor-name">Nome Completo do Médico (Com CRM):</label>
+                                <input type="text" id="wiz-doctor-name" placeholder="Ex: Dra. Celine Lopes - CRM-CE 25.970 | Médica" value="Dra. Celine Lopes - CRM-CE 25.970 | Médica">
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="wiz-service-type">Quais serviços específicos você oferece?</label>
+                                <input type="text" id="wiz-service-type" placeholder="Ex: Consultas médicas infantis em consultório e domiciliar" value="Consultas médicas focadas na criança em consultório e atendimento domiciliar">
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="wiz-location">Onde atende?</label>
+                                <input type="text" id="wiz-location" placeholder="Ex: Fortaleza, Ceará" value="Fortaleza e região, CE">
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="wiz-value-prop">Proposta de Valor / Posicionamento (Em 1 frase):</label>
+                                <textarea id="wiz-value-prop" rows="2" placeholder="Qual sua frase de impacto na Bio do Instagram?">Ajudo pais e mães a entenderem melhor os sintomas comuns da infância e a saberem quando procurar atendimento médico.</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 2 -->
+                    <div class="wizard-step-panel" id="step-panel-2">
+                        <h3 class="wizard-step-title">Etapa 2: Mecanismo Único e Diferenciais</h3>
+                        <div class="form-grid">
+                            <div class="form-group col-12">
+                                <label for="wiz-diferenciais">O que diferencia sua consulta da concorrência? (Diferenciais reais)</label>
+                                <textarea id="wiz-diferenciais" rows="3" placeholder="Ex: Foco em tempo, explicação minuciosa para os pais, orientações e suportes práticos, etc.">Consulta focada na criança, com tempo, escuta e explicação detalhada para que os pais tenham segurança para cuidar em casa.</textarea>
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="wiz-pricing">Preço médio da consulta ou formato de contratação:</label>
+                                <input type="text" id="wiz-pricing" placeholder="Ex: R$ 400 por consulta / Consulta domiciliar sob orçamento" value="Consulta particular (Consultório e Domiciliar)">
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="wiz-proof">Cases de Sucesso, Provas Sociais ou Autoridade:</label>
+                                <textarea id="wiz-proof" rows="3" placeholder="Ex: Depoimentos de mães salvas em emergência, anos de atuação, certificações, etc.">Depoimentos espontâneos de pais agradecidos pelo atendimento atencioso, rápido suporte e diagnóstico seguro.</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3 -->
+                    <div class="wizard-step-panel" id="step-panel-3">
+                        <h3 class="wizard-step-title">Etapa 3: Dores e Comportamento do Público</h3>
+                        <div class="form-grid">
+                            <div class="form-group col-12">
+                                <label for="wiz-target-audience">Quem é o seu comprador ideal? (Mãe, pai, cuidadores, etc.)</label>
+                                <input type="text" id="wiz-target-audience" placeholder="Ex: Mães e pais de bebês e crianças pequenas" value="Mães e pais de bebês e crianças na primeira infância que se sentem inseguros diante de sintomas comuns">
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="wiz-pains">Quais são as 3 maiores dores / inseguranças desse público?</label>
+                                <textarea id="wiz-pains" rows="3" placeholder="Ex: Medo de febre alta; Dificuldade de saber quando levar à emergência; Sentir que as consultas anteriores foram superficiais.">1. Insegurança sobre quando levar a criança para a emergência (febre, cansaço respiratório).
+2. Frustração com consultas anteriores muito rápidas que deixaram dúvidas.
+3. Medo de não perceber um sintoma grave na criança.</textarea>
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="wiz-objections">Quais são as maiores objeções na hora de agendar uma consulta particular?</label>
+                                <textarea id="wiz-objections" rows="2" placeholder="Ex: Dúvida se o preço vale a pena, achar que pode tratar em casa sozinho, etc.">1. Comparação de preço com convênios.
+2. Insegurança de que o atendimento domiciliar seja tão completo quanto o do consultório.</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 4 -->
+                    <div class="wizard-step-panel" id="step-panel-4">
+                        <h3 class="wizard-step-title">Etapa 4: Gerar Plano de Marketing</h3>
+                        <p class="wizard-intro-text">Tudo pronto! Seus dados foram coletados e estão prontos para compilar o plano estruturado de marketing. Você poderá visualizar, copiar e baixar o plano completo.</p>
+
+                        <div class="compiled-output-container">
+                            <div class="compiled-header">
+                                <span><i class="fa-solid fa-file-invoice"></i> Plano de Marketing Pessoal - Compilado</span>
+                                <div class="compiled-actions">
+                                    <button id="btn-copy-plan" class="btn-secondary-sm"><i class="fa-regular fa-copy"></i> Copiar Texto</button>
+                                    <button id="btn-download-plan" class="btn-primary-sm"><i class="fa-solid fa-download"></i> Baixar Markdown</button>
+                                </div>
+                            </div>
+                            <pre id="compiled-plan-text" class="compiled-content">Clique em 'Gerar Plano' para processar suas respostas...</pre>
+                        </div>
+                    </div>
+
+                    <!-- Wizard Actions Buttons -->
+                    <div class="wizard-actions">
+                        <button id="btn-wiz-prev" class="btn-secondary" disabled><i class="fa-solid fa-chevron-left"></i> Voltar</button>
+                        <button id="btn-wiz-next" class="btn-primary">Avançar <i class="fa-solid fa-chevron-right"></i></button>
+                        <button id="btn-wiz-generate" class="btn-primary" style="display: none;"><i class="fa-solid fa-gears"></i> Gerar Plano</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: BANCO DE PAUTAS -->
+            <section id="view-pautas" class="tab-panel">
+                <header class="panel-header">
+                    <div>
+                        <h1 class="panel-title">Biblioteca de Pautas</h1>
+                        <p class="panel-subtitle">Assuntos estratégicos planejados no seu Plano de Marketing para gravação ou postagens.</p>
+                    </div>
+                </header>
+
+                <div class="content-controls card glass-card" style="margin-bottom: 24px;">
+                    <input type="text" id="search-pautas" placeholder="Buscar pautas por sintoma, tema ou palavra-chave..." class="search-input">
+                </div>
+
+                <div class="pautas-grid" id="pautas-grid">
+                    <!-- Rendered dynamically by JS -->
+                </div>
+            </section>
+
+            <!-- VIEW: ROTEIROS DE GRAVACAO -->
+            <section id="view-roteiros" class="tab-panel">
+                <header class="panel-header">
+                    <div>
+                        <h1 class="panel-title">Roteiros de Gravação</h1>
+                        <p class="panel-subtitle">Escreva, categorize e organize os roteiros de vídeo antes de gravá-los e agendá-los.</p>
+                    </div>
+                    <button id="btn-new-roteiro" class="btn-primary"><i class="fa-solid fa-plus"></i> Novo Roteiro</button>
+                </header>
+
+                <!-- Filter and Search controls -->
+                <div class="content-controls card glass-card" style="margin-bottom: 24px;">
+                    <input type="text" id="search-roteiros" placeholder="Buscar roteiros por título ou texto..." class="search-input">
+                    <select id="filter-roteiros-status" class="form-select-sm">
+                        <option value="all">Todos os Status</option>
+                        <option value="Ideia">Ideia</option>
+                        <option value="Rascunho">Rascunho</option>
+                        <option value="Para Gravar">Para Gravar</option>
+                        <option value="Gravado">Gravado</option>
+                        <option value="Em Edição">Em Edição</option>
+                        <option value="Concluído">Concluído</option>
+                    </select>
+                </div>
+
+                <!-- Roteiros Pipeline (Visual Kanban Board) -->
+                <div class="roteiros-pipeline" id="roteiros-pipeline">
+                    <!-- Coluna 1: Ideias & Rascunhos -->
+                    <div class="pipeline-col" data-col="ideias">
+                        <div class="pipeline-col-header">
+                            <span class="pipeline-col-title"><i class="fa-regular fa-lightbulb" style="color: var(--warning);"></i> Ideias & Rascunhos</span>
+                            <span class="pipeline-col-count" id="count-col-ideias">0</span>
+                        </div>
+                        <div class="pipeline-cards" id="cards-col-ideias"></div>
+                    </div>
+                    <!-- Coluna 2: Para Gravar -->
+                    <div class="pipeline-col" data-col="gravar">
+                        <div class="pipeline-col-header">
+                            <span class="pipeline-col-title"><i class="fa-solid fa-microphone" style="color: var(--pilar-explain);"></i> Para Gravar</span>
+                            <span class="pipeline-col-count" id="count-col-gravar">0</span>
+                        </div>
+                        <div class="pipeline-cards" id="cards-col-gravar"></div>
+                    </div>
+                    <!-- Coluna 3: Em Edição -->
+                    <div class="pipeline-col" data-col="edicao">
+                        <div class="pipeline-col-header">
+                            <span class="pipeline-col-title"><i class="fa-solid fa-scissors" style="color: var(--primary);"></i> Em Edição</span>
+                            <span class="pipeline-col-count" id="count-col-edicao">0</span>
+                        </div>
+                        <div class="pipeline-cards" id="cards-col-edicao"></div>
+                    </div>
+                    <!-- Coluna 4: Prontos -->
+                    <div class="pipeline-col" data-col="concluidos">
+                        <div class="pipeline-col-header">
+                            <span class="pipeline-col-title"><i class="fa-regular fa-circle-check" style="color: var(--success);"></i> Prontos</span>
+                            <span class="pipeline-col-count" id="count-col-concluidos">0</span>
+                        </div>
+                        <div class="pipeline-cards" id="cards-col-concluidos"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: CALENDAR -->
+            <section id="view-calendar" class="tab-panel">
+                <header class="panel-header">
+                    <div>
+                        <h1 class="panel-title">Calendário Editorial</h1>
+                        <p class="panel-subtitle">Planeje e visualize a programação mensal de seus criativos e conteúdos.</p>
+                    </div>
+                    <div class="calendar-header-actions">
+                        <select id="filter-channel" class="form-select-sm">
+                            <option value="all">Todos os Canais</option>
+                            <option value="instagram">Instagram</option>
+                            <option value="tiktok">TikTok</option>
+                            <option value="threads">Threads</option>
+                        </select>
+                        <select id="filter-pilar" class="form-select-sm">
+                            <option value="all">Todos os Pilares</option>
+                            <option value="explain">1. Sintomas Explicados</option>
+                            <option value="alert">2. Sinais de Alerta</option>
+                            <option value="myth">3. Mitos e Verdades</option>
+                            <option value="practice">4. Dicas Práticas</option>
+                            <option value="conversion">5. Atendimento</option>
+                        </select>
+                        <button id="btn-new-post-cal" class="btn-primary-sm"><i class="fa-solid fa-plus"></i> Novo Post</button>
+                    </div>
+                </header>
+
+                <div class="calendar-navigation card glass-card">
+                    <button id="btn-cal-prev" class="btn-icon-nav"><i class="fa-solid fa-chevron-left"></i></button>
+                    <h2 id="calendar-month-year" class="calendar-title">Junho de 2026</h2>
+                    <button id="btn-cal-next" class="btn-icon-nav"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+
+                <!-- Calendar Grid Container -->
+                <div class="calendar-container card glass-card">
+                    <div class="calendar-weekdays">
+                        <div>Dom</div>
+                        <div>Seg</div>
+                        <div>Ter</div>
+                        <div>Qua</div>
+                        <div>Qui</div>
+                        <div>Sex</div>
+                        <div>Sáb</div>
+                    </div>
+                    <div class="calendar-days-grid" id="calendar-days-grid">
+                        <!-- Days generated by Javascript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: CONTENT MANAGER -->
+            <section id="view-content" class="tab-panel">
+                <header class="panel-header">
+                    <div>
+                        <h1 class="panel-title">Editor de Posts</h1>
+                        <p class="panel-subtitle">Visualize e gerencie o pipeline completo dos seus posts por status de produção.</p>
+                    </div>
+                    <button id="btn-new-post-mgr" class="btn-primary"><i class="fa-solid fa-plus"></i> Novo Post</button>
+                </header>
+
+                <!-- Search only (status filter replaced by Kanban columns) -->
+                <div class="content-controls card glass-card" style="margin-bottom: 0;">
+                    <input type="text" id="search-posts" placeholder="Buscar posts por título ou legenda..." class="search-input">
+                </div>
+
+                <!-- Posts Kanban Pipeline -->
+                <div class="posts-pipeline" id="posts-pipeline">
+
+                    <!-- Col 1: Rascunho -->
+                    <div class="pipeline-col" data-col="rascunho">
+                        <div class="pipeline-col-header">
+                            <span class="pipeline-col-title"><i class="fa-solid fa-pen-to-square" style="color: var(--text-muted);"></i> Rascunho</span>
+                            <span class="pipeline-col-count" id="count-post-rascunho">0</span>
+                        </div>
+                        <div class="pipeline-cards" id="cards-post-rascunho"></div>
+                    </div>
+
+                    <!-- Col 2: Aguardando Arte -->
+                    <div class="pipeline-col" data-col="aguardando-arte">
+                        <div class="pipeline-col-header">
+                            <span class="pipeline-col-title"><i class="fa-solid fa-palette" style="color: #fb7185;"></i> Aguardando Arte</span>
+                            <span class="pipeline-col-count" id="count-post-aguardando-arte">0</span>
+                        </div>
+                        <div class="pipeline-cards" id="cards-post-aguardando-arte"></div>
+                    </div>
+
+                    <!-- Col 3: Planejado -->
+                    <div class="pipeline-col" data-col="planejado">
+                        <div class="pipeline-col-header">
+                            <span class="pipeline-col-title"><i class="fa-solid fa-list-check" style="color: #60a5fa;"></i> Planejado</span>
+                            <span class="pipeline-col-count" id="count-post-planejado">0</span>
+                        </div>
+                        <div class="pipeline-cards" id="cards-post-planejado"></div>
+                    </div>
+
+                    <!-- Col 4: Agendado -->
+                    <div class="pipeline-col" data-col="agendado">
+                        <div class="pipeline-col-header">
+                            <span class="pipeline-col-title"><i class="fa-solid fa-clock" style="color: #fbbf24;"></i> Agendado</span>
+                            <span class="pipeline-col-count" id="count-post-agendado">0</span>
+                        </div>
+                        <div class="pipeline-cards" id="cards-post-agendado"></div>
+                    </div>
+
+                    <!-- Col 5: Publicado -->
+                    <div class="pipeline-col" data-col="publicado">
+                        <div class="pipeline-col-header">
+                            <span class="pipeline-col-title"><i class="fa-solid fa-circle-check" style="color: var(--success);"></i> Publicado</span>
+                            <span class="pipeline-col-count" id="count-post-publicado">0</span>
+                        </div>
+                        <div class="pipeline-cards" id="cards-post-publicado"></div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- VIEW: AI MODULE -->
+            <section id="view-ai-module" class="tab-panel">
+                <header class="panel-header">
+                    <div>
+                        <h1 class="panel-title">Módulo de Inteligência Artificial</h1>
+                        <p class="panel-subtitle">Gere roteiros e ideias de conteúdo de forma ética usando IA conectada localmente.</p>
+                    </div>
+                </header>
+
+                <div class="ai-module-grid">
+                    <!-- Left: IA Inputs -->
+                    <div class="card glass-card ai-inputs-panel">
+                        <h2 class="card-title"><i class="fa-solid fa-robot"></i> Gerador de Conteúdo</h2>
+                        <div class="form-grid">
+                            <div class="form-group col-12">
+                                <label for="ai-prompt-template">Template de Prompt:</label>
+                                <select id="ai-prompt-template" class="form-select">
+                                    <optgroup label="Roteiros de Gravação">
+                                        <option value="reels-stories-child-script">Roteiro Reels/Stories (Crianças até 12 anos)</option>
+                                    </optgroup>
+                                    <optgroup label="Posts Editoriais">
+                                        <option value="reels-short-conversational">Reels/TikTok/Shorts Educativo (60-90s)</option>
+                                        <option value="single-post-caption">Post Único (Imagem + Legenda)</option>
+                                        <option value="post-threads">Sequência de Posts (Threads/X)</option>
+                                        <option value="carousel-outline">Estrutura de Post Carrossel Salvável</option>
+                                    </optgroup>
+                                    <optgroup label="Outros">
+                                        <option value="custom">Prompt Customizado (Escrever abaixo)</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="ai-theme">Qual o tema/tópico do vídeo?</label>
+                                <input type="text" id="ai-theme" placeholder="Ex: Febre em bebês: quando ir à emergência">
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="ai-pilar">Pilar de Conteúdo:</label>
+                                <select id="ai-pilar" class="form-select">
+                                    <option value="explain">1. Sintomas Explicados</option>
+                                    <option value="alert">2. Sinais de Alerta</option>
+                                    <option value="myth">3. Mitos e Verdades</option>
+                                    <option value="practice">4. Dicas Práticas</option>
+                                    <option value="conversion">5. Atendimento</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-12" id="group-custom-prompt" style="display: none;">
+                                <label for="ai-custom-prompt">Seu Prompt Base (Pre-Prompt):</label>
+                                <textarea id="ai-custom-prompt" rows="5" placeholder="Instruções para a IA..."></textarea>
+                            </div>
+                            <div class="form-group col-12" style="margin-top: 8px;">
+                                <div class="ai-action-row" style="display: flex; gap: 8px; align-items: center; width: 100%;">
+                                    <button id="btn-ai-generate" class="btn-primary" style="flex-grow: 1; justify-content: center; height: 48px; margin: 0;"><i class="fa-solid fa-bolt"></i> Gerar com IA</button>
+                                    <div class="ai-model-selector-container" style="position: relative; width: 48px; height: 48px; flex-shrink: 0;" title="Escolher Modelo de IA">
+                                        <select id="ai-model-select" class="form-select" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 2;">
+                                            <option value="gemini-2.5-flash">Google Gemini 2.5 Flash</option>
+                                            <option value="gemini-2.0-flash">Google Gemini 2.0 Flash</option>
+                                            <option value="gemini-1.5-flash">Google Gemini 1.5 Flash</option>
+                                            <option value="gemini-2.5-pro">Google Gemini 2.5 Pro</option>
+                                            <option value="gemini-1.5-pro">Google Gemini 1.5 Pro</option>
+                                            <option value="gpt-4o-mini">OpenAI GPT-4o Mini</option>
+                                            <option value="gemini-3.5-flash">Google Gemini 3.5 Flash (Future/Custom)</option>
+                                            <option value="gemini-3.1-pro">Google Gemini 3.1 Pro (Future/Custom)</option>
+                                        </select>
+                                        <button type="button" class="btn-secondary" style="width: 100%; height: 100%; padding: 0; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--card-border); color: var(--text-primary); pointer-events: none; z-index: 1; margin: 0;">
+                                            <i class="fa-solid fa-sparkles" style="color: var(--primary); font-size: 16px;"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+                    <!-- Right: IA Results -->
+                    <div class="card glass-card ai-results-panel">
+                        <div class="results-header">
+                            <h2 class="card-title" id="ai-results-title"><i class="fa-solid fa-file-signature"></i> Roteiro Gerado</h2>
+                            <div class="results-actions">
+                                <button id="btn-copy-ai-output" class="btn-secondary-sm" disabled><i class="fa-regular fa-copy"></i> Copiar</button>
+                                <button id="btn-save-ai-output" class="btn-secondary-sm" disabled><i class="fa-regular fa-floppy-disk"></i> Salvar Rascunho</button>
+                                <button id="btn-schedule-ai-output" class="btn-primary-sm" disabled><i class="fa-solid fa-file-pen"></i> Criar Post</button>
+                            </div>
+                        </div>
+
+                        <div id="ai-output-loader" class="ai-loader" style="display: none;">
+                            <i class="fa-solid fa-circle-notch fa-spin"></i>
+                            <p>Enviando requisição e gerando conteúdo... Por favor, aguarde.</p>
+                        </div>
+                        <div id="ai-output-empty" class="ai-empty">
+                            <i class="fa-solid fa-sparkles"></i>
+                            <p>Insira um tema e clique em 'Gerar com IA' para ver a resposta.</p>
+                        </div>
+                        <div id="ai-output-text" class="ai-text-result" style="display: none;" contenteditable="true">
+                            <!-- Response goes here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: SETTINGS -->
+            <section id="view-settings" class="tab-panel">
+                <header class="panel-header">
+                    <div>
+                        <h1 class="panel-title">Configurações do Hub</h1>
+                        <p class="panel-subtitle">Configure suas credenciais locais e parâmetros de conexão de IA.</p>
+                    </div>
+                </header>
+
+                <div class="settings-grid">
+                    <!-- Column 1: API Keys, Supabase & Maintenance -->
+                    <div class="settings-col">
+                        
+                        <!-- Card: API Keys -->
+                        <div class="card glass-card settings-card">
+                            <h2 class="card-title"><i class="fa-solid fa-key"></i> Chaves de API de IA (Locais)</h2>
+                            <p class="settings-desc">Suas chaves são armazenadas exclusivamente no <strong>localStorage</strong> do seu navegador de forma segura e são usadas apenas para fazer requisições diretas de IA a partir do seu PC.</p>
+                            
+                            <div class="form-grid">
+                                <div class="form-group col-12">
+                                    <label for="settings-key-gemini">Google Gemini API Key:</label>
+                                    <input type="password" id="settings-key-gemini" placeholder="AIzaSy...">
+                                    <span class="input-tip">Adquira sua chave no Google AI Studio (gratuita ou pay-as-you-go).</span>
+                                </div>
+                                <div class="form-group col-12">
+                                    <label for="settings-key-openai">OpenAI API Key:</label>
+                                    <input type="password" id="settings-key-openai" placeholder="sk-proj-...">
+                                    <span class="input-tip">Adquira sua chave no painel de desenvolvedor da OpenAI.</span>
+                                </div>
+                                <div class="form-group col-12 text-right">
+                                    <button id="btn-save-keys" class="btn-primary"><i class="fa-solid fa-floppy-disk"></i> Salvar Chaves</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card: Supabase Storage -->
+                        <div class="card glass-card settings-card">
+                            <h2 class="card-title"><i class="fa-solid fa-cloud"></i> Armazenamento de Criativos (Supabase)</h2>
+                            <p class="settings-desc">Configure a conexão com o Supabase Storage para habilitar o upload real e acesso de qualquer dispositivo (incluindo celular). Se vazio, usará o fallback da pasta local <code>media/</code> do Google Drive.</p>
+                            <div class="form-grid">
+                                <div class="form-group col-12">
+                                    <label for="settings-supabase-url">Supabase Project URL:</label>
+                                    <input type="text" id="settings-supabase-url" placeholder="https://xxxxxxxxxxxxxxxxxxxx.supabase.co">
+                                </div>
+                                <div class="form-group col-12">
+                                    <label for="settings-supabase-key">Supabase Anon Key:</label>
+                                    <input type="password" id="settings-supabase-key" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
+                                </div>
+                                <div class="form-group col-12">
+                                    <label for="settings-supabase-bucket">Nome do Bucket:</label>
+                                    <input type="text" id="settings-supabase-bucket" placeholder="Ex: media" value="media">
+                                    <span class="input-tip">Certifique-se de que o bucket existe no Supabase e possui acesso de leitura/escrita público.</span>
+                                </div>
+                                <div class="form-group col-12 text-right">
+                                    <button id="btn-save-storage" class="btn-primary"><i class="fa-solid fa-floppy-disk"></i> Salvar Armazenamento</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card: Backup & Maintenance -->
+                        <div class="card glass-card settings-card">
+                            <h2 class="card-title"><i class="fa-solid fa-database"></i> Backup e Manutenção</h2>
+                            <p class="settings-desc">Importe/Exporte dados de backup para salvaguardar suas edições ou limpe dados locais para começar do zero.</p>
+                            
+                            <div class="maintenance-section" style="display: flex; flex-direction: column; gap: 20px;">
+                                <div class="maintenance-block">
+                                    <h4 style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.5px;"><i class="fa-solid fa-floppy-disk"></i> Cópia de Segurança</h4>
+                                    <div class="maintenance-buttons" style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                        <button id="btn-export-json" class="btn-secondary" title="Exportar dados do Hub para JSON">
+                                            <i class="fa-solid fa-file-export"></i> Exportar Backup
+                                        </button>
+                                        <label for="import-json-file" class="btn-secondary" style="margin: 0; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px;" title="Importar dados do Hub de um JSON">
+                                            <i class="fa-solid fa-file-import"></i> Importar Backup
+                                        </label>
+                                        <input type="file" id="import-json-file" accept=".json" style="display: none;">
+                                    </div>
+                                </div>
+                                
+                                <div class="maintenance-block" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 20px;">
+                                    <h4 style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.5px;"><i class="fa-solid fa-triangle-exclamation"></i> Ações Críticas</h4>
+                                    <div class="maintenance-buttons" style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                        <button id="btn-load-demo" class="btn-secondary"><i class="fa-solid fa-paste"></i> Dados Demo</button>
+                                        <button id="btn-clear-all" class="btn-danger"><i class="fa-solid fa-trash-can"></i> Apagar Tudo</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Column 2: Prompt Templates -->
+                    <div class="settings-col">
+                        <div class="card glass-card settings-card" style="height: 100%;">
+                            <h2 class="card-title"><i class="fa-solid fa-sliders"></i> Personalização de Prompts (Templates)</h2>
+                            <p class="settings-desc">Edite os prompts que servem de base para a geração de conteúdo do Hub. Você pode usar variáveis especiais como <code>{doctorName}</code>, <code>{valueProp}</code>, <code>{target}</code> e <code>{theme}</code>, que serão substituídas automaticamente no momento da geração.</p>
+                            
+                            <div class="form-grid">
+                                <div class="form-group col-12">
+                                    <label for="settings-prompt-base">Contexto Base (Instruções Éticas & Compliance):</label>
+                                    <textarea id="settings-prompt-base" rows="7" style="font-family: monospace; font-size: 13px;"></textarea>
+                                    <span class="input-tip">Esse contexto é enviado no início de toda requisição. Define a personalidade, ética e restrições da IA.</span>
+                                </div>
+                                
+                                <div class="form-group col-12">
+                                    <label for="settings-prompt-child-script">Roteiro Reels/Stories (Crianças até 12 anos):</label>
+                                    <textarea id="settings-prompt-child-script" rows="6" style="font-family: monospace; font-size: 13px;"></textarea>
+                                </div>
+                                
+                                <div class="form-group col-12">
+                                    <label for="settings-prompt-conversational">Reels/TikTok/Shorts Educativo (60-90s):</label>
+                                    <textarea id="settings-prompt-conversational" rows="6" style="font-family: monospace; font-size: 13px;"></textarea>
+                                </div>
+                                
+                                <div class="form-group col-12">
+                                    <label for="settings-prompt-single-post">Post Único (Imagem + Legenda):</label>
+                                    <textarea id="settings-prompt-single-post" rows="6" style="font-family: monospace; font-size: 13px;"></textarea>
+                                </div>
+                                
+                                <div class="form-group col-12">
+                                    <label for="settings-prompt-threads">Sequência de Posts (Threads/X):</label>
+                                    <textarea id="settings-prompt-threads" rows="5" style="font-family: monospace; font-size: 13px;"></textarea>
+                                </div>
+                                
+                                <div class="form-group col-12">
+                                    <label for="settings-prompt-carousel">Estrutura de Post Carrossel Salvável:</label>
+                                    <textarea id="settings-prompt-carousel" rows="6" style="font-family: monospace; font-size: 13px;"></textarea>
+                                </div>
+                                
+                                <div class="form-group col-12 text-right">
+                                    <button id="btn-save-prompts" class="btn-primary"><i class="fa-solid fa-floppy-disk"></i> Salvar Prompts</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- MODAL: CREATE / EDIT POST -->
+    <div id="post-modal" class="modal-overlay">
+        <div class="modal-card glass-card">
+            <div class="modal-header">
+                <h3 id="modal-title-text" class="modal-title">Novo Post Editorial</h3>
+                <button id="btn-close-modal" class="btn-close-icon"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="post-form">
+                    <input type="hidden" id="post-edit-id">
+                    
+                    <div class="form-grid">
+                        <div class="form-group col-12">
+                            <label for="post-title">Título Interno do Post:</label>
+                            <input type="text" id="post-title" required placeholder="Ex: Sinais de Alerta na Febre">
+                        </div>
+                        
+                        <div class="form-group col-4">
+                            <label for="post-channel">Plataforma:</label>
+                            <select id="post-channel" class="form-select">
+                                <option value="instagram-reels">Instagram Reels</option>
+                                <option value="instagram-stories">Instagram Stories</option>
+                                <option value="instagram-carousel">Instagram Carrossel</option>
+                                <option value="threads">Threads</option>
+                                <option value="tiktok">TikTok</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group col-4">
+                            <label for="post-pilar">Pilar de Conteúdo:</label>
+                            <select id="post-pilar" class="form-select">
+                                <option value="explain">1. Sintomas Explicados</option>
+                                <option value="alert">2. Sinais de Alerta</option>
+                                <option value="myth">3. Mitos e Verdades</option>
+                                <option value="practice">4. Dicas Práticas</option>
+                                <option value="conversion">5. Atendimento</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-4">
+                            <label for="post-status">Status:</label>
+                            <select id="post-status" class="form-select">
+                                <option value="Rascunho">Rascunho</option>
+                                <option value="Aguardando Arte">Aguardando Arte</option>
+                                <option value="Planejado">Planejado</option>
+                                <option value="Agendado">Agendado</option>
+                                <option value="Publicado">Publicado</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label for="post-date">Data da Publicação:</label>
+                            <input type="date" id="post-date" required>
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label for="post-time">Horário:</label>
+                            <input type="time" id="post-time" value="18:00" required>
+                        </div>
+
+                        <div class="form-group col-12">
+                            <label for="post-hook-a">Gancho A (Hook Principal):</label>
+                            <input type="text" id="post-hook-a" placeholder="Ex: Seu filho tá com febre e você não sabe se vai pro pronto-socorro?">
+                        </div>
+
+                        <div class="form-group col-12">
+                            <label for="post-hook-b">Gancho B (A/B Test):</label>
+                            <input type="text" id="post-hook-b" placeholder="Ex: Pare de olhar só o termômetro na febre do seu filho!">
+                        </div>
+
+                        <div class="form-group col-12">
+                            <div class="label-with-counter">
+                                <label for="post-caption">Legenda / Roteiro Completo:</label>
+                                <span id="char-counter" class="char-count">0 / 2200</span>
+                            </div>
+                            <textarea id="post-caption" rows="6" placeholder="Escreva a legenda ou o roteiro estruturado com quebras de linha..."></textarea>
+                        </div>
+
+                        <div class="form-group col-12">
+                            <label for="post-media-desc">Ideias de Mídia / Elementos Visuais:</label>
+                            <input type="text" id="post-media-desc" placeholder="Ex: Vídeo de selfie no consultório, segurando um termômetro.">
+                        </div>
+
+                        <div class="form-group col-12" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 16px; margin-top: 8px;">
+                            <label style="font-family: var(--font-display); font-size: 12px; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px;">Material Finalizado (Vídeo ou Foto)</label>
+                        </div>
+                        
+                        <div class="form-group col-12">
+                            <div class="media-upload-wrapper">
+                                <div class="media-upload-zone" id="media-upload-zone">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                                    <span>Arraste ou clique para anexar imagem/vídeo final</span>
+                                    <span class="upload-subtext">Se o Supabase não estiver configurado, usará o fallback da pasta local "media/"</span>
+                                    <input type="file" id="post-media-file" accept="image/*,video/*" style="display: none;">
+                                </div>
+                                <div id="media-upload-progress" class="upload-progress-container" style="display: none;">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="media-upload-progress-fill" style="width: 0%"></div>
+                                    </div>
+                                    <span class="progress-text" id="media-upload-progress-text">Processando...</span>
+                                </div>
+                                <div id="post-media-preview-container" class="media-preview-container" style="display: none;">
+                                    <div class="media-preview-box" id="media-preview-box">
+                                        <!-- Loaded dynamically: img or video tag -->
+                                    </div>
+                                    <div class="media-preview-info">
+                                        <span id="media-preview-filename" class="media-filename">-</span>
+                                        <div class="media-preview-actions">
+                                            <a href="#" id="btn-download-media" class="btn-secondary-sm" download target="_blank"><i class="fa-solid fa-download"></i> Baixar</a>
+                                            <button type="button" id="btn-remove-media" class="btn-danger-sm"><i class="fa-solid fa-trash-can"></i> Remover</button>
+                                        </div>
+                                    </div>
+                                    <div id="local-media-warning" class="local-warning-box" style="display: none;">
+                                        <i class="fa-solid fa-triangle-exclamation"></i>
+                                        <div>
+                                            <strong>Instrução Local:</strong>
+                                            <span>Como o site roda localmente, o designer deve copiar fisicamente o arquivo para a pasta <code>marketing-hub/media/</code> no computador e mantê-lo com o nome exato mostrado acima para que funcione.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-delete-post" class="btn-danger-sm" style="display: none; margin-right: auto;"><i class="fa-solid fa-trash-can"></i> Deletar</button>
+                <button type="button" id="btn-cancel-post" class="btn-secondary">Cancelar</button>
+                <button type="button" id="btn-save-post" class="btn-primary">Salvar Post</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: ADD / EDIT PAUTA -->
+    <div id="pauta-modal" class="modal-overlay">
+        <div class="modal-card glass-card">
+            <div class="modal-header">
+                <h3 id="pauta-modal-title" class="modal-title">Adicionar Novo Assunto</h3>
+                <button id="btn-close-pauta-modal" class="btn-close-icon"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="pauta-form">
+                    <input type="hidden" id="pauta-pilar-id">
+                    <div class="form-grid">
+                        <div class="form-group col-12">
+                            <label for="pauta-title-input">Título do Assunto / Sintoma:</label>
+                            <input type="text" id="pauta-title-input" required placeholder="Ex: Uso de Inalador/Umidificador">
+                        </div>
+                        <div class="form-group col-12">
+                            <label for="pauta-desc-input">Descrição Geral / Resumo:</label>
+                            <input type="text" id="pauta-desc-input" placeholder="Ex: Quando usar umidificador e cuidados contra ácaros.">
+                        </div>
+                        
+                        <!-- Approach Form Fields -->
+                        <div class="form-group col-12" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 16px; margin-top: 8px;">
+                            <h4 style="font-family: var(--font-display); font-size: 13px; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px;">Abordagem do Conteúdo</h4>
+                        </div>
+                        <div class="form-group col-12">
+                            <label for="pauta-appr-title">Título da Abordagem:</label>
+                            <input type="text" id="pauta-appr-title" required placeholder="Ex: Umidificador de ar: amigo ou inimigo?">
+                        </div>
+                        <div class="form-group col-12">
+                            <label for="pauta-appr-gancho">Gancho (Hook) de Impacto:</label>
+                            <input type="text" id="pauta-appr-gancho" required placeholder="Ex: Cuidado ao ligar o umidificador de ar no quarto do seu filho.">
+                        </div>
+                        <div class="form-group col-12">
+                            <label for="pauta-appr-mensagem">Mensagem Central / Conteúdo Principal:</label>
+                            <textarea id="pauta-appr-mensagem" rows="3" required placeholder="Ex: O umidificador ajuda em tempo seco, mas se passar de 60% de umidade vira criadouro de fungos..."></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-cancel-pauta" class="btn-secondary">Cancelar</button>
+                <button type="button" id="btn-save-pauta" class="btn-primary">Salvar Assunto</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: CREATE / EDIT ROTEIRO -->
+    <div id="roteiro-modal" class="modal-overlay">
+        <div class="modal-card glass-card">
+            <div class="modal-header">
+                <h3 id="roteiro-modal-title" class="modal-title">Novo Roteiro de Gravação</h3>
+                <button type="button" id="btn-close-roteiro-modal" class="btn-close-icon"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="roteiro-form">
+                    <input type="hidden" id="roteiro-edit-id">
+                    
+                    <div class="form-grid">
+                        <div class="form-group col-12">
+                            <label for="roteiro-title">Título / Tema do Vídeo:</label>
+                            <input type="text" id="roteiro-title" required placeholder="Ex: 3 Sintomas na Febre do Bebê">
+                        </div>
+                        
+                        <div class="form-group col-6">
+                            <label for="roteiro-pilar">Pilar de Conteúdo:</label>
+                            <select id="roteiro-pilar" class="form-select">
+                                <option value="explain">1. Sintomas Explicados</option>
+                                <option value="alert">2. Sinais de Alerta</option>
+                                <option value="myth">3. Mitos e Verdades</option>
+                                <option value="practice">4. Dicas Práticas</option>
+                                <option value="conversion">5. Atendimento</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label for="roteiro-status">Status de Gravação:</label>
+                            <select id="roteiro-status" class="form-select">
+                                <option value="Ideia">Ideia</option>
+                                <option value="Rascunho">Rascunho</option>
+                                <option value="Para Gravar">Para Gravar</option>
+                                <option value="Gravado">Gravado</option>
+                                <option value="Em Edição">Em Edição</option>
+                                <option value="Concluído">Concluído</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-12">
+                            <label for="roteiro-script">Roteiro / Instruções & Fala:</label>
+                            <textarea id="roteiro-script" rows="6" placeholder="Escreva o roteiro dividindo em cenas, falas e ações..."></textarea>
+                        </div>
+
+                        <div class="form-group col-12">
+                            <label for="roteiro-caption">Legenda do Post:</label>
+                            <textarea id="roteiro-caption" rows="5" placeholder="Escreva a legenda final que acompanhará este vídeo..."></textarea>
+                            <small id="roteiro-char-counter" style="display:block; text-align:right; font-size:11px; color:var(--text-secondary); margin-top:4px;">0 / 2200</small>
+                        </div>
+
+                        <div class="form-group col-12">
+                            <label for="roteiro-media-desc">Ideias de Mídia / Observações:</label>
+                            <input type="text" id="roteiro-media-desc" placeholder="Ex: Gravar sentada no consultório, mostrar estetoscópio.">
+                        </div>
+
+                        <div class="form-group col-12" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 16px; margin-top: 8px;">
+                            <label style="font-family: var(--font-display); font-size: 12px; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px;">Mídia Bruta / Gravação (Opcional)</label>
+                        </div>
+                        
+                        <div class="form-group col-12">
+                            <div class="media-upload-wrapper">
+                                <div class="media-upload-zone" id="roteiro-media-upload-zone">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                                    <span>Arraste ou clique para anexar o vídeo bruto</span>
+                                    <span class="upload-subtext">Armazena o arquivo de vídeo no servidor ou nuvem</span>
+                                    <input type="file" id="roteiro-media-file" accept="image/*,video/*" style="display: none;">
+                                </div>
+                                <div id="roteiro-media-upload-progress" class="upload-progress-container" style="display: none;">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="roteiro-media-upload-progress-fill" style="width: 0%"></div>
+                                    </div>
+                                    <span class="progress-text" id="roteiro-media-upload-progress-text">Processando...</span>
+                                </div>
+                                <div id="roteiro-media-preview-container" class="media-preview-container" style="display: none;">
+                                    <div class="media-preview-box" id="roteiro-media-preview-box">
+                                        <!-- Loaded dynamically: img or video tag -->
+                                    </div>
+                                    <div class="media-preview-info">
+                                        <span id="roteiro-media-preview-filename" class="media-filename">-</span>
+                                        <div class="media-preview-actions">
+                                            <a href="#" id="btn-roteiro-download-media" class="btn-secondary-sm" download target="_blank"><i class="fa-solid fa-download"></i> Baixar</a>
+                                            <button type="button" id="btn-roteiro-remove-media" class="btn-danger-sm"><i class="fa-solid fa-trash-can"></i> Remover</button>
+                                        </div>
+                                    </div>
+                                    <div id="roteiro-local-media-warning" class="local-warning-box" style="display: none;">
+                                        <i class="fa-solid fa-triangle-exclamation"></i>
+                                        <div>
+                                            <strong>Instrução Local:</strong>
+                                            <span>Como o site roda localmente, o designer deve copiar fisicamente o arquivo para a pasta <code>marketing-hub/media/</code> no computador.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-delete-roteiro" class="btn-danger-sm" style="display: none; margin-right: auto;"><i class="fa-solid fa-trash-can"></i> Deletar</button>
+                <button type="button" id="btn-teleprompter-roteiro" class="btn-secondary" style="display: none;"><i class="fa-solid fa-tv"></i> Teleprompter</button>
+                <button type="button" id="btn-ai-convert-roteiro" class="btn-secondary" style="display: none;"><i class="fa-solid fa-wand-magic-sparkles"></i> Transformar em Post (IA)</button>
+                <button type="button" id="btn-convert-roteiro-post" class="btn-secondary" style="display: none;"><i class="fa-solid fa-calendar-plus"></i> Agendar Post</button>
+                <button type="button" id="btn-cancel-roteiro" class="btn-secondary">Cancelar</button>
+                <button type="button" id="btn-save-roteiro" class="btn-primary">Salvar Roteiro</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- TELEPROMPTER OVERLAY -->
+    <div id="teleprompter-overlay" class="teleprompter-overlay" style="display:none;" aria-label="Teleprompter">
+
+        <!-- Top control bar -->
+        <div class="tp-controls" id="tp-controls">
+            <div class="tp-controls-left">
+                <button id="tp-btn-close" class="tp-btn tp-btn-icon" title="Fechar (Esc)">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <span class="tp-title-label" id="tp-title-label">Teleprompter</span>
+            </div>
+
+            <div class="tp-controls-center">
+                <!-- Play/Pause -->
+                <button id="tp-btn-play" class="tp-btn tp-btn-primary" title="Play / Pause (Espaço)">
+                    <i class="fa-solid fa-play" id="tp-play-icon"></i>
+                </button>
+
+                <!-- Speed -->
+                <div class="tp-control-group">
+                    <label class="tp-label"><i class="fa-solid fa-gauge-high"></i> Velocidade</label>
+                    <div class="tp-slider-wrap">
+                        <span class="tp-slider-val">Lenta</span>
+                        <input type="range" id="tp-speed" min="1" max="10" value="3" class="tp-slider" title="Velocidade de rolagem (↑↓)">
+                        <span class="tp-slider-val">Rápida</span>
+                    </div>
+                </div>
+
+                <!-- Font size -->
+                <div class="tp-control-group">
+                    <label class="tp-label"><i class="fa-solid fa-text-height"></i> Tamanho</label>
+                    <div class="tp-slider-wrap">
+                        <span class="tp-slider-val">A</span>
+                        <input type="range" id="tp-font-size" min="24" max="96" value="48" class="tp-slider" title="Tamanho da fonte">
+                        <span class="tp-slider-val" style="font-size:18px;">A</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tp-controls-right">
+                <!-- Countdown toggle -->
+                <button id="tp-btn-countdown" class="tp-btn tp-btn-icon tp-btn-active" title="Contagem regressiva 3-2-1">
+                    <i class="fa-solid fa-stopwatch"></i>
+                </button>
+
+                <!-- Mirror toggle -->
+                <button id="tp-btn-mirror" class="tp-btn tp-btn-icon" title="Espelhar texto (câmera + reflexo)">
+                    <i class="fa-solid fa-left-right"></i>
+                </button>
+
+                <!-- Background color -->
+                <div class="tp-control-group" style="align-items:center;">
+                    <label class="tp-label" style="margin-bottom:0;">Fundo</label>
+                    <div class="tp-bg-options">
+                        <button class="tp-bg-btn tp-bg-dark tp-bg-selected" data-bg="dark" title="Preto"></button>
+                        <button class="tp-bg-btn tp-bg-light" data-bg="light" title="Branco"></button>
+                        <button class="tp-bg-btn tp-bg-green" data-bg="green" title="Verde (Chroma)"></button>
+                    </div>
+                </div>
+
+                <!-- Edit text toggle -->
+                <button id="tp-btn-edit" class="tp-btn tp-btn-icon" title="Editar texto">
+                    <i class="fa-solid fa-pen"></i>
+                </button>
+
+                <!-- Fullscreen -->
+                <button id="tp-btn-fullscreen" class="tp-btn tp-btn-icon" title="Tela cheia (F)">
+                    <i class="fa-solid fa-expand" id="tp-fullscreen-icon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Progress bar -->
+        <div class="tp-progress-bar">
+            <div class="tp-progress-fill" id="tp-progress-fill"></div>
+        </div>
+
+        <!-- Countdown overlay -->
+        <div class="tp-countdown" id="tp-countdown" style="display:none;">
+            <span id="tp-countdown-number">3</span>
+        </div>
+
+        <!-- Text editor (when editing mode is on) -->
+        <div class="tp-editor-wrap" id="tp-editor-wrap" style="display:none;">
+            <textarea id="tp-text-input" class="tp-textarea" placeholder="Cole ou escreva o roteiro aqui..."></textarea>
+            <button id="tp-btn-apply-text" class="tp-btn tp-btn-primary" style="margin-top:12px; width:100%;">
+                <i class="fa-solid fa-check"></i> Aplicar texto
+            </button>
+        </div>
+
+        <!-- Scrolling text stage -->
+        <div class="tp-stage" id="tp-stage">
+            <div class="tp-text-track" id="tp-text-track">
+                <!-- text rendered here -->
+            </div>
+        </div>
+
+        <!-- Keyboard hints -->
+        <div class="tp-hints" id="tp-hints">
+            <span><kbd>Espaço</kbd> Play/Pause</span>
+            <span><kbd>↑ ↓</kbd> Velocidade</span>
+            <span><kbd>F</kbd> Tela cheia</span>
+            <span><kbd>M</kbd> Espelhar</span>
+            <span><kbd>Esc</kbd> Fechar</span>
+        </div>
+    </div>
+
+    <!-- Account Settings Modal -->
+    <div id="account-settings-modal" class="modal-overlay">
+        <div class="modal-card glass-card" style="max-width: 480px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Configurações de Conta</h3>
+                <button type="button" id="btn-close-account-modal" class="btn-close-icon"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="account-settings-form">
+                    <div class="form-grid">
+                        <div class="form-group col-12">
+                            <label for="acc-display-name">Nome de Exibição:</label>
+                            <input type="text" id="acc-display-name" required placeholder="Seu nome">
+                        </div>
+                        <div class="form-group col-12">
+                            <label for="acc-username">Usuário (Username):</label>
+                            <input type="text" id="acc-username" readonly disabled style="opacity: 0.6; cursor: not-allowed;">
+                        </div>
+                        <div class="form-group col-12" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 16px; margin-top: 8px;">
+                            <h4 style="font-family: var(--font-display); font-size: 13px; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px;">Alterar Senha</h4>
+                        </div>
+                        <div class="form-group col-12">
+                            <label for="acc-current-password">Senha Atual (deixe em branco se não quiser alterar):</label>
+                            <input type="password" id="acc-current-password" placeholder="Digite sua senha atual">
+                        </div>
+                        <div class="form-group col-12">
+                            <label for="acc-new-password">Nova Senha:</label>
+                            <input type="password" id="acc-new-password" placeholder="Mínimo 6 caracteres">
+                        </div>
+                        <div class="form-group col-12">
+                            <label for="acc-confirm-password">Confirmar Nova Senha:</label>
+                            <input type="password" id="acc-confirm-password" placeholder="Confirme a nova senha">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-cancel-account" class="btn-secondary">Cancelar</button>
+                <button type="button" id="btn-save-account" class="btn-primary">Salvar Alterações</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Settings Modal -->
+    <div id="project-settings-modal" class="modal-overlay">
+        <div class="modal-card glass-card" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Configurações do Projeto</h3>
+                <button type="button" id="btn-close-project-settings-modal" class="btn-close-icon"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="project-settings-form">
+                    <div class="form-grid">
+                        <div class="form-group col-12">
+                            <label for="proj-name">Nome do Projeto:</label>
+                            <input type="text" id="proj-name" required placeholder="Ex: Dra. Celine Lopes">
+                        </div>
+                        <div class="form-group col-12">
+                            <label for="proj-description">Descrição / CRM:</label>
+                            <input type="text" id="proj-description" placeholder="Ex: CRM-CE 25.970 | Médica">
+                        </div>
+                        <div class="form-group col-12">
+                            <label for="proj-logo-file">Logotipo do Projeto (Imagem):</label>
+                            <div style="display: flex; gap: 12px; align-items: center;">
+                                <div id="proj-logo-preview" style="width: 50px; height: 50px; border: 1px solid var(--border-color); border-radius: 8px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.03); overflow: hidden; flex-shrink: 0; color: var(--primary); font-size: 1.25rem;">
+                                    <i class="fa-solid fa-user-doctor"></i>
+                                </div>
+                                <div style="display: flex; flex-direction: column; gap: 6px; flex-grow: 1;">
+                                    <input type="file" id="proj-logo-file" accept="image/*" style="font-size: 12px;">
+                                    <input type="hidden" id="proj-logo-url">
+                                    <button type="button" id="btn-remove-logo" class="btn-secondary-sm" style="display: none; align-self: flex-start; padding: 4px 8px; font-size: 11px;"><i class="fa-solid fa-trash"></i> Remover Imagem</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-12">
+                            <label for="proj-icon">Ou use um Ícone FontAwesome:</label>
+                            <input type="text" id="proj-icon" placeholder="Ex: fa-solid fa-user-doctor">
+                        </div>
+                        <div class="form-group col-12">
+                            <label for="proj-color">Cor de Destaque:</label>
+                            <div style="display: flex; gap: 12px; align-items: center;">
+                                <input type="color" id="proj-color" style="width: 50px; height: 40px; padding: 0; border: none; border-radius: 6px; cursor: pointer; background: none;">
+                                <input type="text" id="proj-color-text" placeholder="#dc2626" style="flex-grow: 1; text-transform: uppercase;">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-cancel-project-settings" class="btn-secondary">Cancelar</button>
+                <button type="button" id="btn-save-project-settings" class="btn-primary">Salvar Configurações</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Global Loader Overlay -->
+    <div id="global-loader" class="modal-overlay">
+        <div class="glass-card" style="padding: 32px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; max-width: 350px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.08);">
+            <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 40px; color: var(--primary);"></i>
+            <h3 style="font-family: var(--font-display); font-size: 18px; margin: 0; color: #fff;">Processando com IA...</h3>
+            <p style="font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.5;" id="global-loader-text">Transformando o roteiro em post com Inteligência Artificial. Isso pode levar alguns segundos.</p>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast-message" class="toast">
+        <span id="toast-text">Ação concluída com sucesso!</span>
+    </div>
+
+    <!-- Custom App JS -->
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: solto-marketing-hub
+    runtime: node
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: SUPABASE_URL
+        sync: false
+        placeholder: "URL do projeto Supabase (ex: https://xxxx.supabase.co)"
+      - key: SUPABASE_KEY
+        sync: false
+        placeholder: "Anon Key publica do Supabase"
+      - key: SUPABASE_BUCKET
+        value: "media"
+      - key: GEMINI_API_KEY
+        sync: false
+        placeholder: "Chave do Google Gemini API"
+      - key: OPENAI_API_KEY
+        sync: false
+        placeholder: "Chave da OpenAI API (Opcional)"

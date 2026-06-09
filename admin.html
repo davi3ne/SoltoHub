@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo - Solto Studio</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Supabase Config -->
+    <script src="supabase-config.js"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="admin-styles.css">
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fa-solid fa-cube"></i> SOLTO<span>STUDIO</span>
+            </div>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="menu-item active" id="menuProjects" onclick="switchTab('projects')">
+                <a class="menu-link">
+                    <i class="fa-solid fa-folder-tree"></i>
+                    <span>Projetos (Hubs)</span>
+                </a>
+            </li>
+            <li class="menu-item" id="menuUsers" onclick="switchTab('users')">
+                <a class="menu-link">
+                    <i class="fa-solid fa-users-gear"></i>
+                    <span>Usuários & Acessos</span>
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-footer" style="display: flex; flex-direction: column; gap: 8px; padding: 1.5rem 1rem;">
+            <div class="user-info" style="margin-bottom: 4px; padding: 0 0.5rem;">
+                <div class="user-avatar" id="adminAvatar">S</div>
+                <div class="user-details">
+                    <h4 id="adminName">Admin</h4>
+                    <span id="adminMode">Solto Studio</span>
+                </div>
+            </div>
+            <div style="display: flex; gap: 8px; width: 100%;">
+                <button class="btn-logout" onclick="openAdminAccountModal()" style="flex: 1; justify-content: center; background: rgba(255, 255, 255, 0.03);">
+                    <i class="fa-solid fa-user-gear"></i>
+                    <span>Conta</span>
+                </button>
+                <button class="btn-logout" onclick="logout()" style="flex: 1; justify-content: center; background: rgba(239, 68, 68, 0.08); border-color: rgba(239, 68, 68, 0.15); color: #ef4444;">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span>Sair</span>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="header-area">
+            <div class="header-title">
+                <h1 id="pageTitle">Projetos Ativos</h1>
+                <p id="pageSubtitle">Gerencie os hubs integrados do Solto Studio</p>
+            </div>
+            <button class="btn-primary" id="btnActionHeader" onclick="openCreateModal()">
+                <i class="fa-solid fa-plus"></i>
+                <span id="btnActionText">Novo Projeto</span>
+            </button>
+        </header>
+
+        <!-- Section: Projects -->
+        <section id="sectionProjects" class="dashboard-section active">
+            <div class="projects-grid" id="projectsGrid">
+                <!-- Cards serão injetados dinamicamente via JS -->
+            </div>
+        </section>
+
+        <!-- Section: Users -->
+        <section id="sectionUsers" class="dashboard-section">
+            <div class="table-container">
+                <table class="user-table">
+                    <thead>
+                        <tr>
+                            <th>Usuário</th>
+                            <th>Nome de Exibição</th>
+                            <th>Nível de Acesso</th>
+                            <th>Hubs Autorizados</th>
+                            <th style="width: 100px; text-align: center;">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <!-- Usuários serão injetados dinamicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal: Criar Projeto -->
+    <div class="modal-overlay" id="modalProject">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Criar Novo Projeto (Hub)</h2>
+                <button class="btn-close-modal" onclick="closeModal('project')">&times;</button>
+            </div>
+            <form id="formProject" onsubmit="handleCreateProject(event)">
+                <div class="form-group">
+                    <label class="form-label" for="projId">ID Único do Projeto (Ex: celine-lopes)</label>
+                    <input class="form-input" type="text" id="projId" required placeholder="letras-minusculas-e-hifen" pattern="[a-z0-9-]+">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="projName">Nome do Cliente/Marca</label>
+                    <input class="form-input" type="text" id="projName" required placeholder="Dra. Celine Lopes">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="projDesc">Descrição Curta</label>
+                    <input class="form-input" type="text" id="projDesc" placeholder="CRM-CE 25.970 | Médica Pediatra">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="projIcon">Classe do Ícone (FontAwesome)</label>
+                    <input class="form-input" type="text" id="projIcon" value="fa-solid fa-user-doctor" placeholder="fa-solid fa-cube">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="projColor">Cor de Destaque (Hex)</label>
+                    <input class="form-input" type="color" id="projColor" value="#dc2626">
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-secondary" type="button" onclick="closeModal('project')">Cancelar</button>
+                    <button class="btn-primary" type="submit" style="flex: 1;">Criar Hub</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Criar Usuário -->
+    <div class="modal-overlay" id="modalUser">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Adicionar Novo Usuário</h2>
+                <button class="btn-close-modal" onclick="closeModal('user')">&times;</button>
+            </div>
+            <form id="formUser" onsubmit="handleCreateUser(event)">
+                <div class="form-group">
+                    <label class="form-label" for="userUsername">Usuário / Email</label>
+                    <input class="form-input" type="text" id="userUsername" required placeholder="celine.socialmedia ou celine@gmail.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="userDisplayName">Nome de Exibição</label>
+                    <input class="form-input" type="text" id="userDisplayName" required placeholder="Mariana (Social Media)">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="userPassword">Senha</label>
+                    <input class="form-input" type="password" id="userPassword" placeholder="Senha inicial de acesso">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="userRole">Nível de Acesso</label>
+                    <select class="form-select" id="userRole" onchange="toggleUserProjectsSelect()">
+                        <option value="user">Usuário Comum (Hubs Específicos)</option>
+                        <option value="admin">Administrador (Todos os Hubs)</option>
+                    </select>
+                </div>
+                <div class="form-group" id="userProjectsContainer">
+                    <label class="form-label">Selecionar Hubs Autorizados</label>
+                    <div class="form-checkbox-group" id="checkboxGroupProjects">
+                        <!-- Checkboxes dos projetos criados -->
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-secondary" type="button" onclick="closeModal('user')">Cancelar</button>
+                    <button class="btn-primary" type="submit" style="flex: 1;">Criar Usuário</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Configurações de Conta do Admin -->
+    <div class="modal-overlay" id="modalAdminAccount">
+        <div class="modal-content" style="max-width: 450px;">
+            <div class="modal-header">
+                <h2>Minha Conta (Administrador)</h2>
+                <button class="btn-close-modal" onclick="closeModal('adminAccount')">&times;</button>
+            </div>
+            <form id="formAdminAccount" onsubmit="handleUpdateAdminAccount(event)">
+                <div class="form-group">
+                    <label class="form-label" for="adminDisplayNameInput">Nome de Exibição</label>
+                    <input class="form-input" type="text" id="adminDisplayNameInput" required placeholder="Nome do Administrador">
+                </div>
+                <div class="form-group" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 12px; margin-top: 8px;">
+                    <h3 style="font-size: 0.9rem; text-transform: uppercase; color: var(--primary); letter-spacing: 0.5px; margin-bottom: 8px;">Alterar Senha</h3>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="adminCurrentPassword">Senha Atual</label>
+                    <input class="form-input" type="password" id="adminCurrentPassword" placeholder="Digite sua senha atual">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="adminNewPassword">Nova Senha</label>
+                    <input class="form-input" type="password" id="adminNewPassword" placeholder="Mínimo 6 caracteres">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="adminConfirmPassword">Confirmar Nova Senha</label>
+                    <input class="form-input" type="password" id="adminConfirmPassword" placeholder="Confirme a nova senha">
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-secondary" type="button" onclick="closeModal('adminAccount')">Cancelar</button>
+                    <button class="btn-primary" type="submit" style="flex: 1;">Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toastMessage">Operação realizada com sucesso!</span>
+    </div>
+
+    <script>
+        let currentTab = 'projects';
+        let projects = [];
+        let users = [];
+        let editingUserId = null;
+
+        // Detecta se o Supabase está ativo nas configurações globais
+        const isSupabase = localStorage.getItem('hub_supabase_mode') === 'true' &&
+                           window.SUPABASE_CONFIG && 
+                           window.SUPABASE_CONFIG.supabaseUrl && 
+                           window.SUPABASE_CONFIG.supabaseKey;
+
+        const supabaseUrl = isSupabase ? window.SUPABASE_CONFIG.supabaseUrl : '';
+        const supabaseKey = isSupabase ? window.SUPABASE_CONFIG.supabaseKey : '';
+
+        function getHeaders() {
+            const token = localStorage.getItem('hub_session_token');
+            if (isSupabase) {
+                return {
+                    'apikey': supabaseKey,
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                };
+            } else {
+                return {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                };
+            }
+        }
+
+        // Verifica Auth ao carregar
+        async function checkAuth() {
+            const token = localStorage.getItem('hub_session_token');
+            const userStr = localStorage.getItem('hub_user');
+            
+            if (!token || !userStr) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            const user = JSON.parse(userStr);
+            if (user.role !== 'admin') {
+                const firstProj = user.projects && user.projects[0];
+                window.location.href = `index.html${firstProj ? '?project=' + firstProj : ''}`;
+                return;
+            }
+            
+            // Set admin user UI
+            document.getElementById('adminName').textContent = user.displayName;
+            document.getElementById('adminAvatar').textContent = user.displayName.charAt(0).toUpperCase();
+            
+            const modeText = isSupabase ? 'Solto Studio (Cloud)' : 'Solto Studio (Local)';
+            document.getElementById('adminMode').textContent = modeText;
+        }
+
+        // Troca de abas (Projetos / Usuários)
+        function switchTab(tab) {
+            currentTab = tab;
+            document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.dashboard-section').forEach(el => el.classList.remove('active'));
+            
+            const btnActionText = document.getElementById('btnActionText');
+            const pageTitle = document.getElementById('pageTitle');
+            const pageSubtitle = document.getElementById('pageSubtitle');
+
+            if (tab === 'projects') {
+                document.getElementById('menuProjects').classList.add('active');
+                document.getElementById('sectionProjects').classList.add('active');
+                pageTitle.textContent = "Projetos Ativos";
+                pageSubtitle.textContent = "Gerencie os hubs integrados do Solto Studio";
+                btnActionText.textContent = "Novo Projeto";
+                loadProjects();
+            } else {
+                document.getElementById('menuUsers').classList.add('active');
+                document.getElementById('sectionUsers').classList.add('active');
+                pageTitle.textContent = "Usuários & Acessos";
+                pageSubtitle.textContent = "Gerencie permissões de clientes e equipes de mídia";
+                btnActionText.textContent = "Novo Usuário";
+                loadUsers();
+            }
+        }
+
+        // Abre modal correspondente à aba ativa
+        function openCreateModal() {
+            editingUserId = null;
+            if (currentTab === 'projects') {
+                document.getElementById('formProject').reset();
+                document.getElementById('modalProject').classList.add('active');
+            } else {
+                document.getElementById('formUser').reset();
+                document.querySelector('#modalUser h2').textContent = "Adicionar Novo Usuário";
+                document.querySelector('#modalUser button[type="submit"]').textContent = "Criar Usuário";
+                document.getElementById('userUsername').disabled = false;
+                document.getElementById('userPassword').placeholder = "Senha inicial de acesso";
+                renderProjectCheckboxes();
+                document.getElementById('modalUser').classList.add('active');
+                toggleUserProjectsSelect();
+            }
+        }
+
+        function closeModal(type) {
+            if (type === 'project') {
+                document.getElementById('modalProject').classList.remove('active');
+            } else if (type === 'user') {
+                document.getElementById('modalUser').classList.remove('active');
+            } else if (type === 'adminAccount') {
+                document.getElementById('modalAdminAccount').classList.remove('active');
+            }
+        }
+
+        // Oculta/Exibe seleção de projetos para admin
+        function toggleUserProjectsSelect() {
+            const role = document.getElementById('userRole').value;
+            const container = document.getElementById('userProjectsContainer');
+            if (role === 'admin') {
+                container.style.display = 'none';
+            } else {
+                container.style.display = 'block';
+            }
+        }
+
+        // Renderiza checkboxes de projetos no cadastro de usuário
+        function renderProjectCheckboxes() {
+            const container = document.getElementById('checkboxGroupProjects');
+            container.innerHTML = '';
+            
+            if (projects.length === 0) {
+                container.innerHTML = '<span style="color: var(--text-muted); font-size: 0.85rem;">Crie um projeto primeiro</span>';
+                return;
+            }
+
+            projects.forEach(p => {
+                const label = document.createElement('label');
+                label.className = 'checkbox-label';
+                label.innerHTML = `
+                    <input type="checkbox" name="authorizedProjects" value="${p.id}">
+                    <span>${p.name}</span>
+                `;
+                container.appendChild(label);
+            });
+        }
+
+        // Carrega projetos da API
+        async function loadProjects() {
+            try {
+                if (isSupabase) {
+                    const res = await fetch(`${supabaseUrl}/rest/v1/projects?select=*`, {
+                        headers: getHeaders()
+                    });
+                    if (!res.ok) throw new Error("Erro ao carregar projetos do Supabase");
+                    projects = await res.json();
+                } else {
+                    const response = await fetch('/api/admin/projects', {
+                        headers: getHeaders()
+                    });
+                    if (!response.ok) throw new Error("Erro ao carregar projetos locais");
+                    const data = await response.json();
+                    projects = data.projects;
+                }
+                renderProjects();
+            } catch (e) {
+                showToast("Erro ao carregar projetos: " + e.message, true);
+            }
+        }
+
+        // Renderiza cards de projetos
+        function renderProjects() {
+            const grid = document.getElementById('projectsGrid');
+            grid.innerHTML = '';
+
+            if (projects.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 4rem; color: var(--text-muted);">
+                        <i class="fa-solid fa-folder-open" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                        <p>Nenhum projeto cadastrado. Clique em "Novo Projeto" para começar.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            projects.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'project-card';
+                card.innerHTML = `
+                    <div class="project-card-header">
+                        <div class="project-icon" style="background-color: rgba(255,255,255,0.03); border: 1px solid ${p.color || '#dc2626'}; color: ${p.color || '#dc2626'}">
+                            <i class="${p.icon || 'fa-solid fa-cube'}"></i>
+                        </div>
+                        <div class="project-title">
+                            <h3>${p.name}</h3>
+                            <span>Criado em: ${p.created_at ? p.created_at.split('T')[0] : (p.createdAt || '-')}</span>
+                        </div>
+                    </div>
+                    <p class="project-desc">${p.description || 'Sem descrição cadastrada.'}</p>
+                    <div class="project-card-footer">
+                        <a href="index.html?project=${p.id}" class="btn-card-action btn-card-access">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> Acessar Hub
+                        </a>
+                        <button onclick="deleteProject('${p.id}')" class="btn-card-action btn-card-delete" title="Excluir Projeto">
+                            <i class="fa-regular fa-trash-can"></i>
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Criação de projeto
+        async function handleCreateProject(e) {
+            e.preventDefault();
+            const id = document.getElementById('projId').value.trim();
+            const name = document.getElementById('projName').value.trim();
+            const description = document.getElementById('projDesc').value.trim();
+            const icon = document.getElementById('projIcon').value.trim();
+            const color = document.getElementById('projColor').value;
+
+            try {
+                if (isSupabase) {
+                    // 1. Cria o projeto no Supabase Database
+                    const resProj = await fetch(`${supabaseUrl}/rest/v1/projects`, {
+                        method: 'POST',
+                        headers: getHeaders(),
+                        body: JSON.stringify({ id, name, description, icon, color })
+                    });
+                    if (!resProj.ok) {
+                        const errData = await resProj.json();
+                        throw new Error(errData.message || "Erro ao criar projeto no Supabase");
+                    }
+
+                    // 2. Inicializa o estado do app_state no Supabase
+                    const resState = await fetch(`${supabaseUrl}/rest/v1/app_state`, {
+                        method: 'POST',
+                        headers: getHeaders(),
+                        body: JSON.stringify({ id, data: { posts: [], pautas: [] } })
+                    });
+                    if (!resState.ok) {
+                        const errData = await resState.json();
+                        throw new Error(errData.message || "Erro ao criar estado inicial no Supabase");
+                    }
+                } else {
+                    const response = await fetch('/api/admin/projects', {
+                        method: 'POST',
+                        headers: getHeaders(),
+                        body: JSON.stringify({ id, name, description, icon, color })
+                    });
+
+                    const data = await response.json();
+                    if (!response.ok) throw new Error(data.error || "Erro ao criar projeto local");
+                }
+
+                closeModal('project');
+                showToast("Projeto criado com sucesso!");
+                loadProjects();
+            } catch (err) {
+                showToast(err.message, true);
+            }
+        }
+
+        // Deletar projeto
+        async function deleteProject(id) {
+            if (!confirm(`Deseja realmente excluir o projeto "${id}"? Os arquivos no banco/disco não serão deletados fisicamente, mas ele sairá do painel.`)) {
+                return;
+            }
+
+            try {
+                if (isSupabase) {
+                    const res = await fetch(`${supabaseUrl}/rest/v1/projects?id=eq.${id}`, {
+                        method: 'DELETE',
+                        headers: getHeaders()
+                    });
+                    if (!res.ok) {
+                        const errData = await res.json();
+                        throw new Error(errData.message || "Erro ao excluir projeto no Supabase");
+                    }
+                } else {
+                    const response = await fetch(`/api/admin/projects/${id}`, {
+                        method: 'DELETE',
+                        headers: getHeaders()
+                    });
+                    const data = await response.json();
+                    if (!response.ok) throw new Error(data.error || "Erro ao excluir projeto");
+                }
+
+                showToast("Projeto removido com sucesso!");
+                loadProjects();
+            } catch (err) {
+                showToast(err.message, true);
+            }
+        }
+
+        // Carrega usuários da API
+        async function loadUsers() {
+            try {
+                if (isSupabase) {
+                    // Carregar projetos primeiro
+                    const resProj = await fetch(`${supabaseUrl}/rest/v1/projects?select=*`, {
+                        headers: getHeaders()
+                    });
+                    if (resProj.ok) projects = await resProj.json();
+
+                    const response = await fetch(`${supabaseUrl}/rest/v1/user_profiles?select=*`, {
+                        headers: getHeaders()
+                    });
+                    if (!response.ok) throw new Error("Erro ao carregar usuários do Supabase");
+                    users = await response.json();
+                } else {
+                    const resProj = await fetch('/api/admin/projects', {
+                        headers: getHeaders()
+                    });
+                    if (resProj.ok) {
+                        const resData = await resProj.json();
+                        projects = resData.projects;
+                    }
+
+                    const response = await fetch('/api/admin/users', {
+                        headers: getHeaders()
+                    });
+                    if (!response.ok) throw new Error("Erro ao carregar usuários");
+                    const data = await response.json();
+                    users = data.users;
+                }
+                renderUsers();
+            } catch (e) {
+                showToast("Erro ao carregar usuários: " + e.message, true);
+            }
+        }
+
+        // Renderiza tabela de usuários
+        function renderUsers() {
+            const tbody = document.getElementById('usersTableBody');
+            tbody.innerHTML = '';
+
+            users.forEach(u => {
+                const tr = document.createElement('tr');
+                const displayName = u.display_name || u.displayName;
+                const username = u.username;
+                const role = u.role;
+                const id = u.id;
+                
+                // Mapear IDs de projetos para nomes amigáveis
+                let projectTagsHTML = '';
+                if (role === 'admin') {
+                    projectTagsHTML = '<span class="project-tag" style="border-color: var(--primary); color: #fff;">Todos os Hubs (*)</span>';
+                } else if (!u.projects || u.projects.length === 0) {
+                    projectTagsHTML = '<span class="project-tag" style="opacity: 0.5;">Nenhum</span>';
+                } else {
+                    u.projects.forEach(pId => {
+                        const proj = projects.find(p => p.id === pId);
+                        const projName = proj ? proj.name : pId;
+                        projectTagsHTML += `<span class="project-tag">${projName}</span>`;
+                    });
+                }
+
+                tr.innerHTML = `
+                    <td>
+                        <div style="font-weight: 600; color: #fff;">@${username}</div>
+                    </td>
+                    <td>${displayName}</td>
+                    <td>
+                        <span class="role-badge ${role === 'admin' ? 'role-admin' : 'role-user'}">${role}</span>
+                    </td>
+                    <td>${projectTagsHTML}</td>
+                    <td style="text-align: center;">
+                        <button onclick="editUser('${id}')" style="margin-right: 6px; background: rgba(59, 130, 246, 0.08); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.15); border-radius: 4px; padding: 6px; cursor: pointer; transition: all 0.2s ease;" title="Editar Usuário">
+                            <i class="fa-solid fa-pencil"></i>
+                        </button>
+                        <button onclick="deleteUser('${id}')" class="btn-table-delete" title="Excluir Usuário" ${username === 'admin' ? 'disabled style="opacity: 0.3; cursor: not-allowed;"' : ''}>
+                            <i class="fa-regular fa-trash-can"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Criação ou Edição de usuário
+        async function handleCreateUser(e) {
+            e.preventDefault();
+            const username = document.getElementById('userUsername').value.trim();
+            const displayName = document.getElementById('userDisplayName').value.trim();
+            const password = document.getElementById('userPassword').value;
+            const role = document.getElementById('userRole').value;
+            
+            const projectsChecked = [];
+            if (role !== 'admin') {
+                const checkboxes = document.querySelectorAll('input[name="authorizedProjects"]:checked');
+                checkboxes.forEach(cb => projectsChecked.push(cb.value));
+            }
+
+            if (!editingUserId && !password) {
+                showToast("A senha é obrigatória para novos usuários!", true);
+                return;
+            }
+
+            try {
+                if (editingUserId) {
+                    if (isSupabase) {
+                        const resProfile = await fetch(`${supabaseUrl}/rest/v1/user_profiles?id=eq.${editingUserId}`, {
+                            method: 'PATCH',
+                            headers: getHeaders(),
+                            body: JSON.stringify({
+                                username: username,
+                                display_name: displayName,
+                                role: role,
+                                projects: role === 'admin' ? ['*'] : projectsChecked
+                            })
+                        });
+
+                        if (!resProfile.ok) {
+                            const errData = await resProfile.json();
+                            throw new Error(errData.message || "Erro ao editar perfil no Supabase");
+                        }
+
+                        if (password) {
+                            showToast("Aviso: A senha não pode ser alterada no Supabase via REST API sem credenciais de admin. Outros dados salvos!", false);
+                        } else {
+                            showToast("Usuário atualizado com sucesso!");
+                        }
+                    } else {
+                        const response = await fetch(`/api/admin/users/update/${editingUserId}`, {
+                            method: 'POST',
+                            headers: getHeaders(),
+                            body: JSON.stringify({
+                                username,
+                                displayName,
+                                password: password || undefined,
+                                role,
+                                projects: role === 'admin' ? ['*'] : projectsChecked
+                            })
+                        });
+
+                        const data = await response.json();
+                        if (!response.ok) throw new Error(data.error || "Erro ao editar usuário local");
+                        showToast("Usuário atualizado com sucesso!");
+                    }
+                } else {
+                    if (isSupabase) {
+                        const email = username.includes('@') ? username : `${username}@solto.studio`;
+                        const resAuth = await fetch(`${supabaseUrl}/auth/v1/signup`, {
+                            method: 'POST',
+                            headers: {
+                                'apikey': supabaseKey,
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ email, password })
+                        });
+
+                        const authData = await resAuth.json();
+                        if (!resAuth.ok) {
+                            throw new Error(authData.msg || authData.message || "Erro no signup do Supabase");
+                        }
+
+                        const newUserId = authData.id || authData.user.id;
+
+                        const resProfile = await fetch(`${supabaseUrl}/rest/v1/user_profiles`, {
+                            method: 'POST',
+                            headers: getHeaders(),
+                            body: JSON.stringify({
+                                id: newUserId,
+                                username: username,
+                                display_name: displayName,
+                                role: role,
+                                projects: role === 'admin' ? ['*'] : projectsChecked
+                            })
+                        });
+
+                        if (!resProfile.ok) {
+                            const errData = await resProfile.json();
+                            throw new Error(errData.message || "Erro ao criar perfil no Supabase");
+                        }
+                        showToast("Usuário criado com sucesso!");
+                    } else {
+                        const response = await fetch('/api/admin/users', {
+                            method: 'POST',
+                            headers: getHeaders(),
+                            body: JSON.stringify({ 
+                                username, 
+                                displayName, 
+                                password, 
+                                role, 
+                                projects: role === 'admin' ? ['*'] : projectsChecked 
+                            })
+                        });
+
+                        const data = await response.json();
+                        if (!response.ok) throw new Error(data.error || "Erro ao criar usuário local");
+                        showToast("Usuário criado com sucesso!");
+                    }
+                }
+
+                closeModal('user');
+                loadUsers();
+            } catch (err) {
+                showToast(err.message, true);
+            }
+        }
+
+        // Função para carregar formulário de edição
+        function editUser(id) {
+            const user = users.find(u => u.id === id);
+            if (!user) return;
+
+            editingUserId = id;
+            document.getElementById('formUser').reset();
+            document.querySelector('#modalUser h2').textContent = "Editar Usuário";
+            document.querySelector('#modalUser button[type="submit"]').textContent = "Salvar Alterações";
+            
+            const username = user.username;
+            const displayName = user.display_name || user.displayName;
+            const role = user.role;
+
+            document.getElementById('userUsername').value = username;
+            document.getElementById('userUsername').disabled = true; // Mantém fixo por segurança
+            document.getElementById('userDisplayName').value = displayName;
+            document.getElementById('userPassword').placeholder = "Deixe em branco para não alterar";
+            document.getElementById('userRole').value = role;
+
+            renderProjectCheckboxes();
+            
+            if (user.projects && Array.isArray(user.projects)) {
+                user.projects.forEach(pId => {
+                    const cb = document.querySelector(`input[name="authorizedProjects"][value="${pId}"]`);
+                    if (cb) cb.checked = true;
+                });
+            }
+
+            document.getElementById('modalUser').classList.add('active');
+            toggleUserProjectsSelect();
+        }
+
+        // Lógica de Conta de Admin
+        function openAdminAccountModal() {
+            const loggedUser = JSON.parse(localStorage.getItem("hub_user") || "{}");
+            document.getElementById("adminDisplayNameInput").value = loggedUser.displayName || "";
+            document.getElementById("adminCurrentPassword").value = "";
+            document.getElementById("adminNewPassword").value = "";
+            document.getElementById("adminConfirmPassword").value = "";
+            document.getElementById("modalAdminAccount").classList.add("active");
+        }
+
+        async function handleUpdateAdminAccount(e) {
+            e.preventDefault();
+            const displayName = document.getElementById("adminDisplayNameInput").value.trim();
+            const currentPassword = document.getElementById("adminCurrentPassword").value;
+            const newPassword = document.getElementById("adminNewPassword").value;
+            const confirmPassword = document.getElementById("adminConfirmPassword").value;
+
+            if (!displayName) {
+                showToast("Nome de exibição é obrigatório!", true);
+                return;
+            }
+
+            if (newPassword) {
+                if (newPassword.length < 6) {
+                    showToast("A nova senha deve ter no mínimo 6 caracteres!", true);
+                    return;
+                }
+                if (newPassword !== confirmPassword) {
+                    showToast("As senhas não coincidem!", true);
+                    return;
+                }
+            }
+
+            try {
+                if (isSupabase) {
+                    const token = localStorage.getItem('hub_session_token');
+                    
+                    if (newPassword) {
+                        const resPass = await fetch(`${supabaseUrl}/auth/v1/user`, {
+                            method: 'PUT',
+                            headers: {
+                                'apikey': supabaseKey,
+                                'Authorization': `Bearer ${token}`,
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ password: newPassword })
+                        });
+                        if (!resPass.ok) {
+                            const err = await resPass.json();
+                            throw new Error(err.message || err.error_description || "Erro ao atualizar senha");
+                        }
+                    }
+
+                    const loggedUser = JSON.parse(localStorage.getItem("hub_user") || "{}");
+                    const resProfile = await fetch(`${supabaseUrl}/rest/v1/user_profiles?id=eq.${loggedUser.id}`, {
+                        method: 'PATCH',
+                        headers: {
+                            'apikey': supabaseKey,
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ display_name: displayName })
+                    });
+                    if (!resProfile.ok) {
+                        throw new Error("Erro ao atualizar perfil de administrador");
+                    }
+                } else {
+                    const token = localStorage.getItem('hub_session_token');
+                    const res = await fetch('/api/me/settings', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ displayName, currentPassword, newPassword })
+                    });
+                    if (!res.ok) {
+                        const err = await res.json();
+                        throw new Error(err.error || "Erro ao salvar configurações da conta");
+                    }
+                }
+
+                const userObj = JSON.parse(localStorage.getItem("hub_user") || "{}");
+                userObj.displayName = displayName;
+                localStorage.setItem("hub_user", JSON.stringify(userObj));
+                
+                document.getElementById('adminName').textContent = displayName;
+                document.getElementById('adminAvatar').textContent = displayName.charAt(0).toUpperCase();
+
+                showToast("Configurações da conta salvas!");
+                closeModal('adminAccount');
+            } catch(err) {
+                showToast("Erro: " + err.message, true);
+            }
+        }
+
+        // Deletar usuário
+        async function deleteUser(id) {
+            if (!confirm("Deseja realmente excluir este usuário? Ele perderá acesso ao sistema imediatamente.")) {
+                return;
+            }
+
+            try {
+                if (isSupabase) {
+                    const res = await fetch(`${supabaseUrl}/rest/v1/user_profiles?id=eq.${id}`, {
+                        method: 'DELETE',
+                        headers: getHeaders()
+                    });
+                    if (!res.ok) {
+                        const errData = await res.json();
+                        throw new Error(errData.message || "Erro ao excluir perfil no Supabase");
+                    }
+                } else {
+                    const response = await fetch(`/api/admin/users/${id}`, {
+                        method: 'DELETE',
+                        headers: getHeaders()
+                    });
+                    const data = await response.json();
+                    if (!response.ok) throw new Error(data.error || "Erro ao excluir usuário");
+                }
+
+                showToast("Usuário removido com sucesso!");
+                loadUsers();
+            } catch (err) {
+                showToast(err.message, true);
+            }
+        }
+
+        // Toast de feedback
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMessage');
+            
+            toastMsg.textContent = message;
+            if (isError) {
+                toast.style.borderLeftColor = 'var(--danger)';
+                toast.firstElementChild.className = 'fa-solid fa-circle-exclamation';
+                toast.firstElementChild.style.color = 'var(--danger)';
+            } else {
+                toast.style.borderLeftColor = 'var(--primary)';
+                toast.firstElementChild.className = 'fa-solid fa-circle-check';
+                toast.firstElementChild.style.color = 'var(--success)';
+            }
+
+            toast.classList.add('active');
+            setTimeout(() => {
+                toast.classList.remove('active');
+            }, 3000);
+        }
+
+        // Logout
+        async function logout() {
+            try {
+                if (!isSupabase) {
+                    await fetch('/api/logout', { method: 'POST' });
+                }
+                localStorage.removeItem('hub_session_token');
+                localStorage.removeItem('hub_user');
+                localStorage.removeItem('hub_supabase_mode');
+                window.location.href = 'login.html';
+            } catch (e) {
+                console.error("Erro no logout:", e);
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuth();
+            loadProjects();
+        });
+    </script>
+</body>
+</html>

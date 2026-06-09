@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Solto Studio Marketing Hub</title>
+    <link rel="icon" type="image/png" href="https://solto.studio/favicon.png" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔐</text></svg>'">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Supabase Config -->
+    <script src="supabase-config.js"></script>
+
+    <style>
+        :root {
+            --bg-color: #0b0b0f;
+            --card-bg: rgba(20, 20, 27, 0.45);
+            --border-color: rgba(220, 38, 38, 0.15);
+            --border-hover: rgba(220, 38, 38, 0.4);
+            --text-color: #f3f4f6;
+            --text-muted: #9ca3af;
+            --primary: #dc2626; /* Vermelho Solto */
+            --primary-hover: #b91c1c;
+            --primary-glow: rgba(220, 38, 38, 0.3);
+            --error-bg: rgba(239, 68, 68, 0.1);
+            --error-text: #ef4444;
+            --success-bg: rgba(16, 185, 129, 0.1);
+            --success-text: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', sans-serif;
+            transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Ambient background glow orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(140px);
+            z-index: 0;
+            opacity: 0.45;
+            pointer-events: none;
+            animation: pulse 15s infinite alternate ease-in-out;
+        }
+
+        .orb-1 {
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(220, 38, 38, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+            top: -10%;
+            right: -10%;
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(17, 17, 17, 0.8) 0%, rgba(220, 38, 38, 0.1) 50%, rgba(0, 0, 0, 0) 80%);
+            bottom: -15%;
+            left: -15%;
+            animation-duration: 20s;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1) translate(0px, 0px); }
+            50% { transform: scale(1.1) translate(20px, -20px); }
+            100% { transform: scale(0.9) translate(-10px, 10px); }
+        }
+
+        /* Container login card */
+        .login-container {
+            width: 100%;
+            max-width: 440px;
+            padding: 2.5rem;
+            border-radius: 24px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5),
+                        inset 0 1px 1px rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 10;
+            text-align: center;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Logo / Header */
+        .logo-area {
+            margin-bottom: 2rem;
+        }
+        
+        .logo-area img {
+            height: 40px;
+            margin-bottom: 0.75rem;
+        }
+
+        .logo-fallback {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo-fallback span {
+            color: var(--primary);
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 400;
+        }
+
+        /* Form styling */
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-color);
+            letter-spacing: 0.3px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            pointer-events: none;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px 14px 48px;
+            border-radius: 12px;
+            background: rgba(10, 10, 15, 0.6);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 400;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px var(--primary-glow);
+            background: rgba(10, 10, 15, 0.9);
+        }
+
+        .form-input:focus + .input-icon {
+            color: var(--primary);
+        }
+
+        /* Alerts */
+        .alert {
+            display: none;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            text-align: left;
+            animation: shake 0.4s ease-in-out;
+        }
+
+        .alert-error {
+            background-color: var(--error-bg);
+            color: var(--error-text);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .alert-success {
+            background-color: var(--success-bg);
+            color: var(--success-text);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+
+        /* Button styling */
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            background-color: var(--primary);
+            border: none;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px var(--primary-glow);
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-hover);
+            box-shadow: 0 6px 16px rgba(220, 38, 38, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .btn-submit:active {
+            transform: translateY(1px);
+        }
+
+        /* Loading spinner */
+        .spinner {
+            display: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s infinite linear;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        .footer-note {
+            margin-top: 2.5rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+        
+        .footer-note a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer-note a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        /* Settings Toggle Button */
+        .settings-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1.1rem;
+            opacity: 0.6;
+            transition: opacity 0.2s, transform 0.2s;
+            z-index: 100;
+        }
+        .settings-toggle:hover {
+            opacity: 1;
+            transform: rotate(45deg);
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="login-container" style="position: relative;">
+        <div class="settings-toggle" onclick="openSupabaseConfig()" title="Configurar Supabase (Nuvem)">
+            <i class="fa-solid fa-gear"></i>
+        </div>
+        <div class="logo-area">
+            <div class="logo-fallback">
+                <i class="fa-solid fa-cube text-red-600"></i> SOLTO<span>STUDIO</span>
+            </div>
+            <div class="subtitle" id="modeSubtitle">Marketing Hub Client Portal</div>
+        </div>
+
+        <div id="loginAlert" class="alert alert-error">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span id="alertMessage">Credenciais incorretas.</span>
+        </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username" class="form-label">Usuário / Email</label>
+                <div class="input-wrapper">
+                    <input type="text" id="username" class="form-input" placeholder="Digite seu usuário ou email" required autocomplete="username">
+                    <i class="fa-regular fa-user input-icon"></i>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="form-label">Senha</label>
+                <div class="input-wrapper">
+                    <input type="password" id="password" class="form-input" placeholder="••••••••" required autocomplete="current-password">
+                    <i class="fa-regular fa-key input-icon"></i>
+                </div>
+            </div>
+
+            <button type="submit" id="btnSubmit" class="btn-submit">
+                <span>Entrar</span>
+                <div id="btnSpinner" class="spinner"></div>
+            </button>
+        </form>
+
+        <div class="footer-note">
+            Desenvolvido com 🖤 por <a href="https://solto.studio" target="_blank">Solto Studio</a>
+        </div>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const btnSubmit = document.getElementById('btnSubmit');
+        const btnSpinner = document.getElementById('btnSpinner');
+        const loginAlert = document.getElementById('loginAlert');
+        const alertMessage = document.getElementById('alertMessage');
+        const modeSubtitle = document.getElementById('modeSubtitle');
+
+        // Detecta se Supabase está ativo nas configurações globais
+        const isSupabaseActive = window.SUPABASE_CONFIG && 
+                                 window.SUPABASE_CONFIG.supabaseUrl && 
+                                 window.SUPABASE_CONFIG.supabaseKey;
+
+        if (isSupabaseActive) {
+            modeSubtitle.innerHTML = 'Marketing Hub Client Portal <span style="color:var(--primary); font-size:0.75rem; vertical-align:middle; background:rgba(220,38,38,0.1); padding:2px 6px; border-radius:4px; margin-left:4px;">CLOUD</span>';
+        } else {
+            modeSubtitle.innerHTML = 'Marketing Hub Client Portal <span style="color:var(--text-muted); font-size:0.75rem; vertical-align:middle; background:rgba(255,255,255,0.05); padding:2px 6px; border-radius:4px; margin-left:4px;">LOCAL</span>';
+        }
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // UI Feedback: Loading state
+            btnSubmit.disabled = true;
+            btnSubmit.firstElementChild.style.opacity = '0.7';
+            btnSpinner.style.display = 'block';
+            loginAlert.style.display = 'none';
+
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value;
+
+            try {
+                if (isSupabaseActive) {
+                    const supabaseUrl = window.SUPABASE_CONFIG.supabaseUrl;
+                    const supabaseKey = window.SUPABASE_CONFIG.supabaseKey;
+
+                    // O Supabase Auth exige email. Se o usuário digitar um username puro (sem @), geramos um email fictício
+                    const email = username.includes('@') ? username : `${username}@solto.studio`;
+
+                    // 1. Chamada de login para o Supabase Auth
+                    const loginRes = await fetch(`${supabaseUrl}/auth/v1/token?grant_type=password`, {
+                        method: 'POST',
+                        headers: {
+                            'apikey': supabaseKey,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ email, password })
+                    });
+
+                    const loginData = await loginRes.json();
+                    if (!loginRes.ok) {
+                        throw new Error(loginData.error_description || loginData.error || 'Credenciais inválidas no Supabase');
+                    }
+
+                    const accessToken = loginData.access_token;
+                    const userId = loginData.user.id;
+
+                    // 2. Busca perfil na tabela user_profiles
+                    const profileRes = await fetch(`${supabaseUrl}/rest/v1/user_profiles?id=eq.${userId}&select=*`, {
+                        method: 'GET',
+                        headers: {
+                            'apikey': supabaseKey,
+                            'Authorization': `Bearer ${accessToken}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+
+                    const profiles = await profileRes.json();
+                    if (!profileRes.ok) {
+                        throw new Error('Erro ao obter perfil de usuário do banco.');
+                    }
+                    if (!profiles || profiles.length === 0) {
+                        throw new Error('Perfil do usuário não encontrado no Supabase.');
+                    }
+
+                    const userProfile = profiles[0];
+
+                    // 3. Salva sessões no localStorage
+                    localStorage.setItem('hub_session_token', accessToken);
+                    localStorage.setItem('hub_user', JSON.stringify({
+                        username: userProfile.username,
+                        displayName: userProfile.display_name,
+                        role: userProfile.role,
+                        projects: userProfile.projects
+                    }));
+                    localStorage.setItem('hub_supabase_mode', 'true');
+
+                    // Show success
+                    loginAlert.className = 'alert alert-success';
+                    loginAlert.innerHTML = '<i class="fa-solid fa-circle-check"></i> Login efetuado com sucesso! Redirecionando...';
+                    loginAlert.style.display = 'flex';
+
+                    // Redirect based on role
+                    setTimeout(() => {
+                        if (userProfile.role === 'admin') {
+                            window.location.href = 'admin.html';
+                        } else {
+                            const firstProj = userProfile.projects && userProfile.projects[0];
+                            window.location.href = `index.html${firstProj ? '?project=' + firstProj : ''}`;
+                        }
+                    }, 1000);
+
+                } else {
+                    // Modo local - se comunica com o server.js
+                    const response = await fetch('/api/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ username, password })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok && data.success) {
+                        localStorage.setItem('hub_session_token', data.token);
+                        localStorage.setItem('hub_user', JSON.stringify(data.user));
+                        localStorage.removeItem('hub_supabase_mode'); // Garante que não está em modo Supabase
+
+                        // Show success
+                        loginAlert.className = 'alert alert-success';
+                        loginAlert.innerHTML = '<i class="fa-solid fa-circle-check"></i> Login efetuado com sucesso! Redirecionando...';
+                        loginAlert.style.display = 'flex';
+
+                        // Redirect based on role
+                        setTimeout(() => {
+                            if (data.user.role === 'admin') {
+                                window.location.href = 'admin.html';
+                            } else {
+                                const firstProj = data.user.projects && data.user.projects[0];
+                                window.location.href = `index.html${firstProj ? '?project=' + firstProj : ''}`;
+                            }
+                        }, 1000);
+                    } else {
+                        throw new Error(data.error || 'Falha na autenticação local');
+                    }
+                }
+            } catch (err) {
+                // UI Feedback: Error state
+                console.error(err);
+                alertMessage.textContent = err.message;
+                loginAlert.className = 'alert alert-error';
+                loginAlert.style.display = 'flex';
+                
+                btnSubmit.disabled = false;
+                btnSubmit.firstElementChild.style.opacity = '1';
+                btnSpinner.style.display = 'none';
+            }
+        });
+
+        // Funções para gerenciar configuração local do Supabase
+        window.openSupabaseConfig = function() {
+            document.getElementById('modalSupabaseUrl').value = localStorage.getItem('hub_supabase_url') || '';
+            document.getElementById('modalSupabaseKey').value = localStorage.getItem('hub_supabase_key') || '';
+            document.getElementById('modalSupabaseBucket').value = localStorage.getItem('hub_supabase_bucket') || 'media';
+            document.getElementById('modalSupabaseConfig').style.display = 'flex';
+        };
+
+        window.closeSupabaseConfig = function() {
+            document.getElementById('modalSupabaseConfig').style.display = 'none';
+        };
+
+        window.saveSupabaseConfig = function() {
+            const url = document.getElementById('modalSupabaseUrl').value.trim();
+            const key = document.getElementById('modalSupabaseKey').value.trim();
+            const bucket = document.getElementById('modalSupabaseBucket').value.trim() || 'media';
+
+            if (url && key) {
+                localStorage.setItem('hub_supabase_url', url);
+                localStorage.setItem('hub_supabase_key', key);
+                localStorage.setItem('hub_supabase_bucket', bucket);
+                localStorage.setItem('hub_supabase_mode', 'true');
+            } else {
+                localStorage.removeItem('hub_supabase_url');
+                localStorage.removeItem('hub_supabase_key');
+                localStorage.removeItem('hub_supabase_bucket');
+                localStorage.removeItem('hub_supabase_mode');
+            }
+            window.location.reload();
+        };
+
+        window.clearSupabaseConfig = function() {
+            localStorage.removeItem('hub_supabase_url');
+            localStorage.removeItem('hub_supabase_key');
+            localStorage.removeItem('hub_supabase_bucket');
+            localStorage.removeItem('hub_supabase_mode');
+            window.location.reload();
+        };
+    </script>
+
+    <!-- Modal: Configuração do Supabase -->
+    <div class="modal-overlay" id="modalSupabaseConfig" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); z-index: 2000; align-items: center; justify-content: center;">
+        <div class="modal-content" style="background: #121217; border: 1px solid var(--border-color); border-radius: 20px; width: 100%; max-width: 420px; padding: 2.2rem; box-shadow: 0 20px 40px rgba(0,0,0,0.5); text-align: left; position: relative;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h3 style="font-size: 1.25rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-cloud" style="color: var(--primary);"></i> Conexão Supabase
+                </h3>
+                <span onclick="closeSupabaseConfig()" style="font-size: 1.8rem; color: var(--text-muted); cursor: pointer; line-height: 1; transition: color 0.2s;">&times;</span>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.45;">
+                Configure os dados da sua instância do Supabase para ativar a autenticação na nuvem (Netlify). Deixe os campos em branco para alternar de volta ao modo de Servidor Local.
+            </p>
+            
+            <div class="form-group" style="margin-bottom: 1.25rem;">
+                <label class="form-label" for="modalSupabaseUrl" style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.4rem;">Supabase Project URL</label>
+                <input class="form-input" style="padding: 12px 14px; background: rgba(0, 0, 0, 0.4); border: 1px solid var(--border-color); border-radius: 8px; color: #fff; width: 100%; outline: none;" type="text" id="modalSupabaseUrl" placeholder="https://xxxx.supabase.co">
+            </div>
+            
+            <div class="form-group" style="margin-bottom: 1.25rem;">
+                <label class="form-label" for="modalSupabaseKey" style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.4rem;">Supabase Anon Key</label>
+                <input class="form-input" style="padding: 12px 14px; background: rgba(0, 0, 0, 0.4); border: 1px solid var(--border-color); border-radius: 8px; color: #fff; width: 100%; outline: none;" type="password" id="modalSupabaseKey" placeholder="eyJhbGciOi...">
+            </div>
+
+            <div class="form-group" style="margin-bottom: 1.75rem;">
+                <label class="form-label" for="modalSupabaseBucket" style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.4rem;">Nome do Bucket (Storage)</label>
+                <input class="form-input" style="padding: 12px 14px; background: rgba(0, 0, 0, 0.4); border: 1px solid var(--border-color); border-radius: 8px; color: #fff; width: 100%; outline: none;" type="text" id="modalSupabaseBucket" placeholder="media" value="media">
+            </div>
+
+            <div style="display: flex; gap: 12px; margin-top: 1.5rem;">
+                <button type="button" class="btn-submit" onclick="clearSupabaseConfig()" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); color: var(--text-color); flex: 1; box-shadow: none; padding: 12px;">Limpar</button>
+                <button type="button" class="btn-submit" onclick="saveSupabaseConfig()" style="flex: 2; padding: 12px;">Salvar e Conectar</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

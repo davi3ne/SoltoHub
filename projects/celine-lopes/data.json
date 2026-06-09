@@ -1,0 +1,450 @@
+{
+  "posts": [],
+  "pautas": [
+    {
+      "id": "explain",
+      "name": "1. Sintomas Comuns Explicados",
+      "desc": "Ensinar o básico que os pais não sabem. Gera autoridade e alcance orgânico.",
+      "items": [
+        {
+          "id": "pauta-ivas",
+          "title": "IVAS (Infecção das Vias Aéreas Superiores)",
+          "desc": "Gripes, resfriados, nariz escorrendo ou dor de garganta.",
+          "approaches": [
+            {
+              "title": "Seu filho vive gripado? Entenda o que é IVAS",
+              "gancho": "Seu filho vive gripado? Talvez você esteja vendo episódios repetidos de IVAS — e isso é muito comum na infância.",
+              "mensagem": "IVAS (gripe e resfriado) é comum, mas precisa ser observada com atenção ao estado geral da criança e não apenas às secreções."
+            },
+            {
+              "title": "IVAS não é sinônimo de antibiótico",
+              "gancho": "Nem toda criança com tosse, catarro e febre precisa de antibiótico.",
+              "mensagem": "Grande parte das IVAS é de origem viral. Antibióticos tratam infecções bacterianas e não combatem vírus; o uso incorreto gera resistência."
+            },
+            {
+              "title": "Quando uma IVAS deixa de ser só um resfriado?",
+              "gancho": "Resfriado em criança é comum, mas esses sinais mostram que pode ser hora de procurar atendimento.",
+              "mensagem": "Fique de olho em sinais de alerta: esforço respiratório, recusa de líquidos, apatia persistente e febre por mais de 3 dias."
+            }
+          ]
+        },
+        {
+          "id": "pauta-geca",
+          "title": "GECA (Gastroenterocolite Aguda)",
+          "desc": "Vômitos, diarreia, dor abdominal e febre na infância.",
+          "approaches": [
+            {
+              "title": "GECA: o nome difícil para vômitos e diarreia",
+              "gancho": "GECA é um nome complicado para uma situação que muitos pais conhecem: vômitos e diarreia.",
+              "mensagem": "A GECA é muito comum em crianças e, na maioria das vezes, é viral. O mais importante é o controle de perdas de líquidos e repouso intestinal."
+            },
+            {
+              "title": "O maior perigo da diarreia é a desidratação",
+              "gancho": "Na diarreia, o maior perigo muitas vezes não é a diarreia: é a desidratação.",
+              "mensagem": "Monitore os sinais de desidratação: boca seca, olhos fundos, ausência de lágrimas ao chorar e ficar mais de 6 horas sem fazer xixi."
+            },
+            {
+              "title": "O que observar antes de levar a criança para avaliação",
+              "gancho": "Seu filho está com vômitos e diarreia? Essas informações ajudam muito na avaliação.",
+              "mensagem": "Anote a frequência de vômitos/evacuações, se aceita soro de reidratação e se mantém a urina normal."
+            }
+          ]
+        },
+        {
+          "id": "pauta-bronquiolite",
+          "title": "Bronquiolite / BVA",
+          "desc": "Infecção viral nos bronquíolos, muito comum em bebês.",
+          "approaches": [
+            {
+              "title": "Bronquiolite começa parecendo uma gripe",
+              "gancho": "Bronquiolite pode começar parecendo uma gripe, mas em bebês pequenos merece atenção.",
+              "mensagem": "O início da bronquiolite imita um resfriado com coriza e tosse leve, mas pode evoluir com cansaço após 1 a 2 dias."
+            },
+            {
+              "title": "Na bronquiolite, olhe para a respiração",
+              "gancho": "Na bronquiolite, o mais importante não é só a tosse: é a respiração do bebê.",
+              "mensagem": "Fique alerta à respiração rápida, costelas afundando (tiragem), asa do nariz abrindo ao respirar e chiado alto."
+            },
+            {
+              "title": "Bronquiolite não costuma ser doença de antibiótico",
+              "gancho": "Bronquiolite não costuma ser uma doença de antibiótico.",
+              "mensagem": "Como é de causa predominantemente viral (VSR), o tratamento é de suporte: lavagem nasal, hidratação e inalação sob recomendação médica."
+            }
+          ]
+        },
+        {
+          "id": "pauta-febre",
+          "title": "Febre",
+          "desc": "Defesa natural do corpo contra infecções.",
+          "approaches": [
+            {
+              "title": "Febre: quando procurar ajuda médica",
+              "gancho": "Seu filho tá com febre e você não sabe se vai pro pronto-socorro ou fica em casa. Deixa eu te ajudar.",
+              "mensagem": "Se a criança estiver ativa e aceitando líquidos após a temperatura baixar com antitérmico, pode ser acompanhada em casa. Trate o estado geral, não o termômetro."
+            },
+            {
+              "title": "O erro de olhar só para o número",
+              "gancho": "Na febre, não olhe só para o termômetro.",
+              "mensagem": "Uma febre de 38,5°C com a criança ativa e sorridente preocupa menos que 37,9°C com prostração severa e recusa de água."
+            },
+            {
+              "title": "Quando a febre exige avaliação",
+              "gancho": "Febre em criança: esses sinais indicam que você deve procurar atendimento.",
+              "mensagem": "Urgência se: bebê com menos de 3 meses, febre persistente por mais de 72h, manchas vermelhas na pele ou gemência respiratória."
+            },
+            {
+              "title": "Febre alta causa convulsão?",
+              "gancho": "Febre alta causa convulsão? Esse é um dos maiores medos dos pais — mas não é exatamente assim.",
+              "mensagem": "A convulsão febril tem origem em predisposição genética e na rapidez de subida da temperatura, não apenas no número final de graus."
+            }
+          ]
+        },
+        {
+          "id": "pauta-tosse",
+          "title": "Tosse",
+          "desc": "Mecanismo de proteção para limpar as vias aéreas.",
+          "approaches": [
+            {
+              "title": "Tosse é sintoma, não diagnóstico",
+              "gancho": "Tosse não é uma doença. Tosse é um sinal de que algo está acontecendo.",
+              "mensagem": "A tosse serve para expelir secreções. Cortá-la sem entender a causa pode mascarar problemas ou piorar a congestão pulmonar."
+            },
+            {
+              "title": "Nem toda tosse precisa de xarope",
+              "gancho": "Antes de dar xarope para tosse, entenda isso.",
+              "mensagem": "A maioria dos xaropes expectorantes ou inibidores não é indicada para crianças pequenas devido a riscos de efeitos adversos. Prefira a hidratação e lavagem nasal."
+            },
+            {
+              "title": "Quando a tosse preocupa",
+              "gancho": "Tosse em criança é comum, mas esses sinais mudam tudo.",
+              "mensagem": "Procure o médico se a tosse vier acompanhada de cansaço respiratório, chiado, febre que ressurge ou se for tosse que impede a criança de dormir ou comer."
+            }
+          ]
+        },
+        {
+          "id": "pauta-nariz",
+          "title": "Nariz Entupido",
+          "desc": "Congestão nasal que dificulta o sono e mamadas.",
+          "approaches": [
+            {
+              "title": "Nariz entupido em criança não é frescura",
+              "gancho": "Nariz entupido em criança pequena pode atrapalhar muito mais do que parece.",
+              "mensagem": "Bebês têm vias aéreas muito estreitas e respiram preferencialmente pelo nariz. O entupimento prejudica a mamada e impede o sono reparador."
+            },
+            {
+              "title": "Nariz entupido não significa antibiótico",
+              "gancho": "Seu filho está com nariz entupido e catarro? Isso não significa automaticamente antibiótico.",
+              "mensagem": "O catarro esverdeado ou amarelado no fim do resfriado é normal e faz parte da limpeza natural do corpo, sem indicar infecção bacteriana."
+            },
+            {
+              "title": "Quando o nariz entupido precisa de avaliação",
+              "gancho": "Nariz entupido é comum, mas esses sinais mostram que pode não ser só isso.",
+              "mensagem": "Se a congestão impede a amamentação ou ingestão de líquidos, ou se persistir por mais de 10 dias com dor facial ou febre, procure atendimento."
+            }
+          ]
+        },
+        {
+          "id": "pauta-anemia",
+          "title": "Anemia na Infância",
+          "desc": "Prevenção e cuidados com a deficiência de ferro.",
+          "approaches": [
+            {
+              "title": "Anemia em criança nem sempre aparece de forma óbvia",
+              "gancho": "Anemia em criança pode ser silenciosa no começo.",
+              "mensagem": "Os sintomas incluem palidez sutil, cansaço fácil, menor apetite e irritabilidade. A prevenção começa com a nutrição adequada e exames de rotina."
+            },
+            {
+              "title": "Toda anemia é falta de ferro?",
+              "gancho": "Toda anemia é falta de ferro? Não necessariamente.",
+              "mensagem": "Existem anemias hereditárias, por outras carências de vitaminas ou por inflamações. O diagnóstico preciso evita a suplementação incorreta."
+            },
+            {
+              "title": "Ferro: quando usar e por que não usar por conta própria",
+              "gancho": "Ferro não é vitamina para usar no chute.",
+              "mensagem": "A suplementação profilática tem protocolo específico na infância, mas o excesso de ferro é tóxico. Só use sob orientação médica."
+            }
+          ]
+        },
+        {
+          "id": "pauta-pele",
+          "title": "Pele do Recém-Nascido (RN)",
+          "desc": "Diferenciação de manchas comuns e brotoejas.",
+          "approaches": [
+            {
+              "title": "A pele do recém-nascido muda muito",
+              "gancho": "Nem toda manchinha na pele do recém-nascido é motivo para desespero.",
+              "mensagem": "Brotoejas, milium e acne neonatal são reações normais de adaptação da pele do bebê ao ambiente e costumam desaparecer sozinhas."
+            },
+            {
+              "title": "O erro de passar pomada sem saber o que é",
+              "gancho": "Antes de passar pomada na pele do recém-nascido, cuidado.",
+              "mensagem": "Automedicação na pele delicada do bebê pode causar dermatites de contato ou reações alérgicas graves. Água e sabão neutro costumam bastar."
+            },
+            {
+              "title": "Quando uma mancha no bebê preocupa",
+              "gancho": "Mancha na pele do bebê: quando é comum e quando merece avaliação?",
+              "mensagem": "Preocupe-se se a lesão apresentar bolhas, pus, manchas roxas que não somem ao toque ou se vier associada a febre ou choro de dor."
+            }
+          ]
+        },
+        {
+          "id": "pauta-respiracao",
+          "title": "Respiração do Bebê / Recém-Nascido",
+          "desc": "Como identificar o padrão respiratório normal do bebê.",
+          "approaches": [
+            {
+              "title": "Recém-nascido respira diferente?",
+              "gancho": "Recém-nascido respira diferente, mas nem tudo deve ser considerado normal.",
+              "mensagem": "Bebês têm respiração periódica (com pausas curtas) e mais rápida que os adultos. Porém, ruídos frequentes e esforço merecem atenção."
+            },
+            {
+              "title": "Como saber se o bebê está fazendo força para respirar",
+              "gancho": "Costelas afundando, nariz abrindo e gemência: esses sinais na respiração do bebê merecem atenção.",
+              "mensagem": "Tiragem intercostal (afundamento da pele entre as costelas), gemidos e batimento de asa do nariz indicam fadiga respiratória."
+            },
+            {
+              "title": "Bebê que cansa para mamar pode estar respirando mal",
+              "gancho": "Se o bebê está cansando para mamar, o problema pode não ser só fome.",
+              "mensagem": "Se o bebê solta o peito toda hora para respirar, fica suado ou cansado ao mamar, ele pode estar com cansaço respiratório."
+            }
+          ]
+        },
+        {
+          "id": "pauta-chiado",
+          "title": "Chiado no Peito (Sibilância)",
+          "desc": "O famoso 'peito chiando' na infância.",
+          "approaches": [
+            {
+              "title": "Chiado no peito: o que os pais estão ouvindo?",
+              "gancho": "Chiado no peito não é tudo igual.",
+              "mensagem": "O chiado (sibilância) é um ruído causado pelo estreitamento dos brônquios. Pode indicar bronquiolite, bronquite ou asma, exigindo avaliação médica."
+            },
+            {
+              "title": "Todo chiado é asma?",
+              "gancho": "Seu filho chiou uma vez. Isso quer dizer que ele tem asma?",
+              "mensagem": "Muitos bebês chiam exclusivamente durante episódios de resfriados virais (sibilância transitória) e nunca desenvolverão asma."
+            },
+            {
+              "title": "Chiado no peito: quando é preocupante?",
+              "gancho": "Doutora, meu filho está com chiado no peito. Isso é preocupante?",
+              "mensagem": "Se houver chiado associado a esforço para respirar, lábios arroxeados ou cansaço grave, a ida ao pronto-socorro deve ser imediata."
+            }
+          ]
+        },
+        {
+          "id": "pauta-otite",
+          "title": "Otite (Dor de Ouvido)",
+          "desc": "Infecção ou inflamação do ouvido na infância.",
+          "approaches": [
+            {
+              "title": "Dor de ouvido em criança: pode ser otite?",
+              "gancho": "Seu filho está com febre e mexendo na orelha? Pode ser dor de ouvido.",
+              "mensagem": "A otite costuma surgir após gripes. Em bebês, o sinal pode ser choro intenso ao deitar e coceira constante na orelha."
+            },
+            {
+              "title": "Nem toda otite precisa de antibiótico",
+              "gancho": "Toda otite precisa de antibiótico? Não necessariamente.",
+              "mensagem": "Muitas otites médias agudas em crianças maiores são virais ou se resolvem sozinhas. A decisão de usar antibiótico exige exame físico minucioso."
+            },
+            {
+              "title": "Quando a dor de ouvido preocupa",
+              "gancho": "Dor de ouvido em criança: esses sinais merecem avaliação.",
+              "mensagem": "Sinais de gravidade: secreção purulenta ou sangue saindo pelo canal auditivo, febre persistente e inchaço ou vermelhidão atrás da orelha."
+            }
+          ]
+        },
+        {
+          "id": "pauta-garganta",
+          "title": "Dor de Garganta / Amigdalite",
+          "desc": "Inflamação da garganta na infância.",
+          "approaches": [
+            {
+              "title": "Dor de garganta: vírus ou bactéria?",
+              "gancho": "Garganta inflamada nem sempre significa bactéria.",
+              "mensagem": "Nas crianças menores de 3 anos, quase 100% das inflamações de garganta são virais. Placas brancas não significam automaticamente bactéria!"
+            },
+            {
+              "title": "Garganta inflamada sempre precisa de antibiótico?",
+              "gancho": "Garganta inflamada não é sinônimo de antibiótico.",
+              "mensagem": "A amigdalite estreptocócica (bacteriana) é mais comum após os 3 anos. O diagnóstico correto evita o uso desnecessário de benzetacil ou amoxicilina."
+            },
+            {
+              "title": "Quando a dor de garganta exige avaliação",
+              "gancho": "Dor de garganta em criança: quando não é para esperar passar?",
+              "mensagem": "Leve ao médico se a criança estiver babando (dificuldade de engolir a própria saliva), recusando qualquer líquido ou com dificuldade para abrir a boca."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "alert",
+      "name": "2. Sinais de Alerta",
+      "desc": "Mostrar quando procurar atendimento. Alta utilidade e muito compartilhado.",
+      "items": [
+        {
+          "id": "pauta-alerta-febre",
+          "title": "Febre: Quando se Preocupar",
+          "desc": "Identificação dos sinais críticos durante episódios febris.",
+          "approaches": [
+            {
+              "title": "Sinais de gravidade na febre infantil",
+              "gancho": "Febre em si não é doença, mas estes 3 sinais mostram que ela precisa de avaliação rápida.",
+              "mensagem": "Fique atento: bebê < 3 meses com febre, febre que não cede após 72 horas ou prostração intensa mesmo após a febre baixar com remédio."
+            }
+          ]
+        },
+        {
+          "id": "pauta-alerta-tosse",
+          "title": "Tosse: Quando Preocupar",
+          "desc": "Identificar quando a tosse se torna um sinal de perigo respiratório.",
+          "approaches": [
+            {
+              "title": "Tosse com cansaço respiratório",
+              "gancho": "O problema não é só tossir; é tossir com estes sinais de cansaço no peito.",
+              "mensagem": "Se a tosse vier com respiração acelerada, costelas afundando ou lábios arroxeados, a avaliação médica é imediata."
+            }
+          ]
+        },
+        {
+          "id": "pauta-alerta-desidratacao",
+          "title": "Diarreia: Sinais de Desidratação",
+          "desc": "Avaliar o nível de hidratação em quadros de GECA.",
+          "approaches": [
+            {
+              "title": "Como reconhecer a desidratação",
+              "gancho": "Na diarreia, o perigo é a desidratação. Você sabe identificar os sinais no seu filho?",
+              "mensagem": "Observe se a criança está com a boca muito seca, chora sem ver lágrimas, está muito apática ou passa mais de 6 horas sem fazer xixi."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "myth",
+      "name": "3. Mitos e Desmistificação",
+      "desc": "Gerar engajamento e construir autoridade. Alto potencial de compartilhamento.",
+      "items": [
+        {
+          "id": "pauta-mito-catarro",
+          "title": "Catarro Verde precisa de Antibiótico?",
+          "desc": "Desmistificar a coloração do muco nasal.",
+          "approaches": [
+            {
+              "title": "A cor do catarro e a necessidade de antibiótico",
+              "gancho": "Catarro verde não é sinônimo de bactéria nem de antibiótico.",
+              "mensagem": "O catarro esverdeado é apenas a resposta de defesa (glóbulos brancos em ação). A imensa maioria dos resfriados é viral e não usa antibiótico."
+            }
+          ]
+        },
+        {
+          "id": "pauta-mito-xarope",
+          "title": "Tosse precisa de Xarope?",
+          "desc": "Quebrando a cultura da prescrição automática de xaropes.",
+          "approaches": [
+            {
+              "title": "Xaropes contra a tosse: mocinhos ou vilões?",
+              "gancho": "Quer um xarope para cortar a tosse do seu filho? Talvez você esteja fazendo o oposto do ideal.",
+              "mensagem": "Automedicar tosse com xaropes, especialmente em menores de 2 anos, é perigoso. Lavagem nasal e mel (para maiores de 1 ano) são alternativas muito melhores."
+            }
+          ]
+        },
+        {
+          "id": "pauta-mito-lavagem",
+          "title": "Lavagem Nasal Afoga o Bebê?",
+          "desc": "Perguntas e receios sobre a higienização com soro.",
+          "approaches": [
+            {
+              "title": "Desmistificando o medo da lavagem nasal",
+              "gancho": "Tem medo de afogar seu filho fazendo lavagem nasal? Veja por que isso é um mito.",
+              "mensagem": "A lavagem é segura se a criança estiver sentada ou inclinada para a frente e o fluxo for suave. O soro limpa o muco e evita complicações no ouvido."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "practice",
+      "name": "4. Orientações Práticas",
+      "desc": "Dar utilidade real. Conteúdo salvável que o pai guarda para usar depois.",
+      "items": [
+        {
+          "id": "pauta-prat-medir-febre",
+          "title": "Como Medir e Observar a Febre",
+          "desc": "Passo a passo prático para manejo doméstico da febre.",
+          "approaches": [
+            {
+              "title": "Manejo seguro da febre infantil",
+              "gancho": "Seu filho está com febre? Siga esse roteiro prático antes de tomar qualquer decisão.",
+              "mensagem": "Use o termômetro axilar, medique se houver desconforto, dê banhos mornos de imersão e ofereça muito líquido."
+            }
+          ]
+        },
+        {
+          "id": "pauta-prat-lavagem-passo",
+          "title": "Passo a Passo da Lavagem Nasal",
+          "desc": "Tutorial detalhado para mães e pais.",
+          "approaches": [
+            {
+              "title": "Técnica perfeita de lavagem nasal",
+              "gancho": "Lavagem nasal sem drama: o guia definitivo e seguro para mães de bebês.",
+              "mensagem": "Prepare a seringa com soro morno, incline a criança levemente e aplique de forma contínua mirando na parede lateral do nariz."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "conversion",
+      "name": "5. Método de Atendimento e Conversão",
+      "desc": "Mostrar como é sua consulta e gerar agendamento. Transforma seguidores em pacientes.",
+      "items": [
+        {
+          "id": "pauta-conv-metodo",
+          "title": "Consulta Focada na Criança: Como Funciona?",
+          "desc": "Apresentar a proposta de valor do atendimento humanizado.",
+          "approaches": [
+            {
+              "title": "Consulta infantil com escuta e explicação",
+              "gancho": "Consulta infantil não deveria ser apenas medir, pesar e passar receita em 15 minutos.",
+              "mensagem": "Minhas consultas são demoradas, explicativas e buscam tirar todas as dúvidas para dar segurança aos pais em casa."
+            }
+          ]
+        },
+        {
+          "id": "pauta-conv-domiciliar",
+          "title": "Atendimento Domiciliar: Vantagens",
+          "desc": "Demonstrar o valor de receber a médica em casa.",
+          "approaches": [
+            {
+              "title": "Quando a consulta em casa faz a diferença",
+              "gancho": "Sair com bebê doente no trânsito ou esperar em pronto-socorro cheio? Há outra alternativa.",
+              "mensagem": "O atendimento domiciliar garante o diagnóstico detalhado com a criança calma em seu próprio ambiente, livre de contaminações de pronto-socorro."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "geminiKey": "",
+    "openaiKey": "",
+    "supabaseUrl": "",
+    "supabaseKey": "",
+    "supabaseBucket": "media"
+  },
+  "wizard": {
+    "doctorName": "Dra. Celine Lopes - CRM-CE 25.970 | Médica",
+    "serviceType": "Consultas médicas focadas na criança em consultório e atendimento domiciliar",
+    "location": "Fortaleza e região, CE",
+    "valueProp": "Ajudo pais e mães a entenderem melhor os sintomas comuns da infância e a saberem quando procurar atendimento médico.",
+    "diferenciais": "Consulta focada na criança, com tempo, escuta e explicação detalhada para que os pais tenham segurança para cuidar em casa.",
+    "pricing": "Consulta particular (Consultório e Domiciliar)",
+    "proof": "Depoimentos espontâneos de pais agradecidos pelo atendimento atencioso, rápido suporte e diagnóstico seguro.",
+    "targetAudience": "Mães e pais de bebês e crianças na primeira infância que se sentem inseguros diante de sintomas comuns",
+    "pains": "1. Insegurança sobre quando levar a criança para a emergência (febre, cansaço respiratório).\n2. Frustração com consultas anteriores muito rápidas que deixaram dúvidas.\n3. Medo de não perceber um sintoma grave na criança.",
+    "objections": "1. Comparação de preço com convênios.\n2. Insegurança de que o atendimento domiciliar seja tão completo quanto o do consultório."
+  },
+  "aiGenerationsCount": 0,
+  "roteiros": []
+}
