@@ -1307,6 +1307,8 @@ function ensureStateDefaults() {
             for (const key of Object.keys(DEFAULT_PROMPTS)) {
                 if (!state.settings.prompts[key]) {
                     state.settings.prompts[key] = DEFAULT_PROMPTS[key];
+                }
+            }
         }
     }
     if (!state.wizard) {
