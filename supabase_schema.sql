@@ -41,71 +41,59 @@ ALTER TABLE public.app_state ENABLE ROW LEVEL SECURITY;
 -- REGRAS DE SEGURANÇA (RLS - Row Level Security)
 -- ====================================================
 
--- Trigger para criar perfil automaticamente no Signup do Auth se criado diretamente (opcional)
--- Para que o admin consiga criar usuários no client-side:
--- Permitir signup público no Supabase Auth.
--- Políticas de acesso na tabela user_profiles:
--- Qualquer usuário autenticado pode ler seu próprio perfil.
+-- Função de segurança para checar se o usuário é admin (SECURITY DEFINER ignora o RLS para evitar recursão)
+CREATE OR REPLACE FUNCTION public.is_admin()
+RETURNS BOOLEAN AS $$
+BEGIN
+    RETURN EXISTS (
+        SELECT 1 FROM public.user_profiles
+        WHERE id = auth.uid() AND role = 'admin'
+    );
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- Políticas de acesso na tabela user_profiles
 CREATE POLICY "Users can read own profile" ON public.user_profiles
     FOR SELECT USING (auth.uid() = id);
 
--- Admins podem fazer tudo na tabela user_profiles
 CREATE POLICY "Admins have full access on profiles" ON public.user_profiles
-    USING (
-        EXISTS (
-            SELECT 1 FROM public.user_profiles
-            WHERE user_profiles.id = auth.uid() AND user_profiles.role = 'admin'
-        )
-    );
+    FOR ALL USING (public.is_admin());
 
--- Políticas de acesso na tabela projects:
--- Usuários podem ler projetos se forem admins ou se o ID do projeto estiver na lista de projetos dele
+-- Políticas de acesso na tabela projects
 CREATE POLICY "Users can read assigned projects" ON public.projects
     FOR SELECT USING (
+        public.is_admin() OR 
         EXISTS (
             SELECT 1 FROM public.user_profiles
-            WHERE user_profiles.id = auth.uid() AND (
-                user_profiles.role = 'admin' OR 
-                user_profiles.projects ? projects.id
-            )
+            WHERE user_profiles.id = auth.uid() AND user_profiles.projects ? projects.id
         )
     );
 
--- Admins podem fazer tudo na tabela projects
 CREATE POLICY "Admins have full access on projects" ON public.projects
-    FOR ALL USING (
-        EXISTS (
-            SELECT 1 FROM public.user_profiles
-            WHERE user_profiles.id = auth.uid() AND user_profiles.role = 'admin'
-        )
-    );
+    FOR ALL USING (public.is_admin());
 
--- Políticas de acesso na tabela app_state:
--- Usuários podem ler/gravar o estado do projeto se tiverem acesso ao projeto
+-- Políticas de acesso na tabela app_state
 CREATE POLICY "Users can read state of assigned projects" ON public.app_state
     FOR SELECT USING (
+        public.is_admin() OR 
         EXISTS (
             SELECT 1 FROM public.user_profiles
-            WHERE user_profiles.id = auth.uid() AND (
-                user_profiles.role = 'admin' OR 
-                user_profiles.projects ? app_state.id
-            )
+            WHERE user_profiles.id = auth.uid() AND user_profiles.projects ? app_state.id
         )
     );
 
 CREATE POLICY "Users can update state of assigned projects" ON public.app_state
     FOR ALL USING (
+        public.is_admin() OR 
         EXISTS (
             SELECT 1 FROM public.user_profiles
-            WHERE user_profiles.id = auth.uid() AND (
-                user_profiles.role = 'admin' OR 
-                user_profiles.projects ? app_state.id
-            )
+            WHERE user_profiles.id = auth.uid() AND user_profiles.projects ? app_state.id
         )
     );
 
 -- ====================================================
--- POPULAR DADOS INICIAIS (Apenas exemplo)
+-- INICIALIZAÇÃO DE DADOS (Apenas exemplo)
 -- ====================================================
 -- Nota: O primeiro admin precisa ser inserido manualmente no auth.users do Supabase,
 -- ou seu perfil inserido em user_profiles com a role 'admin' após o cadastro inicial.
+
