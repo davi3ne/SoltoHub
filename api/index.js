@@ -836,12 +836,16 @@ const server = http.createServer(async (req, res) => {
         const supabaseUrl = process.env.SUPABASE_URL || '';
         const supabaseKey = process.env.SUPABASE_KEY || '';
         const supabaseBucket = process.env.SUPABASE_BUCKET || 'media';
+        const hasServerGeminiKey = !!process.env.GEMINI_API_KEY;
+        const hasServerOpenaiKey = !!process.env.OPENAI_API_KEY;
         const configContent = `
 // supabase-config.js gerado dinamicamente pelo servidor
 window.SUPABASE_CONFIG = {
     supabaseUrl: "${supabaseUrl}" || localStorage.getItem('hub_supabase_url') || "",
     supabaseKey: "${supabaseKey}" || localStorage.getItem('hub_supabase_key') || "",
-    supabaseBucket: "${supabaseBucket}" || localStorage.getItem('hub_supabase_bucket') || "media"
+    supabaseBucket: "${supabaseBucket}" || localStorage.getItem('hub_supabase_bucket') || "media",
+    hasServerGeminiKey: ${hasServerGeminiKey},
+    hasServerOpenaiKey: ${hasServerOpenaiKey}
 };
 `;
         res.writeHead(200, { 'Content-Type': 'application/javascript; charset=utf-8' });

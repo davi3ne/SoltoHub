@@ -2220,12 +2220,66 @@ function setupSettings() {
     const threadsInput = document.getElementById("settings-prompt-threads");
     const carouselInput = document.getElementById("settings-prompt-carousel");
 
+    const isCloudMode = window.SUPABASE_CONFIG && 
+                        window.SUPABASE_CONFIG.supabaseUrl && 
+                        window.SUPABASE_CONFIG.supabaseKey;
+
     if (state.settings) {
         geminiInput.value = state.settings.geminiKey || "";
+        if (!state.settings.geminiKey && window.SUPABASE_CONFIG && window.SUPABASE_CONFIG.hasServerGeminiKey) {
+            geminiInput.placeholder = "•••••••• (Configurado no Servidor)";
+        } else {
+            geminiInput.placeholder = "AIzaSy...";
+        }
+
         openaiInput.value = state.settings.openaiKey || "";
-        supabaseUrlInput.value = state.settings.supabaseUrl || "";
-        supabaseKeyInput.value = state.settings.supabaseKey || "";
-        supabaseBucketInput.value = state.settings.supabaseBucket || "media";
+        if (!state.settings.openaiKey && window.SUPABASE_CONFIG && window.SUPABASE_CONFIG.hasServerOpenaiKey) {
+            openaiInput.placeholder = "•••••••• (Configurado no Servidor)";
+        } else {
+            openaiInput.placeholder = "sk-proj-...";
+        }
+
+        if (isCloudMode) {
+            supabaseUrlInput.value = "";
+            supabaseUrlInput.placeholder = "Configurado pelo Servidor (Modo Cloud)";
+            supabaseUrlInput.disabled = true;
+
+            supabaseKeyInput.value = "";
+            supabaseKeyInput.placeholder = "Configurado pelo Servidor (Modo Cloud)";
+            supabaseKeyInput.disabled = true;
+
+            supabaseBucketInput.value = "";
+            supabaseBucketInput.placeholder = window.SUPABASE_CONFIG.supabaseBucket || "media";
+            supabaseBucketInput.disabled = true;
+
+            const btnSaveStorage = document.getElementById("btn-save-storage");
+            if (btnSaveStorage) {
+                btnSaveStorage.innerHTML = '<i class="fa-solid fa-cloud"></i> Conectado à Nuvem';
+                btnSaveStorage.disabled = true;
+                btnSaveStorage.style.opacity = "0.7";
+                btnSaveStorage.style.cursor = "not-allowed";
+            }
+        } else {
+            supabaseUrlInput.value = state.settings.supabaseUrl || "";
+            supabaseUrlInput.placeholder = "https://xxxxxxxxxxxxxxxxxxxx.supabase.co";
+            supabaseUrlInput.disabled = false;
+
+            supabaseKeyInput.value = state.settings.supabaseKey || "";
+            supabaseKeyInput.placeholder = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...";
+            supabaseKeyInput.disabled = false;
+
+            supabaseBucketInput.value = state.settings.supabaseBucket || "media";
+            supabaseBucketInput.placeholder = "Ex: media";
+            supabaseBucketInput.disabled = false;
+
+            const btnSaveStorage = document.getElementById("btn-save-storage");
+            if (btnSaveStorage) {
+                btnSaveStorage.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Salvar Armazenamento';
+                btnSaveStorage.disabled = false;
+                btnSaveStorage.style.opacity = "1";
+                btnSaveStorage.style.cursor = "pointer";
+            }
+        }
 
         // Load prompts
         if (!state.settings.prompts) {
@@ -2248,6 +2302,7 @@ function setupSettings() {
     });
 
     document.getElementById("btn-save-storage").addEventListener("click", () => {
+        if (isCloudMode) return; // Segurança extra
         state.settings.supabaseUrl = supabaseUrlInput.value.trim();
         state.settings.supabaseKey = supabaseKeyInput.value.trim();
         state.settings.supabaseBucket = supabaseBucketInput.value.trim() || "media";
@@ -2744,7 +2799,10 @@ function setupAIModule() {
             apiKey = state.settings.openaiKey || "";
         }
 
-        if (!apiKey) {
+        const hasServerKey = window.SUPABASE_CONFIG && 
+                             (model.includes("gemini") ? window.SUPABASE_CONFIG.hasServerGeminiKey : window.SUPABASE_CONFIG.hasServerOpenaiKey);
+
+        if (!apiKey && !hasServerKey) {
             showToast(`Insira a chave do ${model.includes("gemini") ? "Gemini" : "OpenAI"} nas Configurações primeiro!`);
             return;
         }
@@ -4164,7 +4222,10 @@ async function aiConvertRoteiroToPost(id) {
         apiKey = state.settings.openaiKey || "";
     }
     
-    if (!apiKey) {
+    const hasServerKey = window.SUPABASE_CONFIG && 
+                         (model.includes("gemini") ? window.SUPABASE_CONFIG.hasServerGeminiKey : window.SUPABASE_CONFIG.hasServerOpenaiKey);
+
+    if (!apiKey && !hasServerKey) {
         showToast(`Configure a chave de API para o modelo ${model.includes("gemini") ? "Gemini" : "OpenAI"} nas Configurações!`);
         return;
     }
@@ -4299,7 +4360,10 @@ async function generateExtraApproach(pilarId, pautaId) {
         apiKey = state.settings.openaiKey || "";
     }
     
-    if (!apiKey) {
+    const hasServerKey = window.SUPABASE_CONFIG && 
+                         (model.includes("gemini") ? window.SUPABASE_CONFIG.hasServerGeminiKey : window.SUPABASE_CONFIG.hasServerOpenaiKey);
+
+    if (!apiKey && !hasServerKey) {
         showToast(`Configure a chave de API para o modelo ${model.includes("gemini") ? "Gemini" : "OpenAI"} nas Configurações!`);
         return;
     }
