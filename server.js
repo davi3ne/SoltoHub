@@ -909,11 +909,15 @@ window.SUPABASE_CONFIG = {
     });
 });
 
-server.listen(PORT, '0.0.0.0', () => {
-    console.log(`===================================================`);
-    console.log(` Solto Studio Marketing Hub Server Active (No-Dep) `);
-    console.log(`---------------------------------------------------`);
-    console.log(` Running locally:   http://localhost:${PORT}        `);
-    console.log(` Exposing on IP:    http://0.0.0.0:${PORT}          `);
-    console.log(`===================================================`);
-});
+if (process.env.VERCEL) {
+    module.exports = server;
+} else {
+    server.listen(PORT, '0.0.0.0', () => {
+        console.log(`===================================================`);
+        console.log(` Solto Studio Marketing Hub Server Active (No-Dep) `);
+        console.log(`---------------------------------------------------`);
+        console.log(` Running locally:   http://localhost:${PORT}        `);
+        console.log(` Exposing on IP:    http://0.0.0.0:${PORT}          `);
+        console.log(`===================================================`);
+    });
+}
