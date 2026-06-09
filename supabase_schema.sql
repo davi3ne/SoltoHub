@@ -97,3 +97,31 @@ CREATE POLICY "Users can update state of assigned projects" ON public.app_state
 -- Nota: O primeiro admin precisa ser inserido manualmente no auth.users do Supabase,
 -- ou seu perfil inserido em user_profiles com a role 'admin' após o cadastro inicial.
 
+
+-- ====================================================
+-- AUTO-CONFIRMAÇÃO DE NOVAS CONTAS (Bypass de e-mail)
+-- ====================================================
+-- Este trigger garante que qualquer nova conta criada no Supabase Auth
+-- tenha seu e-mail marcado como confirmado automaticamente, permitindo o login
+-- de imediato sem a necessidade de verificação de e-mail.
+--
+-- NOTA: Você também pode obter o mesmo resultado simplesmente desativando 
+-- a opção "Confirm email" em: Authentication -> Providers -> Email no painel do Supabase.
+
+CREATE OR REPLACE FUNCTION public.auto_confirm_user()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.email_confirmed_at = NOW();
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- Remove a trigger anterior se existir para evitar erros
+DROP TRIGGER IF EXISTS tr_auto_confirm_user ON auth.users;
+
+CREATE TRIGGER tr_auto_confirm_user
+BEFORE INSERT ON auth.users
+FOR EACH ROW
+EXECUTE FUNCTION public.auto_confirm_user();
+
+
