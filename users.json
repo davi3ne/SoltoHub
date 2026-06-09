@@ -12,12 +12,12 @@
     },
     {
       "id": "user-001",
-      "username": "celine",
-      "displayName": "Dra. Celine L. Lopes (Modificada)",
+      "username": "cliente",
+      "displayName": "Cliente Demonstração",
       "passwordHash": "16432a792727262057933fa50f8167fe:d289d8d820573ecb46bce53b15db97f43756994aa194011662fc31188e28b8584505db39c066307021a2e56f6b1480e0347d9f1cc0edb5796217bc607bb8d031",
       "role": "user",
       "projects": [
-        "celine-lopes"
+        "projeto-modelo"
       ]
     },
     {
@@ -31,9 +31,9 @@
   ],
   "projects": [
     {
-      "id": "celine-lopes",
-      "name": "Dra. Celine Lopes",
-      "description": "CRM-CE 25.970 | Médica",
+      "id": "projeto-modelo",
+      "name": "Projeto Modelo",
+      "description": "Pediatria | CRM 12345",
       "icon": "fa-solid fa-user-doctor",
       "color": "#dc2626",
       "createdAt": "2026-06-09"

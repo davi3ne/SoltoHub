@@ -43,7 +43,7 @@ if (!fs.existsSync(projectsDir)) {
 // ====================================================
 // MIGRACÃO AUTOMÁTICA DE DADOS (BOOT)
 // ====================================================
-const defaultProjectDir = path.join(projectsDir, 'celine-lopes');
+const defaultProjectDir = path.join(projectsDir, 'projeto-modelo');
 const defaultProjectMediaDir = path.join(defaultProjectDir, 'media');
 
 if (!fs.existsSync(defaultProjectDir)) {
@@ -53,15 +53,15 @@ if (!fs.existsSync(defaultProjectMediaDir)) {
     fs.mkdirSync(defaultProjectMediaDir);
 }
 
-// 1. Mover data.json da raiz para o projeto celine-lopes
+// 1. Mover data.json da raiz para o projeto projeto-modelo
 const oldStatePath = path.join(process.cwd(), 'data.json');
 const newStatePath = path.join(defaultProjectDir, 'data.json');
 if (fs.existsSync(oldStatePath) && !fs.existsSync(newStatePath)) {
-    console.log("MIGRATION: Movendo data.json da raiz para o projeto celine-lopes...");
+    console.log("MIGRATION: Movendo data.json da raiz para o projeto projeto-modelo...");
     fs.renameSync(oldStatePath, newStatePath);
 }
 
-// 2. Mover arquivos da pasta media/ da raiz para projects/celine-lopes/media/
+// 2. Mover arquivos da pasta media/ da raiz para projects/projeto-modelo/media/
 const oldMediaDir = path.join(process.cwd(), 'media');
 if (fs.existsSync(oldMediaDir)) {
     try {
@@ -70,7 +70,7 @@ if (fs.existsSync(oldMediaDir)) {
             const oldFile = path.join(oldMediaDir, file);
             const newFile = path.join(defaultProjectMediaDir, file);
             if (fs.statSync(oldFile).isFile()) {
-                console.log(`MIGRATION: Movendo media/${file} para projects/celine-lopes/media/...`);
+                console.log(`MIGRATION: Movendo media/${file} para projects/projeto-modelo/media/...`);
                 fs.renameSync(oldFile, newFile);
             }
         });

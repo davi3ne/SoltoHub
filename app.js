@@ -15,7 +15,7 @@ const DEMO_POSTS = [
         time: "18:00",
         hookA: "Seu filho tá com febre e você não sabe se vai pro pronto-socorro ou fica em casa? Deixa eu te ajudar.",
         hookB: "Trate a criança, não o termômetro. Entenda por que o comportamento do seu filho vale mais que o número da febre.",
-        caption: "Febre não é uma doença, é a resposta de defesa do corpo! 🌡️\n\nSe o seu filho estiver ativo, brincando e aceitando líquidos, mesmo com febre, você pode observar em casa.\n\n🚨 Mas atenção a esses Sinais de Alerta:\n- Bebê com menos de 3 meses de vida.\n- Criança extremamente apática ou prostrada.\n- Dificuldade para respirar ou costelas afundando.\n- Manchas vermelhas na pele que não somem ao pressionar.\n\nNesses casos, procure atendimento imediato!\n\n↳ Salve esse vídeo para consultar na próxima febre às 2h da manhã.\n\nDra. Celine Lopes | Médica | CRM-CE 25.970",
+        caption: "Febre não é uma doença, é a resposta de defesa do corpo! 🌡️\n\nSe o seu filho estiver ativo, brincando e aceitando líquidos, mesmo com febre, você pode observar em casa.\n\n🚨 Mas atenção a esses Sinais de Alerta:\n- Bebê com menos de 3 meses de vida.\n- Criança extremamente apática ou prostrada.\n- Dificuldade para respirar ou costelas afundando.\n- Manchas vermelhas na pele que não somem ao pressionar.\n\nNesses casos, procure atendimento imediato!\n\n↳ Salve esse vídeo para consultar na próxima febre às 2h da manhã.\n\n[Nome do Profissional] | [Sua Profissão] | [CRM/Registro]",
         mediaDesc: "Vídeo de selfie gravado no consultório com um termômetro na mão, em tom acolhedor."
     },
     {
@@ -28,7 +28,7 @@ const DEMO_POSTS = [
         time: "19:00",
         hookA: "Nem toda criança com tosse e catarro verde precisa de antibiótico. Entenda o mito do catarro colorido.",
         hookB: "Seu filho começou a tossir catarro verde e você correu para pedir antibiótico? Cuidado com a automedicação.",
-        caption: "A cor do catarro não define o tratamento! 🟢\n\nÉ comum o catarro começar claro, ficar amarelado e depois esverdeado. Isso é apenas a resposta de defesa natural do organismo (células inflamatórias agindo), não um sinal de que a infecção virou bacteriana.\n\n🚫 Antibiótico trata bactérias, não vírus. O uso desnecessário pode causar resistência bacteriana e efeitos colaterais.\n\nO mais importante é avaliar o estado geral da criança, tempo de sintomas e esforço respiratório.\n\nDra. Celine Lopes | Médica | CRM-CE 25.970",
+        caption: "A cor do catarro não define o tratamento! 🟢\n\nÉ comum o catarro começar claro, ficar amarelado e depois esverdeado. Isso é apenas a resposta de defesa natural do organismo (células inflamatórias agindo), não um sinal de que a infecção virou bacteriana.\n\n🚫 Antibiótico trata bactérias, não vírus. O uso desnecessário pode causar resistência bacteriana e efeitos colaterais.\n\nO mais importante é avaliar o estado geral da criança, tempo de sintomas e esforço respiratório.\n\n[Nome do Profissional] | [Sua Profissão] | [CRM/Registro]",
         mediaDesc: "Vídeo explicativo curto quebrando o mito com textos curtos aparecendo na tela."
     },
     {
@@ -41,7 +41,7 @@ const DEMO_POSTS = [
         time: "12:00",
         hookA: "Guia Visual: Sinais que mostram quando a febre do seu filho exige um médico urgente.",
         hookB: "Salve essa lista para nunca entrar em pânico quando o termômetro subir.",
-        caption: "Salve esse carrossel para consultar quando precisar! 🚨\n\nComo pais, a febre nos assusta, mas saber o que observar traz paz e segurança. Aqui está a lista dos sinais de perigo real:\n\n1️⃣ Dificuldade de respirar (costelas marcando na inspiração).\n2️⃣ Moleza extrema (mesmo após dar o antitérmico e a temperatura baixar).\n3️⃣ Recusa absoluta de líquidos (perigo de desidratação).\n4️⃣ Manchas vermelhas na pele.\n5️⃣ Bebês com menos de 3 meses de idade.\n\nSempre conte com orientação médica. Proteja a saúde do seu pequeno.\n\nDra. Celine Lopes | Médica | CRM-CE 25.970",
+        caption: "Salve esse carrossel para consultar quando precisar! 🚨\n\nComo pais, a febre nos assusta, mas saber o que observar traz paz e segurança. Aqui está a lista dos sinais de perigo real:\n\n1️⃣ Dificuldade de respirar (costelas marcando na inspiração).\n2️⃣ Moleza extrema (mesmo após dar o antitérmico e a temperatura baixar).\n3️⃣ Recusa absoluta de líquidos (perigo de desidratação).\n4️⃣ Manchas vermelhas na pele.\n5️⃣ Bebês com menos de 3 meses de idade.\n\nSempre conte com orientação médica. Proteja a saúde do seu pequeno.\n\n[Nome do Profissional] | [Sua Profissão] | [CRM/Registro]",
         mediaDesc: "Carrossel com 5 slides em tons escuros e violetas, com ícones e textos grandes de fácil leitura."
     },
     {
@@ -54,7 +54,7 @@ const DEMO_POSTS = [
         time: "18:00",
         hookA: "Lavagem nasal não afoga o seu bebê se você fizer da forma correta. Veja o passo a passo seguro.",
         hookB: "Dicas de mãe: Como limpar o nariz entupido do seu filho sem choro e sem riscos.",
-        caption: "O nariz entupido atrapalha a mamada, o sono e o humor dos pequenos. A lavagem nasal com soro fisiológico é a melhor solução! 💦\n\nPasso a passo:\n1. Deixe o soro em temperatura ambiente ou morno (evite soro gelado).\n2. Coloque a criança sentada ou levemente inclinada para a frente (nunca deitada de costas).\n3. Use seringa com fluxo contínuo e suave (sem pressão excessiva).\n4. Direcione a ponta para a lateral da narina, não para o centro.\n\n↳ Compartilhe com aquela mãe que tem medo de fazer lavagem nasal!\n\nDra. Celine Lopes | Médica | CRM-CE 25.970",
+        caption: "O nariz entupido atrapalha a mamada, o sono e o humor dos pequenos. A lavagem nasal com soro fisiológico é a melhor solução! 💦\n\nPasso a passo:\n1. Deixe o soro em temperatura ambiente ou morno (evite soro gelado).\n2. Coloque a criança sentada ou levemente inclinada para a frente (nunca deitada de costas).\n3. Use seringa com fluxo contínuo e suave (sem pressão excessiva).\n4. Direcione a ponta para a lateral da narina, não para o centro.\n\n↳ Compartilhe com aquela mãe que tem medo de fazer lavagem nasal!\n\n[Nome do Profissional] | [Sua Profissão] | [CRM/Registro]",
         mediaDesc: "Vídeo prático demonstrando a lavagem em um boneco ou mostrando a seringa e a quantidade de soro."
     },
     {
@@ -67,7 +67,7 @@ const DEMO_POSTS = [
         time: "18:00",
         hookA: "Seu filho vive resfriado? Entenda o que é IVAS e por que isso acontece tanto na infância.",
         hookB: "Crianças na creche vivem doentes. Devo me preocupar com o sistema imunológico?",
-        caption: "Seu filho começou na escola e não para de ter coriza e tosse? 🏫\n\nIsso tem um nome: IVAS (Infecção das Vias Aéreas Superiores). É um termo médico para resfriados comuns, gripes e dores de garganta leves.\n\nNa infância, o sistema imunológico está conhecendo os vírus. É esperado que crianças em idade escolar ou creche tenham até 8 a 10 episódios de IVAS por ano!\n\nO importante é observar se a criança se recupera bem entre os episódios.\n\nDra. Celine Lopes | Médica | CRM-CE 25.970",
+        caption: "Seu filho começou na escola e não para de ter coriza e tosse? 🏫\n\nIsso tem um nome: IVAS (Infecção das Vias Aéreas Superiores). É um termo médico para resfriados comuns, gripes e dores de garganta leves.\n\nNa infância, o sistema imunológico está conhecendo os vírus. É esperado que crianças em idade escolar ou creche tenham até 8 a 10 episódios de IVAS por ano!\n\nO importante é observar se a criança se recupera bem entre os episódios.\n\n[Nome do Profissional] | [Sua Profissão] | [CRM/Registro]",
         mediaDesc: "Gravação estilo selfie explicando com empatia, acalmando o coração das mães."
     },
     {
@@ -80,7 +80,7 @@ const DEMO_POSTS = [
         time: "18:00",
         hookA: "Tosse não é uma doença. É um reflexo de defesa. Mas quando ela acende o sinal de alerta?",
         hookB: "Seu filho está tossindo sem parar? Entenda os sinais que indicam que não é apenas um resfriado comum.",
-        caption: "A tosse serve para limpar as vias respiratórias de secreção. Mas quando ela é preocupante? 🗣️\n\nPreste atenção se a tosse vier acompanhada de:\n- Chiado ou assobio no peito.\n- Respiração rápida ou costelas afundando.\n- Febre alta por mais de 3 dias.\n- Lábios ou unhas arroxeadas.\n- Crises de engasgo ou vômitos provocados pela tosse.\n\nNesses casos, a avaliação médica é necessária para diagnosticar a causa e indicar o tratamento adequado.\n\nDra. Celine Lopes | Médica | CRM-CE 25.970",
+        caption: "A tosse serve para limpar as vias respiratórias de secreção. Mas quando ela é preocupante? 🗣️\n\nPreste atenção se a tosse vier acompanhada de:\n- Chiado ou assobio no peito.\n- Respiração rápida ou costelas afundando.\n- Febre alta por mais de 3 dias.\n- Lábios ou unhas arroxeadas.\n- Crises de engasgo ou vômitos provocados pela tosse.\n\nNesses casos, a avaliação médica é necessária para diagnosticar a causa e indicar o tratamento adequado.\n\n[Nome do Profissional] | [Sua Profissão] | [CRM/Registro]",
         mediaDesc: "Vídeo curto destacando sons respiratórios e mostrando o esforço físico da respiração em ilustrações simples."
     }
 ];
@@ -591,16 +591,16 @@ let state = {
         prompts: null
     },
     wizard: {
-        doctorName: "Dra. Celine Lopes - CRM-CE 25.970 | Médica",
-        serviceType: "Consultas médicas focadas na criança em consultório e atendimento domiciliar",
-        location: "Fortaleza e região, CE",
-        valueProp: "Ajudo pais e mães a entenderem melhor os sintomas comuns da infância e a saberem quando procurar atendimento médico.",
-        diferenciais: "Consulta focada na criança, com tempo, escuta e explicação detalhada para que os pais tenham segurança para cuidar em casa.",
-        pricing: "Consulta particular (Consultório e Domiciliar)",
-        proof: "Depoimentos espontâneos de pais agradecidos pelo atendimento atencioso, rápido suporte e diagnóstico seguro.",
-        targetAudience: "Mães e pais de bebês e crianças na primeira infância que se sentem inseguros diante de sintomas comuns",
-        pains: "1. Insegurança sobre quando levar a criança para a emergência (febre, cansaço respiratório).\n2. Frustração com consultas anteriores muito rápidas que deixaram dúvidas.\n3. Medo de não perceber um sintoma grave na criança.",
-        objections: "1. Comparação de preço com convênios.\n2. Insegurança de que o atendimento domiciliar seja tão completo quanto o do consultório."
+        doctorName: "",
+        serviceType: "",
+        location: "",
+        valueProp: "",
+        diferenciais: "",
+        pricing: "",
+        proof: "",
+        targetAudience: "",
+        pains: "",
+        objections: ""
     },
     aiGenerationsCount: 0
 };
@@ -1069,7 +1069,21 @@ const isSupabaseMode = localStorage.getItem('hub_supabase_mode') === 'true' &&
                        window.SUPABASE_CONFIG.supabaseKey;
 
 const urlParams = new URLSearchParams(window.location.search);
-const projectId = urlParams.get('project') || 'celine-lopes';
+let projectId = urlParams.get('project');
+
+if (!projectId) {
+    try {
+        const loggedUser = JSON.parse(localStorage.getItem('hub_user') || '{}');
+        if (loggedUser && loggedUser.projects && loggedUser.projects.length > 0) {
+            projectId = loggedUser.projects[0];
+        }
+    } catch (e) {
+        console.error("Erro ao obter projeto do usuário logado:", e);
+    }
+}
+if (!projectId) {
+    projectId = 'celine-lopes'; // Fallback inicial
+}
 
 let initialLoadAbortController = new AbortController();
 
@@ -2892,9 +2906,9 @@ function setupAIModule() {
 
 // Prompt Construction
 function constructPrompt(theme, templateType, customPrompt) {
-    const doctorName = state.wizard.doctorName || "Dra. Celine Lopes";
-    const valueProp = state.wizard.valueProp || "Consulta médica focada na criança";
-    const target = state.wizard.targetAudience || "pais e mães";
+    const doctorName = state.wizard.doctorName || state.settings?.name || "Profissional";
+    const valueProp = state.wizard.valueProp || "Serviços profissionais de alta qualidade";
+    const target = state.wizard.targetAudience || "clientes";
 
     // Ensure state.settings has a prompts object
     if (!state.settings.prompts) {
@@ -3448,7 +3462,7 @@ function createRoteiroFromPauta(pilarId, pautaTitle, apprTitle, gancho, mensagem
 }
 
 function createPostFromPauta(pilarId, pautaTitle, apprTitle, gancho, mensagem) {
-    const signature = "Dra. Celine Lopes | Médica | CRM-CE 25.970";
+    const signature = state.wizard.doctorName || state.settings?.name || "Assinatura do Profissional";
     const caption = `${mensagem}\n\n↳ Salve esse post para consultar depois.\n\n${signature}`;
     
     const newPost = {
@@ -4166,14 +4180,14 @@ async function aiConvertRoteiroToPost(id) {
     }
     
     try {
-        const doctorName = state.wizard.doctorName || "Dra. Celine Lopes";
-        const valueProp = state.wizard.valueProp || "Consulta médica focada na criança";
-        const target = state.wizard.targetAudience || "pais e mães";
+        const doctorName = state.wizard.doctorName || state.settings?.name || "Profissional";
+        const valueProp = state.wizard.valueProp || "Serviço de alta qualidade";
+        const target = state.wizard.targetAudience || "clientes";
         
-        const baseContext = `Você é um especialista em marketing médico ético. O cliente é ${doctorName}.
+        const baseContext = `Você é um especialista em marketing e copywriting profissional de alta conversão. O cliente é ${doctorName}.
 Sua especialidade/foco é: ${valueProp}.
 Público Alvo: ${target}.
-Respeite a Resolução CFM nº 2.336/2023. Foco em educação em saúde, clareza, empatia e sem promessas absurdas ou jargões técnicos não explicados. Fale em português do Brasil e no tom conversacional, usando quebras de linha e emojis como marcadores.`;
+Foco em educação, clareza, empatia, credibilidade e sem promessas absurdas ou jargões técnicos não explicados. Respeite as regulamentações éticas da profissão do cliente (como CFM para médicos, OAB para advogados, etc., se aplicável). Fale em português do Brasil e no tom conversacional, usando quebras de linha e emojis como marcadores.`;
         
         const prompt = `${baseContext}
 
@@ -4189,7 +4203,7 @@ A legenda deve conter:
 2. Desenvolvimento explicativo claro, direto e scannable.
 3. Dicas práticas em formato de lista (bullet points com emojis).
 4. Uma chamada para ação (CTA) sutil e ética de acordo com as diretrizes de marketing médico.
-5. A assinatura obrigatória no final: "Dra. Celine Lopes | Médica | CRM-CE 25.970".
+5. A assinatura obrigatória no final: "${doctorName}".
 
 Escreva apenas a legenda final para o post, sem comentários, explicações adicionais ou introduções.`;
         
@@ -4301,14 +4315,14 @@ async function generateExtraApproach(pilarId, pautaId) {
     }
     
     try {
-        const doctorName = state.wizard.doctorName || "Dra. Celine Lopes";
-        const valueProp = state.wizard.valueProp || "Consulta médica focada na criança";
-        const target = state.wizard.targetAudience || "pais e mães";
+        const doctorName = state.wizard.doctorName || state.settings?.name || "Profissional";
+        const valueProp = state.wizard.valueProp || "Serviço de alta qualidade";
+        const target = state.wizard.targetAudience || "clientes";
         
-        const baseContext = `Você é um especialista em marketing médico ético. O cliente é ${doctorName}.
+        const baseContext = `Você é um especialista em marketing e copywriting profissional de alta conversão. O cliente é ${doctorName}.
 Sua especialidade/foco é: ${valueProp}.
 Público Alvo: ${target}.
-Respeite a Resolução CFM nº 2.336/2023. Foco em educação em saúde, clareza, empatia e sem promessas absurdas ou jargões técnicos não explicados. Fale em português do Brasil e no tom conversacional, usando quebras de linha e emojis como marcadores.`;
+Foco em educação, clareza, empatia, credibilidade e sem promessas absurdas ou jargões técnicos não explicados. Respeite as regulamentações éticas da profissão do cliente (como CFM para médicos, OAB para advogados, etc., se aplicável). Fale em português do Brasil e no tom conversacional, usando quebras de linha e emojis como marcadores.`;
         
         if (!item.approaches) item.approaches = [];
         const existingTitles = item.approaches.map(a => a.title).join(", ");

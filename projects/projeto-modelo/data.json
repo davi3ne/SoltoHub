@@ -434,16 +434,16 @@
     "supabaseBucket": "media"
   },
   "wizard": {
-    "doctorName": "Dra. Celine Lopes - CRM-CE 25.970 | Médica",
-    "serviceType": "Consultas médicas focadas na criança em consultório e atendimento domiciliar",
-    "location": "Fortaleza e região, CE",
-    "valueProp": "Ajudo pais e mães a entenderem melhor os sintomas comuns da infância e a saberem quando procurar atendimento médico.",
-    "diferenciais": "Consulta focada na criança, com tempo, escuta e explicação detalhada para que os pais tenham segurança para cuidar em casa.",
-    "pricing": "Consulta particular (Consultório e Domiciliar)",
-    "proof": "Depoimentos espontâneos de pais agradecidos pelo atendimento atencioso, rápido suporte e diagnóstico seguro.",
-    "targetAudience": "Mães e pais de bebês e crianças na primeira infância que se sentem inseguros diante de sintomas comuns",
-    "pains": "1. Insegurança sobre quando levar a criança para a emergência (febre, cansaço respiratório).\n2. Frustração com consultas anteriores muito rápidas que deixaram dúvidas.\n3. Medo de não perceber um sintoma grave na criança.",
-    "objections": "1. Comparação de preço com convênios.\n2. Insegurança de que o atendimento domiciliar seja tão completo quanto o do consultório."
+    "doctorName": "[Nome do Profissional] - [CRM/Registro] | [Sua Profissão]",
+    "serviceType": "Consultas e atendimentos focados na necessidade do cliente",
+    "location": "Sua Cidade e Região",
+    "valueProp": "Ajudo pessoas a resolverem suas principais dores e necessidades com um atendimento de alta qualidade.",
+    "diferenciais": "Atendimento humanizado, focado na pessoa, com tempo, escuta e explicação detalhada.",
+    "pricing": "Particular e Domiciliar",
+    "proof": "Depoimentos espontâneos de clientes agradecidos pelo atendimento atencioso, rápido suporte e diagnóstico seguro.",
+    "targetAudience": "Pessoas que buscam um serviço de excelência e acompanhamento dedicado",
+    "pains": "1. Insegurança sobre a gravidade do problema.\n2. Frustração com atendimentos anteriores rápidos.\n3. Medo de não receber a orientação correta.",
+    "objections": "1. Comparação de preço.\n2. Dúvida se o atendimento resolve o problema de forma completa."
   },
   "aiGenerationsCount": 0,
   "roteiros": []
