@@ -79,8 +79,12 @@ const DEMO_POSTS = [
         date: "2026-06-15",
         time: "18:00",
         hookA: "Tosse não é uma doença. É um reflexo de defesa. Mas quando ela acende o sinal de alerta?",
-        hookB: "Seu filho está tossindo sem parar? Entenda os sinais que indicam que não é apenas um resfriado comum.",
-        caption: "A tosse serve para limpar as vias respiratórias de secreção. Mas quando ela é preocupante? 🗣️\n\nPreste atenção se a tosse vier acompanhada de:\n- Chiado ou assobio no peito.\n- Respiração rápida ou costelas afundando.\n- Febre alta por mais de 3 dias.\n- Lábios ou unhas arroxeadas.\n- Crises de engasgo ou vômitos provocados pela tosse.\n\nNesses casos, a avaliação médica é necessária para diagnosticar a causa e indicar o tratamento adequado.\n\n[Nome do Profissional] | [Sua Profissão] | [CRM/Registro]",// --- Default Strategy Topics (Organized by Health Specialty / Area) ---
+        caption: "A tosse serve para limpar as vias respiratórias de secreção. Mas quando ela é preocupante? 🗣️\n\nPreste atenção se a tosse vier acompanhada de:\n- Chiado ou assobio no peito.\n- Respiração rápida ou costelas afundando.\n- Febre alta por mais de 3 dias.\n- Lábios ou unhas arroxeadas.\n- Crises de engasgo ou vômitos provocados pela tosse.\n\nNesses casos, a avaliação médica é necessária para diagnosticar a causa e indicar o tratamento adequado.\n\n[Nome do Profissional] | [Sua Profissão] | [CRM/Registro]",
+        mediaDesc: "Vídeo curto destacando sons respiratórios e mostrando o esforço físico da respiração em ilustrações simples."
+    }
+];
+
+// --- Default Strategy Topics (Organized by Health Specialty / Area) ---
 const PILARES_POR_AREA = {
     medicina: [
         {
@@ -1590,7 +1594,14 @@ async function loadProjectInfoFromSupabase() {
                     logoIcon.className = proj.icon || 'fa-solid fa-user-doctor';
                     if (logoWrap) logoWrap.style.background = 'var(--primary)';
                 }
+            } else {
+                document.getElementById('sidebar-doctor-name').textContent = projectId;
+                document.getElementById('sidebar-doctor-crm').textContent = 'Sem acesso / Não encontrado';
+                showToast("Atenção: Você não tem acesso a este projeto ou ele não existe.", 5000);
             }
+        } else {
+            document.getElementById('sidebar-doctor-name').textContent = 'Erro Supabase';
+            document.getElementById('sidebar-doctor-crm').textContent = 'Falha ao carregar projeto';
         }
     } catch(e) {
         console.warn("Erro ao obter dados do projeto no Supabase:", e);
@@ -1630,7 +1641,13 @@ async function loadProjectInfoLocal() {
                     logoIcon.className = proj.icon || 'fa-solid fa-user-doctor';
                     if (logoWrap) logoWrap.style.background = 'var(--primary)';
                 }
+            } else {
+                document.getElementById('sidebar-doctor-name').textContent = projectId;
+                document.getElementById('sidebar-doctor-crm').textContent = 'Projeto não encontrado';
             }
+        } else {
+            document.getElementById('sidebar-doctor-name').textContent = 'Erro local';
+            document.getElementById('sidebar-doctor-crm').textContent = 'Falha ao buscar projeto';
         }
     } catch(e) {
         console.warn("Erro ao obter dados do projeto no local:", e);
@@ -3523,6 +3540,8 @@ async function callOpenAIAPI(key, modelName, prompt) {
 function renderDashboardPlan() {
     const w = state.wizard || {};
     
+    const area = state.healthArea || "medicina";
+
     // 1. Update Sidebar Doctor name & CRM dynamically
     const sidebarName = document.getElementById("sidebar-doctor-name");
     const sidebarCrm = document.getElementById("sidebar-doctor-crm");
@@ -3530,7 +3549,14 @@ function renderDashboardPlan() {
     if (sidebarName && sidebarCrm && w.doctorName) {
         const docName = w.doctorName;
         let namePart = docName;
-        let crmPart = "CRM | Médica";
+        const crmDefaults = {
+            medicina: "Médico(a) | CRM",
+            odontologia: "Dentista | CRO",
+            nutricao: "Nutricionista | CRN",
+            fisioterapia: "Fisioterapeuta | CREFITO",
+            psicologia: "Psicólogo(a) | CRP"
+        };
+        let crmPart = crmDefaults[area] || crmDefaults.medicina;
         if (docName.includes("-")) {
             const parts = docName.split("-");
             namePart = parts[0].trim();
@@ -3544,10 +3570,58 @@ function renderDashboardPlan() {
         sidebarCrm.textContent = crmPart;
     }
     
-    // 2. Update Dashboard Pos Quote dynamically
+    // 2. Update Dashboard Pos Quote & Compliance text dynamically based on Health Area
+    const posTitle = document.getElementById("dash-pos-title");
+    const complianceTitle = document.getElementById("dash-compliance-title");
+    const complianceText = document.getElementById("dash-compliance-text");
     const dashQuote = document.getElementById("dash-pos-quote");
-    if (dashQuote && w.valueProp) {
-        dashQuote.textContent = `"${w.valueProp}"`;
+    
+    const complianceData = {
+        medicina: {
+            title: "Posicionamento Médico",
+            ethicalTitle: "Alinhamento Ético e Regulação CFM:",
+            text: "Sempre insira sua assinatura profissional (Nome, CRM e Especialidade/Medicina) nas postagens. Lembre-se de seguir as diretrizes éticas da sua profissão e conselho regional ao criar legendas e criativos."
+        },
+        odontologia: {
+            title: "Posicionamento Odontológico",
+            ethicalTitle: "Alinhamento Ético e Regulação CRO:",
+            text: "Sempre insira sua assinatura profissional (Nome, CRO e Especialidade) nas postagens. Lembre-se de seguir as diretrizes éticas da sua profissão e conselho regional ao criar legendas e criativos."
+        },
+        nutricao: {
+            title: "Posicionamento do Nutricionista",
+            ethicalTitle: "Alinhamento Ético e Regulação CRN:",
+            text: "Sempre insira sua assinatura profissional (Nome, CRN e Especialidade) nas postagens. Lembre-se de seguir as diretrizes éticas da sua profissão e conselho regional ao criar legendas e criativos."
+        },
+        fisioterapia: {
+            title: "Posicionamento do Fisioterapeuta",
+            ethicalTitle: "Alinhamento Ético e Regulação CREFITO:",
+            text: "Sempre insira sua assinatura profissional (Nome, CREFITO e Especialidade) nas postagens. Lembre-se de seguir as diretrizes éticas da sua profissão e conselho regional ao criar legendas e criativos."
+        },
+        psicologia: {
+            title: "Posicionamento do Psicólogo",
+            ethicalTitle: "Alinhamento Ético e Regulação CRP:",
+            text: "Sempre insira sua assinatura profissional (Nome, CRP e Especialidade) nas postagens. Lembre-se de seguir as diretrizes éticas da sua profissão e conselho regional ao criar legendas e criativos."
+        }
+    };
+
+    const info = complianceData[area] || complianceData.medicina;
+    if (posTitle) posTitle.innerHTML = `<i class="fa-solid fa-bullseye"></i> ${info.title}`;
+    if (complianceTitle) complianceTitle.textContent = info.ethicalTitle;
+    if (complianceText) complianceText.textContent = info.text;
+
+    if (dashQuote) {
+        if (w.valueProp) {
+            dashQuote.textContent = `"${w.valueProp}"`;
+        } else {
+            const defaultQuotes = {
+                medicina: "Ajudo meus pacientes a compreenderem seus sintomas e a viverem com mais saúde.",
+                odontologia: "Ajudo meus pacientes a conquistarem um sorriso saudável e a recuperarem a autoestima.",
+                nutricao: "Ajudo meus pacientes a comerem sem culpa e a alcançarem seus objetivos de saúde.",
+                fisioterapia: "Ajudo meus pacientes a eliminarem a dor e a recuperarem a liberdade de movimento.",
+                psicologia: "Ajudo meus pacientes a desenvolverem inteligência emocional e superarem conflitos internos."
+            };
+            dashQuote.textContent = `"${defaultQuotes[area] || defaultQuotes.medicina}"`;
+        }
     }
     
     // 3. Update Plan Summary Card Blocks
