@@ -21,6 +21,16 @@
       ]
     },
     {
+      "id": "user-002",
+      "username": "celine",
+      "displayName": "Dra. Celine Lopes",
+      "passwordHash": "16432a792727262057933fa50f8167fe:d289d8d820573ecb46bce53b15db97f43756994aa194011662fc31188e28b8584505db39c066307021a2e56f6b1480e0347d9f1cc0edb5796217bc607bb8d031",
+      "role": "user",
+      "projects": [
+        "celine-lopes"
+      ]
+    },
+    {
       "id": "user-1781031267814",
       "username": "davibez@gmail.com",
       "displayName": "Dr. Davi Andrade",
@@ -30,6 +40,14 @@
     }
   ],
   "projects": [
+    {
+      "id": "celine-lopes",
+      "name": "Dra. Celine Lopes",
+      "description": "CRM-CE 25.970 | Médica",
+      "icon": "fa-solid fa-user-doctor",
+      "color": "#dc2626",
+      "createdAt": "2026-06-09"
+    },
     {
       "id": "projeto-modelo",
       "name": "Projeto Modelo",

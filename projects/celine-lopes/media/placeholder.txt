@@ -1,0 +1,2 @@
+# Folder created for local fallback media storage.
+# Place finalized video/image creatives here.
