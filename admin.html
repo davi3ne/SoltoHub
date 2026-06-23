@@ -683,11 +683,22 @@
                             throw new Error(authData.msg || authData.message || "Erro no signup do Supabase");
                         }
 
-                        const newUserId = authData.id || authData.user.id;
+                        const newUserId = authData.id || 
+                                          (authData.user && authData.user.id) || 
+                                          (authData.data && authData.data.id) || 
+                                          (authData.data && authData.data.user && authData.data.user.id);
+
+                        if (!newUserId) {
+                            console.error("Não foi possível obter o ID do novo usuário do Supabase:", authData);
+                            throw new Error("Usuário criado no Auth, mas falhou ao extrair o ID retornado.");
+                        }
 
                         const resProfile = await fetch(`${supabaseUrl}/rest/v1/user_profiles`, {
                             method: 'POST',
-                            headers: getHeaders(),
+                            headers: {
+                                ...getHeaders(),
+                                'Prefer': 'resolution=merge-duplicates'
+                            },
                             body: JSON.stringify({
                                 id: newUserId,
                                 username: username,

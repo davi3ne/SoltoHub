@@ -125,3 +125,35 @@ FOR EACH ROW
 EXECUTE FUNCTION public.auto_confirm_user();
 
 
+-- ====================================================
+-- CRIAÇÃO AUTOMÁTICA DE PERFIL (Profile Auto-Creation)
+-- ====================================================
+-- Este trigger garante que qualquer novo usuário criado no Supabase Auth (auth.users)
+-- tenha automaticamente um perfil correspondente inserido em public.user_profiles.
+-- Isso previne que contas fiquem órfãs (sem perfil) se o request do frontend falhar.
+
+CREATE OR REPLACE FUNCTION public.handle_new_user()
+RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO public.user_profiles (id, username, display_name, role, projects)
+    VALUES (
+        NEW.id,
+        COALESCE(NEW.raw_user_meta_data->>'username', SPLIT_PART(NEW.email, '@', 1)),
+        COALESCE(NEW.raw_user_meta_data->>'display_name', SPLIT_PART(NEW.email, '@', 1)),
+        COALESCE(NEW.raw_user_meta_data->>'role', 'user'),
+        COALESCE((NEW.raw_user_meta_data->>'projects')::jsonb, '[]'::jsonb)
+    )
+    ON CONFLICT (id) DO NOTHING;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- Remove a trigger anterior se existir para evitar erros
+DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
+
+CREATE TRIGGER on_auth_user_created
+    AFTER INSERT ON auth.users
+    FOR EACH ROW
+    EXECUTE FUNCTION public.handle_new_user();
+
+
