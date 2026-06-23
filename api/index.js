@@ -99,24 +99,62 @@ const MIME_TYPES = {
     '.webm': 'video/webm'
 };
 
-function getSession(req) {
+async function getSession(req) {
+    let token = null;
+
     // Tentar ler do Header Authorization
     const authHeader = req.headers['authorization'];
     if (authHeader && authHeader.startsWith('Bearer ')) {
-        const token = authHeader.substring(7);
-        if (sessions[token]) return { token, ...sessions[token] };
+        token = authHeader.substring(7);
     }
 
     // Tentar ler do Cookie session_token
-    const cookieHeader = req.headers['cookie'];
-    if (cookieHeader) {
-        const cookies = cookieHeader.split(';').reduce((acc, c) => {
-            const [name, val] = c.trim().split('=');
-            if (name && val) acc[name] = val;
-            return acc;
-        }, {});
-        const token = cookies['session_token'];
-        if (token && sessions[token]) return { token, ...sessions[token] };
+    if (!token) {
+        const cookieHeader = req.headers['cookie'];
+        if (cookieHeader) {
+            const cookies = cookieHeader.split(';').reduce((acc, c) => {
+                const [name, val] = c.trim().split('=');
+                if (name && val) acc[name] = val;
+                return acc;
+            }, {});
+            token = cookies['session_token'];
+        }
+    }
+
+    if (!token) return null;
+
+    // 1. Tentar validar localmente na tabela de sessões em memória
+    if (sessions[token]) {
+        return { token, ...sessions[token] };
+    }
+
+    // 2. Se não achou localmente e as chaves do Supabase estão configuradas no servidor, tenta validar com o Supabase Auth
+    const supabaseUrl = process.env.SUPABASE_URL || '';
+    const supabaseKey = process.env.SUPABASE_KEY || '';
+
+    if (supabaseUrl && supabaseKey && token.includes('.')) {
+        try {
+            const res = await fetch(`${supabaseUrl}/auth/v1/user`, {
+                method: 'GET',
+                headers: {
+                    'apikey': supabaseKey,
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (res.ok) {
+                const userData = await res.json();
+                return {
+                    token,
+                    id: userData.id,
+                    username: userData.email,
+                    displayName: userData.user_metadata?.display_name || userData.email,
+                    role: 'user'
+                };
+            }
+        } catch (e) {
+            console.error("Erro ao validar token JWT no Supabase:", e.message);
+        }
     }
 
     return null;
@@ -207,7 +245,7 @@ const server = http.createServer(async (req, res) => {
     // API: LOGOUT
     // ------------------------------------------------
     if (req.method === 'POST' && urlPath === '/api/logout') {
-        const session = getSession(req);
+        const session = await getSession(req);
         if (session) {
             delete sessions[session.token];
         }
@@ -222,7 +260,7 @@ const server = http.createServer(async (req, res) => {
     // API: GET /api/me
     // ------------------------------------------------
     if (req.method === 'GET' && urlPath === '/api/me') {
-        const session = getSession(req);
+        const session = await getSession(req);
         if (!session) {
             res.writeHead(401, { 'Content-Type': 'application/json' });
             return res.end(JSON.stringify({ error: 'Não autenticado' }));
@@ -235,7 +273,7 @@ const server = http.createServer(async (req, res) => {
     // API: POST /api/me/settings
     // ------------------------------------------------
     if (req.method === 'POST' && urlPath === '/api/me/settings') {
-        const session = getSession(req);
+        const session = await getSession(req);
         if (!session) {
             res.writeHead(401, { 'Content-Type': 'application/json' });
             return res.end(JSON.stringify({ error: 'Não autenticado' }));
@@ -311,7 +349,7 @@ const server = http.createServer(async (req, res) => {
     // API: POST /api/generate
     // ------------------------------------------------
     if (req.method === 'POST' && urlPath === '/api/generate') {
-        const session = getSession(req);
+        const session = await getSession(req);
         if (!session) {
             res.writeHead(401, { 'Content-Type': 'application/json' });
             return res.end(JSON.stringify({ error: 'Não autenticado' }));
@@ -401,7 +439,7 @@ const server = http.createServer(async (req, res) => {
     // ====================================================
     // VERIFICACÃO GERAL DE AUTH DAQUI EM DIANTE
     // ====================================================
-    const session = getSession(req);
+    const session = await getSession(req);
 
     // Regexes de API de Projeto
     const projectStateRegex = /^\/api\/projects\/([a-zA-Z0-9_-]+)\/state$/;
@@ -671,7 +709,7 @@ const server = http.createServer(async (req, res) => {
                 }
                 const dataPath = path.join(projectPath, 'data.json');
                 if (!fs.existsSync(dataPath)) {
-                    fs.writeFileSync(dataPath, JSON.stringify({ posts: [], pautas: [] }, null, 2), 'utf8');
+                    fs.writeFileSync(dataPath, JSON.stringify({ healthArea: project.healthArea || 'medicina', posts: [], pautas: [] }, null, 2), 'utf8');
                 }
 
                 res.writeHead(200, { 'Content-Type': 'application/json' });

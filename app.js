@@ -80,450 +80,851 @@ const DEMO_POSTS = [
         time: "18:00",
         hookA: "Tosse não é uma doença. É um reflexo de defesa. Mas quando ela acende o sinal de alerta?",
         hookB: "Seu filho está tossindo sem parar? Entenda os sinais que indicam que não é apenas um resfriado comum.",
-        caption: "A tosse serve para limpar as vias respiratórias de secreção. Mas quando ela é preocupante? 🗣️\n\nPreste atenção se a tosse vier acompanhada de:\n- Chiado ou assobio no peito.\n- Respiração rápida ou costelas afundando.\n- Febre alta por mais de 3 dias.\n- Lábios ou unhas arroxeadas.\n- Crises de engasgo ou vômitos provocados pela tosse.\n\nNesses casos, a avaliação médica é necessária para diagnosticar a causa e indicar o tratamento adequado.\n\n[Nome do Profissional] | [Sua Profissão] | [CRM/Registro]",
-        mediaDesc: "Vídeo curto destacando sons respiratórios e mostrando o esforço físico da respiração em ilustrações simples."
-    }
-];
+        caption: "A tosse serve para limpar as vias respiratórias de secreção. Mas quando ela é preocupante? 🗣️\n\nPreste atenção se a tosse vier acompanhada de:\n- Chiado ou assobio no peito.\n- Respiração rápida ou costelas afundando.\n- Febre alta por mais de 3 dias.\n- Lábios ou unhas arroxeadas.\n- Crises de engasgo ou vômitos provocados pela tosse.\n\nNesses casos, a avaliação médica é necessária para diagnosticar a causa e indicar o tratamento adequado.\n\n[Nome do Profissional] | [Sua Profissão] | [CRM/Registro]",// --- Default Strategy Topics (Organized by Health Specialty / Area) ---
+const PILARES_POR_AREA = {
+    medicina: [
+        {
+            id: "explain",
+            name: "1. Sintomas Comuns Explicados",
+            desc: "Ensinar o básico que os pais não sabem. Gera autoridade e alcance orgânico.",
+            items: [
+                {
+                    id: "pauta-ivas",
+                    title: "IVAS (Infecção das Vias Aéreas Superiores)",
+                    desc: "Gripes, resfriados, nariz escorrendo ou dor de garganta.",
+                    approaches: [
+                        {
+                            title: "Seu filho vive gripado? Entenda o que é IVAS",
+                            gancho: "Seu filho vive gripado? Talvez você esteja vendo episódios repetidos de IVAS — e isso é muito comum na infância.",
+                            mensagem: "IVAS (gripe e resfriado) é comum, mas precisa ser observada com atenção ao estado geral da criança e não apenas às secreções."
+                        },
+                        {
+                            title: "IVAS não é sinônimo de antibiótico",
+                            gancho: "Nem toda criança com tosse, catarro e febre precisa de antibiótico.",
+                            mensagem: "Grande parte das IVAS é de origem viral. Antibióticos tratam infecções bacterianas e não combatem vírus; o uso incorreto gera resistência."
+                        },
+                        {
+                            title: "Quando uma IVAS deixa de ser só um resfriado?",
+                            gancho: "Resfriado em criança é comum, mas esses sinais mostram que pode ser hora de procurar atendimento.",
+                            mensagem: "Fique de olho em sinais de alerta: esforço respiratório, recusa de líquidos, apatia persistente e febre por mais de 3 dias."
+                        }
+                    ]
+                },
+                {
+                    id: "pauta-geca",
+                    title: "GECA (Gastroenterocolite Aguda)",
+                    desc: "Vômitos, diarreia, dor abdominal e febre na infância.",
+                    approaches: [
+                        {
+                            title: "GECA: o nome difícil para vômitos e diarreia",
+                            gancho: "GECA é um nome complicado para uma situação que muitos pais conhecem: vômitos e diarreia.",
+                            mensagem: "A GECA é muito comum em crianças e, na maioria das vezes, é viral. O mais importante é o controle de perdas de líquidos e repouso intestinal."
+                        },
+                        {
+                            title: "O maior perigo da diarreia é a desidratação",
+                            gancho: "Na diarreia, o maior perigo muitas vezes não é a diarreia: é a desidratação.",
+                            mensagem: "Monitore os sinais de desidratação: boca seca, olhos fundos, ausência de lágrimas ao chorar e ficar mais de 6 horas sem fazer xixi."
+                        },
+                        {
+                            title: "O que observar antes de levar a criança para avaliação",
+                            gancho: "Seu filho está com vômitos e diarreia? Essas informações ajudam muito na avaliação.",
+                            mensagem: "Anote a frequência de vômitos/evacuações, se aceita soro de reidratação e se mantém a urina normal."
+                        }
+                    ]
+                },
+                {
+                    id: "pauta-bronquiolite",
+                    title: "Bronquiolite / BVA",
+                    desc: "Infecção viral nos bronquíolos, muito comum em bebês.",
+                    approaches: [
+                        {
+                            title: "Bronquiolite começa parecendo uma gripe",
+                            gancho: "Bronquiolite pode começar parecendo uma gripe, mas em bebês pequenos merece atenção.",
+                            mensagem: "O início da bronquiolite imita um resfriado com coriza e tosse leve, mas pode evoluir com cansaço após 1 a 2 dias."
+                        },
+                        {
+                            title: "Na bronquiolite, olhe para a respiração",
+                            gancho: "Na bronquiolite, o mais importante não é só a tosse: é a respiração do bebê.",
+                            mensagem: "Fique alerta à respiração rápida, costelas afundando (tiragem), asa do nariz abrindo ao respirar e chiado alto."
+                        },
+                        {
+                            title: "Bronquiolite não costuma ser doença de antibiótico",
+                            gancho: "Bronquiolite não costuma ser uma doença de antibiótico.",
+                            mensagem: "Como é de causa predominantemente viral (VSR), o tratamento é de suporte: lavagem nasal, hidratação e inalação sob recomendação médica."
+                        }
+                    ]
+                },
+                {
+                    id: "pauta-febre",
+                    title: "Febre",
+                    desc: "Defesa natural do corpo contra infecções.",
+                    approaches: [
+                        {
+                            title: "Febre: quando procurar ajuda médica",
+                            gancho: "Seu filho tá com febre e você não sabe se vai pro pronto-socorro ou fica em casa. Deixa eu te ajudar.",
+                            mensagem: "Se a criança estiver ativa e aceitando líquidos após a temperatura baixar com antitérmico, pode ser acompanhada em casa. Trate o estado geral, não o termômetro."
+                        },
+                        {
+                            title: "O erro de olhar só para o número",
+                            gancho: "Na febre, não olhe só para o termômetro.",
+                            mensagem: "Uma febre de 38,5°C com a criança ativa e sorridente preocupa menos que 37,9°C com prostração severa e recusa de água."
+                        },
+                        {
+                            title: "Quando a febre exige avaliação",
+                            gancho: "Febre em criança: esses sinais indicam que você deve procurar atendimento.",
+                            mensagem: "Urgência se: bebê com menos de 3 meses, febre persistente por mais de 72h, manchas vermelhas na pele ou gemência respiratória."
+                        },
+                        {
+                            title: "Febre alta causa convulsão?",
+                            gancho: "Febre alta causa convulsão? Esse é um dos maiores medos dos pais — mas não é exatamente assim.",
+                            mensagem: "A convulsão febril tem origem em predisposição genética e na rapidez de subida da temperatura, não apenas no número final de graus."
+                        }
+                    ]
+                },
+                {
+                    id: "pauta-tosse",
+                    title: "Tosse",
+                    desc: "Mecanismo de proteção para limpar as vias aéreas.",
+                    approaches: [
+                        {
+                            title: "Tosse é sintoma, não diagnóstico",
+                            gancho: "Tosse não é uma doença. Tosse é um sinal de que algo está acontecendo.",
+                            mensagem: "A tosse serve para expelir secreções. Cortá-la sem entender a causa pode mascarar problemas ou piorar a congestão pulmonar."
+                        },
+                        {
+                            title: "Nem toda tosse precisa de xarope",
+                            gancho: "Antes de dar xarope para tosse, entenda isso.",
+                            mensagem: "A maioria dos xaropes expectorantes ou inibidores não é indicada para crianças pequenas devido a riscos de efeitos adversos. Prefira a hidratação e lavagem nasal."
+                        },
+                        {
+                            title: "Quando a tosse preocupa",
+                            gancho: "Tosse em criança é comum, mas esses sinais mudam tudo.",
+                            mensagem: "Procure o médico se a tosse vier acompanhada de cansaço respiratório, chiado, febre que ressurge ou se for tosse que impede a criança de dormir ou comer."
+                        }
+                    ]
+                },
+                {
+                    id: "pauta-nariz",
+                    title: "Nariz Entupido",
+                    desc: "Congestão nasal que dificulta o sono e mamadas.",
+                    approaches: [
+                        {
+                            title: "Nariz entupido em criança não é frescura",
+                            gancho: "Nariz entupido em criança pequena pode atrapalhar muito mais do que parece.",
+                            mensagem: "Bebês têm vias aéreas muito estreitas e respiram preferencialmente pelo nariz. O entupimento prejudica a mamada e impede o sono reparador."
+                        },
+                        {
+                            title: "Nariz entupido não significa antibiótico",
+                            gancho: "Seu filho está com nariz entupido e catarro? Isso não significa automaticamente antibiótico.",
+                            mensagem: "O catarro esverdeado ou amarelado no fim do resfriado é normal e faz parte da limpeza natural do corpo, sem indicar infecção bacteriana."
+                        },
+                        {
+                            title: "Quando o nariz entupido precisa de avaliação",
+                            gancho: "Nariz entupido é comum, mas esses sinais mostram que pode não ser só isso.",
+                            mensagem: "Se a congestão impede a amamentação ou ingestão de líquidos, ou se persistir por mais de 10 dias com dor facial ou febre, procure atendimento."
+                        }
+                    ]
+                },
+                {
+                    id: "pauta-anemia",
+                    title: "Anemia na Infância",
+                    desc: "Prevenção e cuidados com a deficiência de ferro.",
+                    approaches: [
+                        {
+                            title: "Anemia em criança nem sempre aparece de forma óbvia",
+                            gancho: "Anemia em criança pode ser silenciosa no começo.",
+                            mensagem: "Os sintomas incluem palidez sutil, cansaço fácil, menor apetite e irritabilidade. A prevenção começa com a nutrição adequada e exames de rotina."
+                        },
+                        {
+                            title: "Toda anemia é falta de ferro?",
+                            gancho: "Toda anemia é falta de ferro? Não necessariamente.",
+                            mensagem: "Existem anemias hereditárias, por outras carências de vitaminas ou por inflamações. O diagnóstico preciso evita a suplementação incorreta."
+                        },
+                        {
+                            title: "Ferro: quando usar e por que não usar por conta própria",
+                            gancho: "Ferro não é vitamina para usar no chute.",
+                            mensagem: "A suplementação profilática tem protocolo específico na infância, mas o excesso de ferro é tóxico. Só use sob orientação médica."
+                        }
+                    ]
+                },
+                {
+                    id: "pauta-pele",
+                    title: "Pele do Recém-Nascido (RN)",
+                    desc: "Diferenciação de manchas comuns e brotoejas.",
+                    approaches: [
+                        {
+                            title: "A pele do recém-nascido muda muito",
+                            gancho: "Nem toda manchinha na pele do recém-nascido é motivo para desespero.",
+                            mensagem: "Brotoejas, milium e acne neonatal são reações normais de adaptação da pele do bebê ao ambiente e costumam desaparecer sozinhas."
+                        },
+                        {
+                            title: "O erro de passar pomada sem saber o que é",
+                            gancho: "Antes de passar pomada na pele do recém-nascido, cuidado.",
+                            mensagem: "Automedicação na pele delicada do bebê pode causar dermatites de contato ou reações alérgicas graves. Água e sabão neutro costumam bastar."
+                        },
+                        {
+                            title: "Quando uma mancha no bebê preocupa",
+                            gancho: "Mancha na pele do bebê: quando é comum e quando merece avaliação?",
+                            mensagem: "Preocupe-se se a lesão apresentar bolhas, pus, manchas roxas que não somem ao toque ou se vier associada a febre ou choro de dor."
+                        }
+                    ]
+                },
+                {
+                    id: "pauta-respiracao",
+                    title: "Respiração do Bebê / Recém-Nascido",
+                    desc: "Como identificar o padrão respiratório normal do bebê.",
+                    approaches: [
+                        {
+                            title: "Recém-nascido respira diferente?",
+                            gancho: "Recém-nascido respira diferente, mas nem tudo deve ser considerado normal.",
+                            mensagem: "Bebês têm respiração periódica (com pausas curtas) e mais rápida que os adultos. Porém, ruídos frequentes e esforço merecem atenção."
+                        },
+                        {
+                            title: "Como saber se o bebê está fazendo força para respirar",
+                            gancho: "Costelas afundando, nariz abrindo e gemência: esses sinais na respiração do bebê merecem atenção.",
+                            mensagem: "Tiragem intercostal (afundamento da pele entre as costelas), gemidos e batimento de asa do nariz indicam fadiga respiratória."
+                        },
+                        {
+                            title: "Bebê que cansa para mamar pode estar respirando mal",
+                            gancho: "Se o bebê está cansando para mamar, o problema pode não ser só fome.",
+                            mensagem: "Se o bebê solta o peito toda hora para respirar, fica suado ou cansado ao mamar, ele pode estar com cansaço respiratório."
+                        }
+                    ]
+                },
+                {
+                    id: "pauta-chiado",
+                    title: "Chiado no Peito (Sibilância)",
+                    desc: "O famoso 'peito chiando' na infância.",
+                    approaches: [
+                        {
+                            title: "Chiado no peito: o que os pais estão ouvindo?",
+                            gancho: "Chiado no peito não é tudo igual.",
+                            mensagem: "O chiado (sibilância) é um ruído causado pelo estreitamento dos brônquios. Pode indicar bronquiolite, bronquite ou asma, exigindo avaliação médica."
+                        },
+                        {
+                            title: "Todo chiado é asma?",
+                            gancho: "Seu filho chiou uma vez. Isso quer dizer que ele tem asma?",
+                            mensagem: "Muitos bebês chiam exclusivamente durante episódios de resfriados virais (sibilância transitória) e nunca desenvolverão asma."
+                        },
+                        {
+                            title: "Chiado no peito: quando é preocupante?",
+                            gancho: "Doutora, meu filho está com chiado no peito. Isso é preocupante?",
+                            mensagem: "Se houver chiado associado a esforço para respirar, lábios arroxeados ou cansaço grave, a ida ao pronto-socorro deve ser imediata."
+                        }
+                    ]
+                },
+                {
+                    id: "pauta-otite",
+                    title: "Otite (Dor de Ouvido)",
+                    desc: "Infecção ou inflamação do ouvido na infância.",
+                    approaches: [
+                        {
+                            title: "Dor de ouvido em criança: pode ser otite?",
+                            gancho: "Seu filho está com febre e mexendo na orelha? Pode ser dor de ouvido.",
+                            mensagem: "A otite costuma surgir após gripes. Em bebês, o sinal pode ser choro intenso ao deitar e coceira constante na orelha."
+                        },
+                        {
+                            title: "Nem toda otite precisa de antibiótico",
+                            gancho: "Toda otite precisa de antibiótico? Não necessariamente.",
+                            mensagem: "Muitas otites médias agudas em crianças maiores são virais ou se resolvem sozinhas. A decisão de usar antibiótico exige exame físico minucioso."
+                        },
+                        {
+                            title: "Quando a dor de ouvido preocupa",
+                            gancho: "Dor de ouvido em criança: esses sinais merecem avaliação.",
+                            mensagem: "Sinais de gravidade: secreção purulenta ou sangue saindo pelo canal auditivo, febre persistente e inchaço ou vermelhidão atrás da orelha."
+                        }
+                    ]
+                },
+                {
+                    id: "pauta-garganta",
+                    title: "Dor de Garganta / Amigdalite",
+                    desc: "Inflamação da garganta na infância.",
+                    approaches: [
+                        {
+                            title: "Dor de garganta: vírus ou bactéria?",
+                            gancho: "Garganta inflamada nem sempre significa bactéria.",
+                            mensagem: "Nas crianças menores de 3 anos, quase 100% das inflamações de garganta são virais. Placas brancas não significam automaticamente bactéria!"
+                        },
+                        {
+                            title: "Garganta inflamada sempre precisa de antibiótico?",
+                            gancho: "Garganta inflamada não é sinônimo de antibiótico.",
+                            mensagem: "A amigdalite estreptocócica (bacteriana) é mais comum após os 3 anos. O diagnóstico correto evita o uso desnecessário de benzetacil ou amoxicilina."
+                        },
+                        {
+                            title: "Quando a dor de garganta exige avaliação",
+                            gancho: "Dor de garganta em criança: quando não é para esperar passar?",
+                            mensagem: "Leve ao médico se a criança estiver babando (dificuldade de engolir a própria saliva), recusando qualquer líquido ou com dificuldade para abrir a boca."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: "alert",
+            name: "2. Sinais de Alerta",
+            desc: "Mostrar quando procurar atendimento. Alta utilidade e muito compartilhado.",
+            items: [
+                {
+                    id: "pauta-alerta-febre",
+                    title: "Febre: Quando se Preocupar",
+                    desc: "Identificação dos sinais críticos durante episódios febris.",
+                    approaches: [
+                        {
+                            title: "Sinais de gravidade na febre infantil",
+                            gancho: "Febre em si não é doença, mas estes 3 sinais mostram que ela precisa de avaliação rápida.",
+                            mensagem: "Fique atento: bebê < 3 meses com febre, febre que não cede após 72 horas ou prostração intensa mesmo após a febre baixar com remédio."
+                        }
+                    ]
+                },
+                {
+                    id: "pauta-alerta-tosse",
+                    title: "Tosse: When to Worry",
+                    desc: "Identificar quando a tosse se torna um sinal de perigo respiratório.",
+                    approaches: [
+                        {
+                            title: "Tosse com cansaço respiratório",
+                            gancho: "O problema não é só tossir; é tossir com estes sinais de cansaço no peito.",
+                            mensagem: "Se a tosse vier com respiração acelerada, costelas afundando ou lábios arroxeados, a avaliação médica é imediata."
+                        }
+                    ]
+                },
+                {
+                    id: "pauta-alerta-desidratacao",
+                    title: "Diarreia: Sinais de Desidratação",
+                    desc: "Avaliar o nível de hidratação em quadros de GECA.",
+                    approaches: [
+                        {
+                            title: "Como reconhecer a desidratação",
+                            gancho: "Na diarreia, o perigo é a desidratação. Você sabe identificar os sinais no seu filho?",
+                            mensagem: "Observe se a criança está com a boca muito seca, chora sem ver lágrimas, está muito apática ou passa mais de 6 horas sem fazer xixi."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: "myth",
+            name: "3. Mitos e Desmistificação",
+            desc: "Gerar engajamento e construir autoridade. Alto potencial de compartilhamento.",
+            items: [
+                {
+                    id: "pauta-mito-catarro",
+                    title: "Catarro Verde precisa de Antibiótico?",
+                    desc: "Desmistificar a coloração do muco nasal.",
+                    approaches: [
+                        {
+                            title: "A cor do catarro e a necessidade de antibiótico",
+                            gancho: "Catarro verde não é sinônimo de bactéria nem de antibiótico.",
+                            mensagem: "O catarro esverdeado é apenas a resposta de defesa (glóbulos brancos em ação). A imensa maioria dos resfriados é viral e não usa antibiótico."
+                        }
+                    ]
+                },
+                {
+                    id: "pauta-mito-xarope",
+                    title: "Tosse precisa de Xarope?",
+                    desc: "Quebrando a cultura da prescrição automática de xaropes.",
+                    approaches: [
+                        {
+                            title: "Xaropes contra a tosse: mocinhos ou vilões?",
+                            gancho: "Quer um xarope para cortar a tosse do seu filho? Talvez você esteja fazendo o oposto do ideal.",
+                            mensagem: "Automedicar tosse com xaropes, especialmente em menores de 2 anos, é perigoso. Lavagem nasal e mel (para maiores de 1 ano) são alternativas muito melhores."
+                        }
+                    ]
+                },
+                {
+                    id: "pauta-mito-lavagem",
+                    title: "Lavagem Nasal Afoga o Bebê?",
+                    desc: "Perguntas e receios sobre a higienização com soro.",
+                    approaches: [
+                        {
+                            title: "Desmistificando o medo da lavagem nasal",
+                            gancho: "Tem medo de afogar seu filho fazendo lavagem nasal? Veja por que isso é um mito.",
+                            mensagem: "A lavagem é segura se a criança estiver sentada ou inclinada para a frente e o fluxo for suave. O soro limpa o muco e evita complicações no ouvido."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: "practice",
+            name: "4. Orientações Práticas",
+            desc: "Dar utilidade real. Conteúdo salvável que o pai guarda para usar depois.",
+            items: [
+                {
+                    id: "pauta-prat-medir-febre",
+                    title: "Como Medir e Observar a Febre",
+                    desc: "Passo a passo prático para manejo doméstico da febre.",
+                    approaches: [
+                        {
+                            title: "Manejo seguro da febre infantil",
+                            gancho: "Seu filho está com febre? Siga esse roteiro prático antes de tomar qualquer decisão.",
+                            mensagem: "Use o termômetro axilar, medique se houver desconforto, dê banhos mornos de imersão e ofereça muito líquido."
+                        }
+                    ]
+                },
+                {
+                    id: "pauta-prat-lavagem-passo",
+                    title: "Passo a Passo da Lavagem Nasal",
+                    desc: "Tutorial detalhado para mães e pais.",
+                    approaches: [
+                        {
+                            title: "Técnica perfeita de lavagem nasal",
+                            gancho: "Lavagem nasal sem drama: o guia definitivo e seguro para mães de bebês.",
+                            mensagem: "Prepare a seringa com soro morno, incline a criança levemente e aplique de forma contínua mirando na parede lateral do nariz."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: "conversion",
+            name: "5. Método de Atendimento e Conversão",
+            desc: "Mostrar como é sua consulta e gerar agendamento. Transforma seguidores em pacientes.",
+            items: [
+                {
+                    id: "pauta-conv-metodo",
+                    title: "Consulta Focada na Criança: Como Funciona?",
+                    desc: "Apresentar a proposta de valor do atendimento humanizado.",
+                    approaches: [
+                        {
+                            title: "Consulta infantil com escuta e explicação",
+                            gancho: "Consulta infantil não deveria ser apenas medir, pesar e passar receita em 15 minutos.",
+                            mensagem: "Minhas consultas são demoradas, explicativas e buscam tirar todas as dúvidas para dar segurança aos pais em casa."
+                        }
+                    ]
+                },
+                {
+                    id: "pauta-conv-domiciliar",
+                    title: "Atendimento Domiciliar: Vantagens",
+                    desc: "Demonstrar o valor de receber a médica em casa.",
+                    approaches: [
+                        {
+                            title: "Quando a consulta em casa faz a diferença",
+                            gancho: "Sair com bebê doente no trânsito ou esperar em pronto-socorro cheio? Há outra alternativa.",
+                            mensagem: "O atendimento domiciliar garante o diagnóstico detalhado com a criança calma em seu próprio ambiente, livre de contaminações de pronto-socorro."
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    odontologia: [
+        {
+            id: "explain",
+            name: "1. Prevenção & Saúde Bucal",
+            desc: "Ensinar cuidados preventivos e o básico da higiene para evitar problemas.",
+            items: [
+                {
+                    id: "pauta-gengiva",
+                    title: "Sangramento na Gengiva",
+                    desc: "Gengivas que sangram ao usar fio dental ou escovar.",
+                    approaches: [
+                        {
+                            title: "Sua gengiva sangra ao usar fio dental?",
+                            gancho: "Sua gengiva sangra quando você passa fio dental? Cuidado, isso não é normal.",
+                            mensagem: "O sangramento indica inflamação (gengivite). Escovação correta e uso diário do fio dental resolvem, mas uma limpeza profissional é indispensável."
+                        }
+                    ]
+                },
+                {
+                    id: "pauta-sensibilidade",
+                    title: "Sensibilidade nos Dentes",
+                    desc: "Dores agudas ao consumir alimentos frios, quentes ou doces.",
+                    approaches: [
+                        {
+                            title: "Dores ao tomar água gelada?",
+                            gancho: "Beber água gelada virou um desafio por aí?",
+                            mensagem: "A sensibilidade pode ser causada por retração da gengiva ou desgaste do esmalte. O uso de pastas específicas ajuda, mas investigar a causa (como bruxismo) é fundamental."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: "alert",
+            name: "2. Dores & Urgências",
+            desc: "Identificar quando procurar atendimento de urgência ou extrair dentes.",
+            items: [
+                {
+                    id: "pauta-siso",
+                    title: "O Nascimento do Dente do Siso",
+                    desc: "Identificar quando a extração do siso é necessária.",
+                    approaches: [
+                        {
+                            title: "Seu siso está nascendo?",
+                            gancho: "Seu siso está nascendo e você não sabe se precisa extrair?",
+                            mensagem: "Nem todo siso precisa ser retirado. A extração é indicada quando não há espaço na arcada, causa dor ou dificulta a higienização."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: "myth",
+            name: "3. Mitos & Verdades",
+            desc: "Combater mitos e medos sobre tratamentos odontológicos.",
+            items: [
+                {
+                    id: "pauta-escova",
+                    title: "Escova com Cerdas Duras",
+                    desc: "O mito de que escova dura limpa melhor os dentes.",
+                    approaches: [
+                        {
+                            title: "O erro da escova de dentes dura",
+                            gancho: "Você compra escova de dente com cerdas duras achando que limpa melhor?",
+                            mensagem: "Escovas duras machucam a gengiva e desgastam o esmalte. Use sempre cerdas macias ou extramacias e faça movimentos suaves."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: "practice",
+            name: "4. Estética & Sorriso",
+            desc: "Esclarecer sobre procedimentos estéticos e alinhadores invisíveis.",
+            items: [
+                {
+                    id: "pauta-clareamento",
+                    title: "Clareamento Dental",
+                    desc: "Dúvidas comuns sobre segurança e sensibilidade no clareamento.",
+                    approaches: [
+                        {
+                            title: "Clareamento estraga o dente?",
+                            gancho: "Clareamento dental estraga o esmalte dos dentes? Vamos desmistificar isso.",
+                            mensagem: "Quando feito sob supervisão do dentista, o clareamento é seguro e não enfraquece os dentes. O segredo é respeitar a concentração e o tempo corretos."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: "conversion",
+            name: "5. Posicionamento & Tecnologia",
+            desc: "Mostrar o diferencial do seu consultório e tratamento humanizado.",
+            items: [
+                {
+                    id: "pauta-tecnologia",
+                    title: "Tecnologia e Conforto no Consultório",
+                    desc: "Combater o medo de dentista usando novidades tecnológicas.",
+                    approaches: [
+                        {
+                            title: "Ir ao dentista sem medo",
+                            gancho: "Ir ao dentista não precisa mais ser sinônimo de dor e barulho de motorzinho.",
+                            mensagem: "Hoje utilizamos tecnologias que tornam o atendimento rápido, confortável e humanizado. Priorizamos o seu bem-estar."
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    nutricao: [
+        {
+            id: "explain",
+            name: "1. Alimentação & Nutrição Prática",
+            desc: "Ensinar a fazer boas escolhas no dia a dia sem radicalismo.",
+            items: [
+                {
+                    id: "pauta-prato",
+                    title: "Como Montar um Prato Equilibrado",
+                    desc: "Organização dos macros e vegetais nas refeições principais.",
+                    approaches: [
+                        {
+                            title: "Almoço equilibrado dá mais energia",
+                            gancho: "Seu almoço te deixa com sono ou sem energia à tarde?",
+                            mensagem: "Um prato equilibrado deve ter metade de vegetais, um quarto de carboidratos complexos e um quarto de proteínas. Isso garante saciedade e energia estável."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: "alert",
+            name: "2. Longevidade & Saúde",
+            desc: "Relação entre os alimentos e o bom funcionamento do corpo.",
+            items: [
+                {
+                    id: "pauta-intestino",
+                    title: "Intestino: O Segundo Cérebro",
+                    desc: "Como a saúde intestinal impacta humor e imunidade.",
+                    approaches: [
+                        {
+                            title: "Seu intestino funciona bem?",
+                            gancho: "Você sabia que a sua imunidade e até o seu humor começam no seu intestino?",
+                            mensagem: "Um intestino saudável absorve melhor os nutrientes e produz neurotransmissores do bem-estar. Consuma fibras e beba água regularmente."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: "myth",
+            name: "3. Emagrecimento & Mitos",
+            desc: "Quebrar falsas verdades sobre dietas e restrições extremas.",
+            items: [
+                {
+                    id: "pauta-carbo-noite",
+                    title: "Carboidratos à Noite",
+                    desc: "Desmistificar o medo de comer pão ou arroz no jantar.",
+                    approaches: [
+                        {
+                            title: "Pode comer carboidrato à noite?",
+                            gancho: "Você corta o arroz ou pão à noite achando que vai engordar?",
+                            mensagem: "O ganho de peso depende do saldo calórico do dia inteiro. Consumir carboidratos à noite não engorda e pode até melhorar a qualidade do seu sono."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: "practice",
+            name: "4. Dores & Fome Emocional",
+            desc: "Identificar padrões de comportamento e desejos alimentares.",
+            items: [
+                {
+                    id: "pauta-doces",
+                    title: "Desejo Incontrolável por Doces",
+                    desc: "Como lidar com a fissura por açúcar no fim do dia.",
+                    approaches: [
+                        {
+                            title: "Ansiedade e vontade de doce",
+                            gancho: "Bateu aquela ansiedade e a primeira coisa que você quer é um doce?",
+                            mensagem: "A vontade de doce pode ser falta de proteína no dia, restrição excessiva ou fome emocional. Aprenda a identificar antes de comer por impulso."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: "conversion",
+            name: "5. Posicionamento & Método",
+            desc: "Apresentar a sua metodologia de atendimento de forma exclusiva.",
+            items: [
+                {
+                    id: "pauta-metodo-nutri",
+                    title: "Consulta e Acompanhamento Personalizado",
+                    desc: "Mostrar que não trabalha com dietas prontas de gaveta.",
+                    approaches: [
+                        {
+                            title: "Acompanhamento real sem restrições",
+                            gancho: "Dieta de gaveta não funciona. Deixa eu te explicar como trabalho.",
+                            mensagem: "Minha consulta foca na sua rotina real, preferências e objetivos. O plano é construído com você, facilitando a adesão sem restrições absurdas."
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    fisioterapia: [
+        {
+            id: "explain",
+            name: "1. Dores & Postura",
+            desc: "Explicar a origem das dores corporais mais comuns da rotina.",
+            items: [
+                {
+                    id: "pauta-lombar",
+                    title: "Dor Lombar ao Trabalhar",
+                    desc: "Dores na região lombar após passar horas sentado.",
+                    approaches: [
+                        {
+                            title: "Lombar doendo no trabalho?",
+                            gancho: "Você passa o dia sentado e termina com aquela dor incômoda na lombar?",
+                            mensagem: "A dor lombar geralmente não é fadiga óssea, mas falta de mobilidade e fraqueza muscular. Pequenas pausas para alongar ajudam muito."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: "alert",
+            name: "2. Sinais do Corpo",
+            desc: "Diferenciar desconfortos leves de lesões articulares graves.",
+            items: [
+                {
+                    id: "pauta-dor-treino",
+                    title: "Dor Muscular vs. Lesão Articular",
+                    desc: "Saber se a dor após o exercício físico exige médico.",
+                    approaches: [
+                        {
+                            title: "Dor pós-treino ou lesão?",
+                            gancho: "Treinou e ficou com dor? Como saber se é apenas cansaço ou uma lesão?",
+                            mensagem: "A dor muscular pós-treino atinge o ápice em 48h e diminui. Dores agudas nas articulações ou que persistem merecem avaliação profissional."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: "myth",
+            name: "3. Mitos do Movimento",
+            desc: "Combater o medo de se mover e a cultura do repouso absoluto.",
+            items: [
+                {
+                    id: "pauta-hernia",
+                    title: "Hérnia de Disco e Repouso",
+                    desc: "Mito de que quem tem hérnia não pode carregar peso ou treinar.",
+                    approaches: [
+                        {
+                            title: "Hérnia de disco precisa de repouso?",
+                            gancho: "Descobriu uma hérnia de disco e acha que nunca mais vai poder pegar peso?",
+                            mensagem: "O repouso absoluto piora a hérnia. O movimento orientado e o fortalecimento do core são as chaves para eliminar a dor e devolver sua liberdade."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: "practice",
+            name: "4. Reabilitação & Mobilidade",
+            desc: "Exercícios e rotinas simples de autocuidado para o corpo.",
+            items: [
+                {
+                    id: "pauta-alongamento",
+                    title: "Rotina de Mobilidade Matinal",
+                    desc: "Exercícios de 5 minutos ao acordar para destravar as articulações.",
+                    approaches: [
+                        {
+                            title: "Comece o dia sem rigidez",
+                            gancho: "Você acorda sentindo o corpo travado ou rígido?",
+                            mensagem: "Fazer 5 minutos de mobilidade e alongamento ao acordar lubrifica as articulações e prepara o corpo para o dia, reduzindo dores."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: "conversion",
+            name: "5. Posicionamento & Retorno",
+            desc: "Promover a fisioterapia como tratamento mecânico definitivo contra dores.",
+            items: [
+                {
+                    id: "pauta-causa-dor",
+                    title: "Tratamento na Causa sem Medicamentos",
+                    desc: "Mostrar que anti-inflamatórios apenas silenciam a dor temporariamente.",
+                    approaches: [
+                        {
+                            title: "Chega de tomar remédios para dor",
+                            gancho: "Você vive tomando anti-inflamatório para dor nas costas?",
+                            mensagem: "O remédio apenas mascara o sintoma. O tratamento fisioterapêutico ataca a causa mecânica da dor através de exercícios clínicos e terapia manual."
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    psicologia: [
+        {
+            id: "explain",
+            name: "1. Saúde Mental & Emoções",
+            desc: "Explicar e normalizar sentimentos e sintomas psicológicos cotidianos.",
+            items: [
+                {
+                    id: "pauta-burnout",
+                    title: "Sinais de Burnout e Esgotamento",
+                    desc: "Diferença entre cansaço normal e esgotamento mental profissional.",
+                    approaches: [
+                        {
+                            title: "Cansaço crônico ou Burnout?",
+                            gancho: "Você se sente cansado mesmo depois de dormir o final de semana inteiro?",
+                            mensagem: "O esgotamento mental (burnout) vai além do cansaço físico. Sintomas incluem apatia, irritabilidade extrema e distanciamento do trabalho."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: "alert",
+            name: "2. Relações & Limites",
+            desc: "Dicas de convivência saudável e estabelecimento de barreiras pessoais.",
+            items: [
+                {
+                    id: "pauta-nao",
+                    title: "Dizer Não sem Sentir Culpa",
+                    desc: "Como impor limites protege a saúde mental.",
+                    approaches: [
+                        {
+                            title: "A arte de dizer não",
+                            gancho: "Você tem dificuldade de dizer não e acaba sempre sobrecarregado?",
+                            mensagem: "Dizer não aos outros é dizer sim para sua saúde mental. Estabelecer limites saudáveis é um ato de respeito com você mesmo."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: "myth",
+            name: "3. Desmistificando a Psicoterapia",
+            desc: "Reduzir o estigma associado a buscar ajuda profissional.",
+            items: [
+                {
+                    id: "pauta-terapia-crise",
+                    title: "Terapia não é só para Crises",
+                    desc: "Mostrar que terapia é voltada para crescimento e autoconhecimento diário.",
+                    approaches: [
+                        {
+                            title: "Para quem é a terapia?",
+                            gancho: "Acha que terapia é só para quem está vivendo uma crise grave?",
+                            mensagem: "A psicoterapia é um espaço de autoconhecimento, desenvolvimento de inteligência emocional e resolução de conflitos internos cotidianos."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: "practice",
+            name: "4. Exercícios & Controle de Crises",
+            desc: "Ferramentas práticas para regulação emocional e ansiedade.",
+            items: [
+                {
+                    id: "pauta-respirar-ansiedade",
+                    title: "Respiração Diafragmática",
+                    desc: "Técnica de respiração simples para acalmar batimentos em crise.",
+                    approaches: [
+                        {
+                            title: "Respiração contra ansiedade",
+                            gancho: "Sentiu a ansiedade subir e o coração acelerar? Faça isso agora.",
+                            mensagem: "Use a técnica de respiração diafragmática (respire em 4 segundos, segure por 2, expire em 6). Isso acalma o sistema nervoso simpático."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: "conversion",
+            name: "5. Posicionamento & Acolhimento",
+            desc: "Apresentar a terapia como o espaço seguro que o paciente precisa.",
+            items: [
+                {
+                    id: "pauta-espaco-seguro",
+                    title: "Um Espaço Livre de Julgamentos",
+                    desc: "Diferenciar a conversa terapêutica do conselho de amigos.",
+                    approaches: [
+                        {
+                            title: "Terapia vs Conversar com amigos",
+                            gancho: "Conversar com amigos ajuda, mas a psicoterapia oferece algo diferente.",
+                            mensagem: "Aqui você encontra um espaço livre de julgamentos, com escuta qualificada e embasamento científico para trilhar seu caminho de evolução."
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+};
 
-// --- Default Strategy Topics (Organized by 5 Pillars) ---
-const INITIAL_PAUTAS = [
-    {
-        id: "explain",
-        name: "1. Sintomas Comuns Explicados",
-        desc: "Ensinar o básico que os pais não sabem. Gera autoridade e alcance orgânico.",
-        items: [
-            {
-                id: "pauta-ivas",
-                title: "IVAS (Infecção das Vias Aéreas Superiores)",
-                desc: "Gripes, resfriados, nariz escorrendo ou dor de garganta.",
-                approaches: [
-                    {
-                        title: "Seu filho vive gripado? Entenda o que é IVAS",
-                        gancho: "Seu filho vive gripado? Talvez você esteja vendo episódios repetidos de IVAS — e isso é muito comum na infância.",
-                        mensagem: "IVAS (gripe e resfriado) é comum, mas precisa ser observada com atenção ao estado geral da criança e não apenas às secreções."
-                    },
-                    {
-                        title: "IVAS não é sinônimo de antibiótico",
-                        gancho: "Nem toda criança com tosse, catarro e febre precisa de antibiótico.",
-                        mensagem: "Grande parte das IVAS é de origem viral. Antibióticos tratam infecções bacterianas e não combatem vírus; o uso incorreto gera resistência."
-                    },
-                    {
-                        title: "Quando uma IVAS deixa de ser só um resfriado?",
-                        gancho: "Resfriado em criança é comum, mas esses sinais mostram que pode ser hora de procurar atendimento.",
-                        mensagem: "Fique de olho em sinais de alerta: esforço respiratório, recusa de líquidos, apatia persistente e febre por mais de 3 dias."
-                    }
-                ]
-            },
-            {
-                id: "pauta-geca",
-                title: "GECA (Gastroenterocolite Aguda)",
-                desc: "Vômitos, diarreia, dor abdominal e febre na infância.",
-                approaches: [
-                    {
-                        title: "GECA: o nome difícil para vômitos e diarreia",
-                        gancho: "GECA é um nome complicado para uma situação que muitos pais conhecem: vômitos e diarreia.",
-                        mensagem: "A GECA é muito comum em crianças e, na maioria das vezes, é viral. O mais importante é o controle de perdas de líquidos e repouso intestinal."
-                    },
-                    {
-                        title: "O maior perigo da diarreia é a desidratação",
-                        gancho: "Na diarreia, o maior perigo muitas vezes não é a diarreia: é a desidratação.",
-                        mensagem: "Monitore os sinais de desidratação: boca seca, olhos fundos, ausência de lágrimas ao chorar e ficar mais de 6 horas sem fazer xixi."
-                    },
-                    {
-                        title: "O que observar antes de levar a criança para avaliação",
-                        gancho: "Seu filho está com vômitos e diarreia? Essas informações ajudam muito na avaliação.",
-                        mensagem: "Anote a frequência de vômitos/evacuações, se aceita soro de reidratação e se mantém a urina normal."
-                    }
-                ]
-            },
-            {
-                id: "pauta-bronquiolite",
-                title: "Bronquiolite / BVA",
-                desc: "Infecção viral nos bronquíolos, muito comum em bebês.",
-                approaches: [
-                    {
-                        title: "Bronquiolite começa parecendo uma gripe",
-                        gancho: "Bronquiolite pode começar parecendo uma gripe, mas em bebês pequenos merece atenção.",
-                        mensagem: "O início da bronquiolite imita um resfriado com coriza e tosse leve, mas pode evoluir com cansaço após 1 a 2 dias."
-                    },
-                    {
-                        title: "Na bronquiolite, olhe para a respiração",
-                        gancho: "Na bronquiolite, o mais importante não é só a tosse: é a respiração do bebê.",
-                        mensagem: "Fique alerta à respiração rápida, costelas afundando (tiragem), asa do nariz abrindo ao respirar e chiado alto."
-                    },
-                    {
-                        title: "Bronquiolite não costuma ser doença de antibiótico",
-                        gancho: "Bronquiolite não costuma ser uma doença de antibiótico.",
-                        mensagem: "Como é de causa predominantemente viral (VSR), o tratamento é de suporte: lavagem nasal, hidratação e inalação sob recomendação médica."
-                    }
-                ]
-            },
-            {
-                id: "pauta-febre",
-                title: "Febre",
-                desc: "Defesa natural do corpo contra infecções.",
-                approaches: [
-                    {
-                        title: "Febre: quando procurar ajuda médica",
-                        gancho: "Seu filho tá com febre e você não sabe se vai pro pronto-socorro ou fica em casa. Deixa eu te ajudar.",
-                        mensagem: "Se a criança estiver ativa e aceitando líquidos após a temperatura baixar com antitérmico, pode ser acompanhada em casa. Trate o estado geral, não o termômetro."
-                    },
-                    {
-                        title: "O erro de olhar só para o número",
-                        gancho: "Na febre, não olhe só para o termômetro.",
-                        mensagem: "Uma febre de 38,5°C com a criança ativa e sorridente preocupa menos que 37,9°C com prostração severa e recusa de água."
-                    },
-                    {
-                        title: "Quando a febre exige avaliação",
-                        gancho: "Febre em criança: esses sinais indicam que você deve procurar atendimento.",
-                        mensagem: "Urgência se: bebê com menos de 3 meses, febre persistente por mais de 72h, manchas vermelhas na pele ou gemência respiratória."
-                    },
-                    {
-                        title: "Febre alta causa convulsão?",
-                        gancho: "Febre alta causa convulsão? Esse é um dos maiores medos dos pais — mas não é exatamente assim.",
-                        mensagem: "A convulsão febril tem origem em predisposição genética e na rapidez de subida da temperatura, não apenas no número final de graus."
-                    }
-                ]
-            },
-            {
-                id: "pauta-tosse",
-                title: "Tosse",
-                desc: "Mecanismo de proteção para limpar as vias aéreas.",
-                approaches: [
-                    {
-                        title: "Tosse é sintoma, não diagnóstico",
-                        gancho: "Tosse não é uma doença. Tosse é um sinal de que algo está acontecendo.",
-                        mensagem: "A tosse serve para expelir secreções. Cortá-la sem entender a causa pode mascarar problemas ou piorar a congestão pulmonar."
-                    },
-                    {
-                        title: "Nem toda tosse precisa de xarope",
-                        gancho: "Antes de dar xarope para tosse, entenda isso.",
-                        mensagem: "A maioria dos xaropes expectorantes ou inibidores não é indicada para crianças pequenas devido a riscos de efeitos adversos. Prefira a hidratação e lavagem nasal."
-                    },
-                    {
-                        title: "Quando a tosse preocupa",
-                        gancho: "Tosse em criança é comum, mas esses sinais mudam tudo.",
-                        mensagem: "Procure o médico se a tosse vier acompanhada de cansaço respiratório, chiado, febre que ressurge ou se for tosse que impede a criança de dormir ou comer."
-                    }
-                ]
-            },
-            {
-                id: "pauta-nariz",
-                title: "Nariz Entupido",
-                desc: "Congestão nasal que dificulta o sono e mamadas.",
-                approaches: [
-                    {
-                        title: "Nariz entupido em criança não é frescura",
-                        gancho: "Nariz entupido em criança pequena pode atrapalhar muito mais do que parece.",
-                        mensagem: "Bebês têm vias aéreas muito estreitas e respiram preferencialmente pelo nariz. O entupimento prejudica a mamada e impede o sono reparador."
-                    },
-                    {
-                        title: "Nariz entupido não significa antibiótico",
-                        gancho: "Seu filho está com nariz entupido e catarro? Isso não significa automaticamente antibiótico.",
-                        mensagem: "O catarro esverdeado ou amarelado no fim do resfriado é normal e faz parte da limpeza natural do corpo, sem indicar infecção bacteriana."
-                    },
-                    {
-                        title: "Quando o nariz entupido precisa de avaliação",
-                        gancho: "Nariz entupido é comum, mas esses sinais mostram que pode não ser só isso.",
-                        mensagem: "Se a congestão impede a amamentação ou ingestão de líquidos, ou se persistir por mais de 10 dias com dor facial ou febre, procure atendimento."
-                    }
-                ]
-            },
-            {
-                id: "pauta-anemia",
-                title: "Anemia na Infância",
-                desc: "Prevenção e cuidados com a deficiência de ferro.",
-                approaches: [
-                    {
-                        title: "Anemia em criança nem sempre aparece de forma óbvia",
-                        gancho: "Anemia em criança pode ser silenciosa no começo.",
-                        mensagem: "Os sintomas incluem palidez sutil, cansaço fácil, menor apetite e irritabilidade. A prevenção começa com a nutrição adequada e exames de rotina."
-                    },
-                    {
-                        title: "Toda anemia é falta de ferro?",
-                        gancho: "Toda anemia é falta de ferro? Não necessariamente.",
-                        mensagem: "Existem anemias hereditárias, por outras carências de vitaminas ou por inflamações. O diagnóstico preciso evita a suplementação incorreta."
-                    },
-                    {
-                        title: "Ferro: quando usar e por que não usar por conta própria",
-                        gancho: "Ferro não é vitamina para usar no chute.",
-                        mensagem: "A suplementação profilática tem protocolo específico na infância, mas o excesso de ferro é tóxico. Só use sob orientação médica."
-                    }
-                ]
-            },
-            {
-                id: "pauta-pele",
-                title: "Pele do Recém-Nascido (RN)",
-                desc: "Diferenciação de manchas comuns e brotoejas.",
-                approaches: [
-                    {
-                        title: "A pele do recém-nascido muda muito",
-                        gancho: "Nem toda manchinha na pele do recém-nascido é motivo para desespero.",
-                        mensagem: "Brotoejas, milium e acne neonatal são reações normais de adaptação da pele do bebê ao ambiente e costumam desaparecer sozinhas."
-                    },
-                    {
-                        title: "O erro de passar pomada sem saber o que é",
-                        gancho: "Antes de passar pomada na pele do recém-nascido, cuidado.",
-                        mensagem: "Automedicação na pele delicada do bebê pode causar dermatites de contato ou reações alérgicas graves. Água e sabão neutro costumam bastar."
-                    },
-                    {
-                        title: "Quando uma mancha no bebê preocupa",
-                        gancho: "Mancha na pele do bebê: quando é comum e quando merece avaliação?",
-                        mensagem: "Preocupe-se se a lesão apresentar bolhas, pus, manchas roxas que não somem ao toque ou se vier associada a febre ou choro de dor."
-                    }
-                ]
-            },
-            {
-                id: "pauta-respiracao",
-                title: "Respiração do Bebê / Recém-Nascido",
-                desc: "Como identificar o padrão respiratório normal do bebê.",
-                approaches: [
-                    {
-                        title: "Recém-nascido respira diferente?",
-                        gancho: "Recém-nascido respira diferente, mas nem tudo deve ser considerado normal.",
-                        mensagem: "Bebês têm respiração periódica (com pausas curtas) e mais rápida que os adultos. Porém, ruídos frequentes e esforço merecem atenção."
-                    },
-                    {
-                        title: "Como saber se o bebê está fazendo força para respirar",
-                        gancho: "Costelas afundando, nariz abrindo e gemência: esses sinais na respiração do bebê merecem atenção.",
-                        mensagem: "Tiragem intercostal (afundamento da pele entre as costelas), gemidos e batimento de asa do nariz indicam fadiga respiratória."
-                    },
-                    {
-                        title: "Bebê que cansa para mamar pode estar respirando mal",
-                        gancho: "Se o bebê está cansando para mamar, o problema pode não ser só fome.",
-                        mensagem: "Se o bebê solta o peito toda hora para respirar, fica suado ou cansado ao mamar, ele pode estar com cansaço respiratório."
-                    }
-                ]
-            },
-            {
-                id: "pauta-chiado",
-                title: "Chiado no Peito (Sibilância)",
-                desc: "O famoso 'peito chiando' na infância.",
-                approaches: [
-                    {
-                        title: "Chiado no peito: o que os pais estão ouvindo?",
-                        gancho: "Chiado no peito não é tudo igual.",
-                        mensagem: "O chiado (sibilância) é um ruído causado pelo estreitamento dos brônquios. Pode indicar bronquiolite, bronquite ou asma, exigindo avaliação médica."
-                    },
-                    {
-                        title: "Todo chiado é asma?",
-                        gancho: "Seu filho chiou uma vez. Isso quer dizer que ele tem asma?",
-                        mensagem: "Muitos bebês chiam exclusivamente durante episódios de resfriados virais (sibilância transitória) e nunca desenvolverão asma."
-                    },
-                    {
-                        title: "Chiado no peito: quando é preocupante?",
-                        gancho: "Doutora, meu filho está com chiado no peito. Isso é preocupante?",
-                        mensagem: "Se houver chiado associado a esforço para respirar, lábios arroxeados ou cansaço grave, a ida ao pronto-socorro deve ser imediata."
-                    }
-                ]
-            },
-            {
-                id: "pauta-otite",
-                title: "Otite (Dor de Ouvido)",
-                desc: "Infecção ou inflamação do ouvido na infância.",
-                approaches: [
-                    {
-                        title: "Dor de ouvido em criança: pode ser otite?",
-                        gancho: "Seu filho está com febre e mexendo na orelha? Pode ser dor de ouvido.",
-                        mensagem: "A otite costuma surgir após gripes. Em bebês, o sinal pode ser choro intenso ao deitar e coceira constante na orelha."
-                    },
-                    {
-                        title: "Nem toda otite precisa de antibiótico",
-                        gancho: "Toda otite precisa de antibiótico? Não necessariamente.",
-                        mensagem: "Muitas otites médias agudas em crianças maiores são virais ou se resolvem sozinhas. A decisão de usar antibiótico exige exame físico minucioso."
-                    },
-                    {
-                        title: "Quando a dor de ouvido preocupa",
-                        gancho: "Dor de ouvido em criança: esses sinais merecem avaliação.",
-                        mensagem: "Sinais de gravidade: secreção purulenta ou sangue saindo pelo canal auditivo, febre persistente e inchaço ou vermelhidão atrás da orelha."
-                    }
-                ]
-            },
-            {
-                id: "pauta-garganta",
-                title: "Dor de Garganta / Amigdalite",
-                desc: "Inflamação da garganta na infância.",
-                approaches: [
-                    {
-                        title: "Dor de garganta: vírus ou bactéria?",
-                        gancho: "Garganta inflamada nem sempre significa bactéria.",
-                        mensagem: "Nas crianças menores de 3 anos, quase 100% das inflamações de garganta são virais. Placas brancas não significam automaticamente bactéria!"
-					},
-                    {
-                        title: "Garganta inflamada sempre precisa de antibiótico?",
-                        gancho: "Garganta inflamada não é sinônimo de antibiótico.",
-                        mensagem: "A amigdalite estreptocócica (bacteriana) é mais comum após os 3 anos. O diagnóstico correto evita o uso desnecessário de benzetacil ou amoxicilina."
-                    },
-                    {
-                        title: "Quando a dor de garganta exige avaliação",
-                        gancho: "Dor de garganta em criança: quando não é para esperar passar?",
-                        mensagem: "Leve ao médico se a criança estiver babando (dificuldade de engolir a própria saliva), recusando qualquer líquido ou com dificuldade para abrir a boca."
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        id: "alert",
-        name: "2. Sinais de Alerta",
-        desc: "Mostrar quando procurar atendimento. Alta utilidade e muito compartilhado.",
-        items: [
-            {
-                id: "pauta-alerta-febre",
-                title: "Febre: Quando se Preocupar",
-                desc: "Identificação dos sinais críticos durante episódios febris.",
-                approaches: [
-                    {
-                        title: "Sinais de gravidade na febre infantil",
-                        gancho: "Febre em si não é doença, mas estes 3 sinais mostram que ela precisa de avaliação rápida.",
-                        mensagem: "Fique atento: bebê < 3 meses com febre, febre que não cede após 72 horas ou prostração intensa mesmo após a febre baixar com remédio."
-                    }
-                ]
-            },
-            {
-                id: "pauta-alerta-tosse",
-                title: "Tosse: Quando Preocupar",
-                desc: "Identificar quando a tosse se torna um sinal de perigo respiratório.",
-                approaches: [
-                    {
-                        title: "Tosse com cansaço respiratório",
-                        gancho: "O problema não é só tossir; é tossir com estes sinais de cansaço no peito.",
-                        mensagem: "Se a tosse vier com respiração acelerada, costelas afundando ou lábios arroxeados, a avaliação médica é imediata."
-                    }
-                ]
-            },
-            {
-                id: "pauta-alerta-desidratacao",
-                title: "Diarreia: Sinais de Desidratação",
-                desc: "Avaliar o nível de hidratação em quadros de GECA.",
-                approaches: [
-                    {
-                        title: "Como reconhecer a desidratação",
-                        gancho: "Na diarreia, o perigo é a desidratação. Você sabe identificar os sinais no seu filho?",
-                        mensagem: "Observe se a criança está com a boca muito seca, chora sem ver lágrimas, está muito apática ou passa mais de 6 horas sem fazer xixi."
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        id: "myth",
-        name: "3. Mitos e Desmistificação",
-        desc: "Gerar engajamento e construir autoridade. Alto potencial de compartilhamento.",
-        items: [
-            {
-                id: "pauta-mito-catarro",
-                title: "Catarro Verde precisa de Antibiótico?",
-                desc: "Desmistificar a coloração do muco nasal.",
-                approaches: [
-                    {
-                        title: "A cor do catarro e a necessidade de antibiótico",
-                        gancho: "Catarro verde não é sinônimo de bactéria nem de antibiótico.",
-                        mensagem: "O catarro esverdeado é apenas a resposta de defesa (glóbulos brancos em ação). A imensa maioria dos resfriados é viral e não usa antibiótico."
-                    }
-                ]
-            },
-            {
-                id: "pauta-mito-xarope",
-                title: "Tosse precisa de Xarope?",
-                desc: "Quebrando a cultura da prescrição automática de xaropes.",
-                approaches: [
-                    {
-                        title: "Xaropes contra a tosse: mocinhos ou vilões?",
-                        gancho: "Quer um xarope para cortar a tosse do seu filho? Talvez você esteja fazendo o oposto do ideal.",
-                        mensagem: "Automedicar tosse com xaropes, especialmente em menores de 2 anos, é perigoso. Lavagem nasal e mel (para maiores de 1 ano) são alternativas muito melhores."
-                    }
-                ]
-            },
-            {
-                id: "pauta-mito-lavagem",
-                title: "Lavagem Nasal Afoga o Bebê?",
-                desc: "Perguntas e receios sobre a higienização com soro.",
-                approaches: [
-                    {
-                        title: "Desmistificando o medo da lavagem nasal",
-                        gancho: "Tem medo de afogar seu filho fazendo lavagem nasal? Veja por que isso é um mito.",
-                        mensagem: "A lavagem é segura se a criança estiver sentada ou inclinada para a frente e o fluxo for suave. O soro limpa o muco e evita complicações no ouvido."
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        id: "practice",
-        name: "4. Orientações Práticas",
-        desc: "Dar utilidade real. Conteúdo salvável que o pai guarda para usar depois.",
-        items: [
-            {
-                id: "pauta-prat-medir-febre",
-                title: "Como Medir e Observar a Febre",
-                desc: "Passo a passo prático para manejo doméstico da febre.",
-                approaches: [
-                    {
-                        title: "Manejo seguro da febre infantil",
-                        gancho: "Seu filho está com febre? Siga esse roteiro prático antes de tomar qualquer decisão.",
-                        mensagem: "Use o termômetro axilar, medique se houver desconforto, dê banhos mornos de imersão e ofereça muito líquido."
-                    }
-                ]
-            },
-            {
-                id: "pauta-prat-lavagem-passo",
-                title: "Passo a Passo da Lavagem Nasal",
-                desc: "Tutorial detalhado para mães e pais.",
-                approaches: [
-                    {
-                        title: "Técnica perfeita de lavagem nasal",
-                        gancho: "Lavagem nasal sem drama: o guia definitivo e seguro para mães de bebês.",
-                        mensagem: "Prepare a seringa com soro morno, incline a criança levemente e aplique de forma contínua mirando na parede lateral do nariz."
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        id: "conversion",
-        name: "5. Método de Atendimento e Conversão",
-        desc: "Mostrar como é sua consulta e gerar agendamento. Transforma seguidores em pacientes.",
-        items: [
-            {
-                id: "pauta-conv-metodo",
-                title: "Consulta Focada na Criança: Como Funciona?",
-                desc: "Apresentar a proposta de valor do atendimento humanizado.",
-                approaches: [
-                    {
-                        title: "Consulta infantil com escuta e explicação",
-                        gancho: "Consulta infantil não deveria ser apenas medir, pesar e passar receita em 15 minutos.",
-                        mensagem: "Minhas consultas são demoradas, explicativas e buscam tirar todas as dúvidas para dar segurança aos pais em casa."
-                    }
-                ]
-            },
-            {
-                id: "pauta-conv-domiciliar",
-                title: "Atendimento Domiciliar: Vantagens",
-                desc: "Demonstrar o valor de receber a médica em casa.",
-                approaches: [
-                    {
-                        title: "Quando a consulta em casa faz a diferença",
-                        gancho: "Sair com bebê doente no trânsito ou esperar em pronto-socorro cheio? Há outra alternativa.",
-                        mensagem: "O atendimento domiciliar garante o diagnóstico detalhado com a criança calma em seu próprio ambiente, livre de contaminações de pronto-socorro."
-                    }
-                ]
-            }
-        ]
-    }
-];
+const INITIAL_PAUTAS = PILARES_POR_AREA.medicina;
+
+// --- App State Store ---
 
 // --- App State Store ---
 const DEFAULT_PROMPTS = {
-    baseContext: `Você é um especialista em marketing médico ético. O cliente é {doctorName}.
+    baseContext: `Você é um especialista em marketing ético na área da saúde ({healthArea}). O cliente é {doctorName}.
 Sua especialidade/foco é: {valueProp}.
 Público Alvo: {target}.
-Respeite a Resolução CFM nº 2.336/2023. Foco em educação em saúde, clareza, empatia e sem promessas absurdas ou jargões técnicos não explicados. Fale em português do Brasil e no tom conversacional, usando quebras de linha e emojis como marcadores.
-IMPORTANTE: Escreva de forma puramente educativa, informativa e de bem-estar. Evite usar termos alarmistas ou linguagem que simule prescrição médica, diagnóstico clínico formal ou procedimentos de emergência hospitalar direta (como "prescrever remédios", "diagnóstico de doença", "sinais de perigo extremo", "corra para o pronto-socorro"), para garantir a conformidade ética e evitar acionamento de filtros de segurança de conteúdo de saúde das APIs de IA.
+Respeite as resoluções e limites éticos do conselho profissional correspondente à área do cliente ({healthArea}). Foco em educação em saúde, clareza, empatia e sem promessas absurdas ou jargões técnicos não explicados. Fale em português do Brasil e no tom conversacional, usando quebras de linha e emojis como marcadores.
+IMPORTANTE: Escreva de forma puramente educativa, informativa e de bem-estar. Evite usar termos alarmistas ou linguagem que simule prescrição de remédios, diagnóstico clínico formal ou procedimentos de emergência direta (como "prescrever tratamentos sem avaliação", "dar diagnósticos definitivos", "sinais de pânico", "corra para o hospital"), para garantir a conformidade ética e evitar acionamento de filtros de segurança de conteúdo de saúde das APIs de IA.
 REGRAS CRÍTICAS PARA EVITAR FILTROS DE SEGURANÇA DA IA:
 - NUNCA mencione nomes comerciais ou genéricos de medicamentos específicos (como paracetamol, dipirona, ibuprofeno, tylenol, novalgina, prednisona, amoxicilina, etc.) nem dosagens/fórmulas de cálculo de dose.
-- Refira-se a medicamentos sempre de forma genérica, por exemplo: "o antitérmico de costume recomendado pelo médico da criança" ou "as orientações medicamentosas do seu pediatra de confiança".
-- NUNCA diga para os pais darem remédios específicos em casa; foque em medidas de conforto físico (oferecer líquidos, roupas leves, banho morno, lavagem nasal com soro fisiológico).`,
+- Refira-se a medicamentos sempre de forma genérica, por exemplo: "o medicamento/tratamento de costume recomendado pelo seu profissional de confiança" ou "as orientações do seu profissional".
+- NUNCA induza à automedicação ou tratamentos caseiros arriscados; foque em medidas seguras de bem-estar, higiene e conforto.`,
 
     reelsStoriesChildScript: `Crie um roteiro de vídeo explicativo completo de 60 a 90 segundos voltado para pais de crianças de 0 a 12 anos sobre o tema: "{theme}".
 
@@ -1291,7 +1692,9 @@ function loadStateFromLocalStorage() {
 
 function ensureStateDefaults() {
     if (!state.pautas || state.pautas.length === 0) {
-        state.pautas = JSON.parse(JSON.stringify(INITIAL_PAUTAS));
+        const area = state.healthArea || "medicina";
+        const areaPautas = PILARES_POR_AREA[area] || PILARES_POR_AREA.medicina;
+        state.pautas = JSON.parse(JSON.stringify(areaPautas));
     }
     if (!state.roteiros) {
         state.roteiros = [];
@@ -1546,6 +1949,29 @@ function setupWizard() {
     const generateBtn = document.getElementById("btn-wiz-generate");
     const indicators = document.querySelectorAll(".step-indicator");
     const panels = document.querySelectorAll(".wizard-step-panel");
+
+    // Ajustar labels baseadas na Área da Saúde
+    const area = state.healthArea || "medicina";
+    const nameLabel = document.querySelector('label[for="wiz-doctor-name"]');
+    const nameInput = document.getElementById("wiz-doctor-name");
+    if (nameLabel && nameInput) {
+        if (area === "odontologia") {
+            nameLabel.textContent = "Nome Completo do Cirurgião-Dentista (Com CRO):";
+            nameInput.placeholder = "Ex: Dr. João Silva - CRO 12345 | Clínico Geral";
+        } else if (area === "nutricao") {
+            nameLabel.textContent = "Nome Completo do Nutricionista (Com CRN):";
+            nameInput.placeholder = "Ex: Dra. Julia Costa - CRN 12345 | Nutrição Esportiva";
+        } else if (area === "fisioterapia") {
+            nameLabel.textContent = "Nome Completo do Fisioterapeuta (Com CREFITO):";
+            nameInput.placeholder = "Ex: Dr. Lucas Mendes - CREFITO 12345 | Traumato-Ortopedia";
+        } else if (area === "psicologia") {
+            nameLabel.textContent = "Nome Completo do Psicólogo/a (Com CRP):";
+            nameInput.placeholder = "Ex: Dra. Mariana Lima - CRP 12345 | TCC";
+        } else {
+            nameLabel.textContent = "Nome Completo do Médico (Com CRM):";
+            nameInput.placeholder = "Ex: Dra. Joana Silva - CRM 12345 | Pediatra";
+        }
+    }
 
     // Load inputs from state
     if (state.wizard) {
@@ -2992,10 +3418,21 @@ function constructPrompt(theme, templateType, customPrompt) {
     const baseContextTemplate = prompts.baseContext || DEFAULT_PROMPTS.baseContext;
     
     // Interpolate baseContext variables
+    const area = state.healthArea || "medicina";
+    const areaNames = {
+        medicina: "Medicina (Médico/a Pediátrico ou Clínico)",
+        odontologia: "Odontologia (Dentista/Cirurgião-Dentista)",
+        nutricao: "Nutrição (Nutricionista)",
+        fisioterapia: "Fisioterapia (Fisioterapeuta)",
+        psicologia: "Psicologia (Psicólogo/a)"
+    };
+    const healthAreaText = areaNames[area] || areaNames.medicina;
+
     const baseContext = baseContextTemplate
         .replace(/{doctorName}/g, doctorName)
         .replace(/{valueProp}/g, valueProp)
-        .replace(/{target}/g, target);
+        .replace(/{target}/g, target)
+        .replace(/{healthArea}/g, healthAreaText);
 
     if (templateType === "custom") {
         return `${baseContext}

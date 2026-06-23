@@ -129,6 +129,16 @@
                     <label class="form-label" for="projColor">Cor de Destaque (Hex)</label>
                     <input class="form-input" type="color" id="projColor" value="#dc2626">
                 </div>
+                <div class="form-group">
+                    <label class="form-label" for="projHealthArea">Área da Saúde</label>
+                    <select class="form-select" id="projHealthArea" style="width: 100%; padding: 10px; background: #1a1a1e; border: 1px solid var(--border-color); border-radius: 8px; color: #fff; outline: none; margin-top: 4px;">
+                        <option value="medicina" selected>Médico (Medicina)</option>
+                        <option value="odontologia">Dentista (Odontologia)</option>
+                        <option value="nutricao">Nutricionista (Nutrição)</option>
+                        <option value="fisioterapia">Fisioterapeuta (Fisioterapia)</option>
+                        <option value="psicologia">Psicólogo/a (Psicologia)</option>
+                    </select>
+                </div>
                 <div class="modal-actions">
                     <button class="btn-secondary" type="button" onclick="closeModal('project')">Cancelar</button>
                     <button class="btn-primary" type="submit" style="flex: 1;">Criar Hub</button>
@@ -435,6 +445,7 @@
             const description = document.getElementById('projDesc').value.trim();
             const icon = document.getElementById('projIcon').value.trim();
             const color = document.getElementById('projColor').value;
+            const healthArea = document.getElementById('projHealthArea').value;
 
             try {
                 if (isSupabase) {
@@ -449,11 +460,11 @@
                         throw new Error(errData.message || "Erro ao criar projeto no Supabase");
                     }
 
-                    // 2. Inicializa o estado do app_state no Supabase
+                    // 2. Inicializa o estado do app_state no Supabase passando a healthArea
                     const resState = await fetch(`${supabaseUrl}/rest/v1/app_state`, {
                         method: 'POST',
                         headers: getHeaders(),
-                        body: JSON.stringify({ id, data: { posts: [], pautas: [] } })
+                        body: JSON.stringify({ id, data: { healthArea, posts: [], pautas: [] } })
                     });
                     if (!resState.ok) {
                         const errData = await resState.json();
@@ -463,7 +474,7 @@
                     const response = await fetch('/api/admin/projects', {
                         method: 'POST',
                         headers: getHeaders(),
-                        body: JSON.stringify({ id, name, description, icon, color })
+                        body: JSON.stringify({ id, name, description, icon, color, healthArea })
                     });
 
                     const data = await response.json();
